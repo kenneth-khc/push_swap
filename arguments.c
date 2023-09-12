@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 22:07:13 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/09 16:39:28 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/09/11 21:50:45 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ int	*parse_arguments(int argc, char **argv, int *size)
 int	*store_one_arg(char **argv, int *size)
 {
 	char	**strings;
+	char	**original;
 	int		*list_of_integers;
 	int		*ret;
 
 	strings = ft_split(argv[0], ' ');
+	original = strings;
 	*size = number_of_strings(strings);
 	list_of_integers = malloc(sizeof(int) * *size);
 	if (!list_of_integers)
@@ -55,7 +57,7 @@ int	*store_one_arg(char **argv, int *size)
 		*list_of_integers++ = ft_atoi(*strings++);
 		// printf("STORING: %d\n", *list_of_integers++);
 	}
-	validate_integers(ret, strings);
+	validate_integers(ret, original);
 	return (ret);
 }
 
@@ -68,7 +70,9 @@ int	*store_args(char **argv, int *size)
 {
 	int		*list_of_integers;
 	int		*ret;
+	char	**original;
 
+	original = argv;
 	*size = number_of_strings(argv);
 	list_of_integers = malloc(sizeof(int) * *size);
 	if (!list_of_integers)
@@ -79,6 +83,6 @@ int	*store_args(char **argv, int *size)
 		*list_of_integers++ = ft_atoi(*argv++);
 		// printf("STORING: %d\n", *list_of_integers++);
 	}
-	validate_integers(ret, argv);
+	validate_integers(ret, original);
 	return (ret);
 }
