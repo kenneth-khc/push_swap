@@ -6,18 +6,18 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 22:07:13 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/11 21:50:45 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/09/13 01:08:55 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/**
- * Parse the argument strings and convert them into integers
- * Calculate the number of integers
- * Store them sequentially in an array
- * Check the list to validate the integers, error if non integer found
-*/
-
 #include "push_swap.h"
+
+/**
+ * Parse the argument strings and convert them into integers.
+ * Calculate the number of integers.
+ * Store them sequentially in an array.
+ * Check the list to validate the integers, error if non integer found.
+*/
 
 int	*parse_arguments(int argc, char **argv, int *size)
 {
@@ -34,8 +34,8 @@ int	*parse_arguments(int argc, char **argv, int *size)
 }
 
 /**
- * Case where integers are passed in only as a single string
- * E.g. "100 5 2 4"
+ * Case where integers are passed in only as a single string.
+ * E.g. "42 5 2 4"
 */
 
 int	*store_one_arg(char **argv, int *size)
@@ -62,8 +62,8 @@ int	*store_one_arg(char **argv, int *size)
 }
 
 /**
- * Case where integers are passed in as multiple strings
- * E.g. 100 5 2 4
+ * Case where integers are passed in as multiple strings.
+ * E.g. 42 5 2 4
 */
 
 int	*store_args(char **argv, int *size)

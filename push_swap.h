@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/12 18:02:18 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/09/13 01:55:12 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 # include "libft/includes/libft.h"
 # include <stdio.h>
 # include <stdbool.h>
+# define NUM_OF_INSTRUCTIONS 11
 
-typedef struct s_stack			t_stack;
-typedef struct s_node			t_node;
-typedef struct s_instruction	t_instruction;
-typedef void					(*t_operation_ptr)();
+typedef struct s_stack				t_stack;
+typedef struct s_node				t_node;
+typedef struct s_instruction		t_instruction;
+typedef void						(*t_function_pointer)();
 // (t_stack *a, t_stack *b);
-typedef struct s_operation_map	t_operation_map;
+typedef struct s_instruction_table	t_instruction_table;
 
 struct s_stack
 {
@@ -41,10 +42,10 @@ struct s_instruction
 	t_instruction	*next;
 };
 
-struct s_operation_map
+struct s_instruction_table
 {
-	const char		*operation_name;
-	t_operation_ptr	operation;
+	const char			*instruction_name;
+	t_function_pointer	instruction;
 };
 
 void	init_stacks(int *list_of_integers, int size, t_stack *a, t_stack *b);
@@ -73,36 +74,28 @@ void	quick_sort_recurse(int *array, int start_index, int end_index);
 int		partition(int *array, int start_index, int end_index);
 void	swap(int *x, int *y);
 
-
 // Utils
 void	push(t_stack *stack, int data);
 void	error(void);
 void	validate_integers(int *list_of_integers, char **argv);
 void	check_for_duplicates(int *list_of_integers, int size);
 int		number_of_strings(char **strings);
-bool	stack_is_sorted(t_stack *stack_a, t_stack *stack_b);
-bool	stack_a_is_sorted(t_stack *stack_a);
-bool	stack_b_has_elements(t_stack *stack_b);
+bool	stack_is_sorted(t_stack *stack);
+bool	stack_has_elements(t_stack *stack);
 void	free_and_move_list(t_instruction **node);
-
-
 
 //Checker
 void	read_and_exec_instructions(t_instruction *list_of_instructions,
 			t_stack *a, t_stack *b);
-void	initialize_operation_map(t_operation_map	(*operation_map)[]);
+void	init_instruction_table(t_instruction_table(*instruction_table)[]);
 void	validate_instruction(char *instruction,
-			t_operation_map (*operation_map)[], int map_size);
+			t_instruction_table (*instruction_table)[]);
 void	execute_instructions(t_instruction *list_of_instructions,
-			t_operation_map (*map)[], t_stack *a, t_stack *b);
-
-
+			t_instruction_table (*instruction_table)[], t_stack *a, t_stack *b);
 
 //Testing
 void	peek_entire_stack(t_stack stack_a, t_stack stack_b);
 void	fill_stack_b_for_test(t_stack *stack_b);
 void	execute_instructions_for_test(t_stack *a, t_stack *b);
-
-
 
 #endif
