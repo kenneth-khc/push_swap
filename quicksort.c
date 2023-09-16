@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:49:27 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/11 14:41:51 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/09/16 13:00:18 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	partition(int *array, int start_index, int end_index)
 	int	j;
 
 	middle_index = start_index + (end_index - start_index) / 2;
-	swap(&array[middle_index], &array[end_index]);
+	// printf("MID: %d\nEND: %d\n", array[middle_index], array[end_index]);
+	// swap(&array[middle_index], &array[end_index]);
 	pivot = array[end_index];
 	i = start_index - 1;
 	j = start_index;

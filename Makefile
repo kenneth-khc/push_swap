@@ -9,7 +9,9 @@ NAME = push_swap
 BONUS_NAME = checker
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
-SOURCES = push_swap.c arguments.c errors.c operations.c operations2.c sorting.c utils.c testing.c stack.c quicksort.c
+SOURCES = push_swap.c arguments.c errors.c \
+operations.c operations2.c sorting.c linkedlist_utils.c \
+utils.c testing.c stack.c quicksort.c pingpong.c pingpong_utils.c pingpong_b.c
 
 SOURCES_BONUS = checker.c stack.c utils.c arguments.c errors.c operations.c operations2.c testing.c quicksort.c sorting.c
 
@@ -38,9 +40,8 @@ re: fclean all
 
 a: $(LIBFT)
 	@$(CC) $(SOURCES) $(CFLAGS) $(LIBFT) -o $(NAME) $(FSAN)
-	@echo "$(GREEN)test compiled!$(RESET)"
+	@echo "$(GREEN)$(NAME) compiled!$(RESET)"
 	@./$(NAME) $(ARG) 2>&1 | cat -e
-	@echo "$(GREEN)test done!$(RESET)"
 
 b: $(LIBFT)
 	@$(CC) $(SOURCES_BONUS) $(CFLAGS) $(LIBFT) -o $(BONUS_NAME) $(FSAN)

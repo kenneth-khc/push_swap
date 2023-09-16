@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 22:07:13 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/13 01:08:55 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/09/14 03:47:42 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ int	*store_one_arg(char **argv, int *size)
 		// printf("STORING: %d\n", *list_of_integers++);
 	}
 	validate_integers(ret, original);
+	int	i;
+	i = 0;
+	while (original[i])
+		free(original[i++]);
+	free(original);
 	return (ret);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 22:46:43 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/13 01:18:05 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/09/16 12:52:35 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 void	sorting(t_stack *stack_a, t_stack *stack_b, int size)
 {
-	int	min;
+	int		min;
+	bool	sorted;
+
 	(void)size;
-	peek_entire_stack(*stack_a, *stack_b);
-	// while (!stack_is_sorted(stack_a, stack_b))
-	while (!stack_is_sorted(stack_a))
+	sorted = false;
+	min = 0;
+	while (stack_a->top)
 	{
-		if (stack_a->top)
+		while (stack_a->top->simplified != min)
 		{
-			min = find_min(stack_a);
-			while (stack_a->top->data != min)
-			{
-				ra(stack_a);
-			}
+			rra(stack_a);
 		}
 		pb(stack_a, stack_b);
+		min++;
+		// sorted = stack_is_sorted(stack_a);
 	}
-	while (stack_has_elements(stack_b))
+	while (stack_b->top)
 		pa(stack_a, stack_b);
 	// peek_entire_stack(*stack_a, *stack_b);
 }
@@ -50,31 +50,6 @@ int	find_min(t_stack *stack_a)
 	}
 	return (x);
 }
-
-// bool	stack_is_sorted(t_stack *stack_a, t_stack *stack_b)
-// {
-// 	t_node	*current;
-// 	int		prev;
-
-// 	if (stack_a->top)
-// 	{
-// 		current = stack_a->top;
-// 		prev = current->data;
-// 		while (current->next)
-// 		{
-// 			current = current->next;
-// 			if (prev > current->data)
-// 				return (false);
-// 			prev = current->data;
-// 		}
-// 		if (!stack_b->top)
-// 			return (true);
-// 		return (false);
-// 	}
-// 	if (!stack_b_has_elements(stack_b))
-// 		return (true);
-// 	return (false);
-// }
 
 bool	stack_is_sorted(t_stack *stack)
 {
