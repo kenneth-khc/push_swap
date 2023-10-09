@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/08 20:42:21 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/09 21:43:14 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ bool	elements_left_to_push(int mid, t_stack *stack);
 void	fix_a(t_stack *stack_a, t_stack *stack_b, t_section_list *list);
 void	sort_three(t_stack *stack_a, t_stack *stack_b);
 void	sort_two(t_stack *stack_a, t_stack *stack_b);
-void	divide_section_further(t_stack *stack_a, t_stack *stack_b, t_section_list *list,
+void	pushback_to_b(t_stack *stack_a, t_stack *stack_b, t_section_list *list,
 		t_section *section);
 void	push_further_to_b(int to_push, int mid, t_stack *stack_a, t_stack *stack_b);
 void	reverse_sort_three_elements(t_stack *stack_a, t_stack *stack_b);
@@ -144,6 +144,7 @@ void	execute_instructions(t_instruction *list_of_instructions,
 
 //Testing
 void	peek_entire_stack(t_stack stack_a, t_stack stack_b);
+void	peek_section_list(t_section_list sections);
 void	fill_stack_b_for_test(t_stack *stack_b);
 void	execute_instructions_for_test(t_stack *a, t_stack *b);
 

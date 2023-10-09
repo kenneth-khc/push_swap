@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 22:27:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/18 01:22:58 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:48:59 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,36 @@
 
 void	peek_entire_stack(t_stack stack_a, t_stack stack_b)
 {
-	while (stack_a.top != NULL)
+	printf("Stack A: ");
+	while (stack_a.top)
 	{
-		printf("Stack A: %d\n", stack_a.top->simplified);
+		printf("%d ", stack_a.top->simplified);
 		stack_a.top = stack_a.top->next;
 	}
-	printf("\n");
-	while (stack_b.top != NULL)
+	printf("\nStack B: ");
+	while (stack_b.top)
 	{
-		printf("Stack B: %d\n", stack_b.top->simplified);
+		printf("%d ", stack_b.top->simplified);
 		stack_b.top = stack_b.top->next;
 	}
 	printf("\n");
+	fflush(stdout);
+}
+
+void	peek_section_list(t_section_list sections)
+{
+	t_section *current;
+
+	current = sections.head;
+	printf("Sections: ");
+	while (current)
+	{
+		printf("%d ", current->len);
+		current = current->next;
+	}
+	printf("\n");
+	fflush(stdout);
+
 }
 
 void	fill_stack_b_for_test(t_stack *stack_b)

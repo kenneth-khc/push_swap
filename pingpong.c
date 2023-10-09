@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 03:36:58 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/09 10:46:44 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/09 21:42:18 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,45 @@
 
 void	pingpong(t_stack *a, t_stack *b, int size)
 {
-	t_section_list	list;
+	t_section_list	sections;
+
+	if (stack_is_sorted(a))
+		return ;
 
 	printf("SIZE: %d\n", size);
-	init_list_of_sections(&list);
-	sort_a(a, b, size, &list);
-	// peek_entire_stack(*a, *b);
+	sections.head = NULL;
+	sections.tail = NULL;
+
+
+	sort_a(a, b, size, &sections);
+
 	t_section *current;
-	current = list.head;
+	current = sections.head;
 	while (current)
 	{
 		printf("SECTION LIST BEFORE SORT B: %d\n", current->len);
 		current = current->next;
 	}
-	// exit(0);
-	sort_b(a, b, &list);
-	peek_entire_stack(*a, *b);
+
+	sort_b(a, b, &sections);
 }
 
 void	sort_a(t_stack *a, t_stack *b, int num_of_elements,
 		t_section_list *list)
 {
-	int		mid;
-	int		to_push;
-	static int	call;
+	int		midpoint_a;
+	int		num_elements_to_push;
 
 	if (stack_len(a) <= 3)
 	{
 		sort_three_elements(a, b);
 		return ;
 	}
-	printf("SORT_A CALL %d", ++call);
-	if (list->tail)
-		printf(" SECTION_LEN: %d\n", list->tail->len);
-	fflush(stdout);
-	mid = find_mid_in_stack(a);
-	to_push = find_number_to_push(mid, a);
-	add_section(to_push, list);
-	printf("\nMidpoint of sort_a call %d: %d\n", call, mid);
-	printf("Numbers to push in sort_a call %d: %d\n\n", call, to_push);
-	fflush(stdout);
-	push_to_b(to_push, mid, a, b);
-	peek_entire_stack(*a, *b);
-	sort_a(a, b, num_of_elements - to_push, list);
+	midpoint_a = find_mid_in_stack(a);
+	num_elements_to_push = find_number_to_push(midpoint_a, a);
+	add_section(num_elements_to_push, list);
+	push_to_b(num_elements_to_push, midpoint_a, a, b);
+	sort_a(a, b, num_of_elements - num_elements_to_push, list);
 }
 
 /**
@@ -123,28 +119,6 @@ bool	section_is_sorted(t_node *begin_node, int size)
 	return (true);
 }
 
-void	fix_a(t_stack *stack_a, t_stack *stack_b, t_section_list *list)
-{
-	if (list->tail->len <= 3)
-	{
-		printf("FIXING A\n");
-		printf("Elements to fix: %d %d %d\n", stack_a->top->simplified,
-			stack_a->top->next->simplified,
-			stack_a->top->next->next->simplified);
-		fflush(stdout);
-		if (list->tail->len == 3)
-			sort_three(stack_a, stack_b);
-		if (list->tail->len == 2)
-			sort_two(stack_a, stack_b);
-		delete_section(list);
-		return ;
-	}
-	(void)stack_b;
-	// sort_a(stack_a, stack_b, list->tail->len, list);
-	divide_section_further(stack_a, stack_b, list, list->tail);
-	peek_entire_stack(*stack_a, *stack_b);
-	fix_a(stack_a, stack_b, list);
-}
 
 void	sort_three(t_stack *stack_a, t_stack *stack_b)
 {
@@ -186,28 +160,4 @@ void	sort_two(t_stack *stack_a, t_stack *stack_b)
 	second = first->next;
 	if (first->simplified > second->simplified)
 		sa(stack_a, stack_b);
-}
-
-void	divide_section_further(t_stack *stack_a, t_stack *stack_b, t_section_list *list,
-		t_section *section)
-{
-	int	*temp_array ;
-	int	mid;
-	int	to_push;
-	static int call;
-
-	printf("Call %d of dividing further in A: section len %d\n", ++call, section->len);
-	temp_array = init_temp_array(stack_a);
-	mid = find_mid(temp_array, section->len);
-	free(temp_array);
-	to_push = find_number_to_push(mid, stack_a);
-	add_section(to_push, list);
-	// printf("\nMidpoint of sort_a call %d: %d\n", call, mid);
-	// printf("Numbers to push in sort_a call %d: %d\n\n", call, to_push);
-	fflush(stdout);
-	// push_to_b(to_push, mid, stack_a, stack_b);
-	push_further_to_b(to_push, mid, stack_a, stack_b);
-	list->tail->len -= to_push;
-	add_section(to_push, list);
-	printf("Updated tail in CALL %d DIVIDE FURTHER: %d, new section: %d\n", call, list->tail->prev->len, list->tail->len);
 }

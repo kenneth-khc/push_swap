@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:07:45 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/18 02:06:36 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/09 21:49:20 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,14 @@ int	find_mid_in_section(t_stack *stack, int section_len)
 	current = stack->top;
 	min = current->simplified;
 	max = current->simplified;
-	while (section_len--)
+	while (section_len > 0)
 	{
 		if (current->simplified <= min)
 			min = current->simplified;
 		if (current->simplified >= max)
 			max = current->simplified;
 		current = current->next;
+		section_len--;
 	}
 	mid = min + ((max - min) / 2);
 	return (mid);

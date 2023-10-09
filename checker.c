@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:18:53 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/13 02:31:03 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/09 14:56:22 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	main(int argc, char **argv)
 	init_stacks(list_of_integers, size, &a, &b);
 	read_and_exec_instructions(&list_of_instructions, &a, &b);
 	if (stack_is_sorted(&a) && !stack_has_elements(&b))
-		ft_printf("OK\n");
+		//ft_printf("OK\n");
 	else
-		ft_printf("KO\n");
+		//ft_printf("KO\n");
 }
 
 /**

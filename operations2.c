@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:53:03 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/08 20:45:15 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/09 14:56:22 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ra(t_stack *stack_a, t_stack *stack_b)
 	last->next = first;
 	stack_a->top = first->next;
 	first->next = NULL;
-	ft_printf("ra\n");
+	//ft_printf("ra\n");
 }
 
 void	rb(t_stack *stack_a, t_stack *stack_b)
@@ -45,7 +45,7 @@ void	rb(t_stack *stack_a, t_stack *stack_b)
 	last->next = first;
 	stack_b->top = first->next;
 	first->next = NULL;
-	ft_printf("rb\n");
+	//ft_printf("rb\n");
 }
 
 void	rr(t_stack *stack_a, t_stack *stack_b)
@@ -69,7 +69,7 @@ void	rra(t_stack *stack_a, t_stack *stack_b)
 	second_last->next->next = first;
 	stack_a->top = second_last->next;
 	second_last->next = NULL;
-	ft_printf("rra\n");
+	//ft_printf("rra\n");
 }
 
 void	rrb(t_stack *stack_a, t_stack *stack_b)
@@ -87,7 +87,7 @@ void	rrb(t_stack *stack_a, t_stack *stack_b)
 	second_last->next->next = first;
 	stack_b->top = second_last->next;
 	second_last->next = NULL;
-	ft_printf("rrb\n");
+	//ft_printf("rrb\n");
 }
 
 void	rrr(t_stack *stack_a, t_stack *stack_b)
