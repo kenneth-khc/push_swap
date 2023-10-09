@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/13 01:55:12 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/08 20:42:21 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
 
 typedef struct s_stack				t_stack;
 typedef struct s_node				t_node;
+typedef struct s_section			t_section;
+typedef struct s_section_list		t_section_list;
 typedef struct s_instruction		t_instruction;
 typedef void						(*t_function_pointer)();
-// (t_stack *a, t_stack *b);
 typedef struct s_instruction_table	t_instruction_table;
 
 struct s_stack
@@ -30,10 +31,24 @@ struct s_stack
 	t_node	*top;
 };
 
+struct s_section_list
+{
+	t_section	*head;
+	t_section	*tail;
+};
+
 struct s_node
 {
 	int		data;
+	int		simplified;
 	t_node	*next;
+};
+
+struct s_section
+{
+	int			len;
+	t_section	*prev;
+	t_section	*next;
 };
 
 struct s_instruction
@@ -48,24 +63,50 @@ struct s_instruction_table
 	t_function_pointer	instruction;
 };
 
-void	init_stacks(int *list_of_integers, int size, t_stack *a, t_stack *b);
+// Arguments
 int		*parse_arguments(int argc, char **argv, int *size);
 int		*store_one_arg(char **argv, int *size);
 int		*store_args(char **argv, int *size);
 void	sorting(t_stack *stack_a, t_stack *stack_b, int size);
 int		find_min(t_stack *stack_a);
 
+// Pingpong
+void	pingpong(t_stack *a, t_stack *b, int size);
+void	sort_three_elements(t_stack *stack_a, t_stack *stack_b);
+bool	section_is_sorted(t_node *begin_node, int size);
+void	sort_a(t_stack *a, t_stack *b, int num_of_elements, t_section_list *list);
+int		*init_temp_array(t_stack *a);
+int		stack_len(t_stack *a);
+int		find_mid(int *array, int size);
+int		find_number_to_push(int mid, t_stack *stack_a);
+void	push_to_b(int to_push, int mid, t_stack *stack_a, t_stack *stack_b);
+void	sort_b(t_stack *stack_a, t_stack *stack_b, t_section_list *list);
+void	sort_section(t_stack *stack_a, t_stack *stack_b, int section_len);
+void	push_to_a(int to_push, int mid, t_stack *stack_a, t_stack *stack_b);
+int		find_number_to_push_b(int mid, t_stack *stack, int section_len);
+bool	elements_left_to_push(int mid, t_stack *stack);
+void	fix_a(t_stack *stack_a, t_stack *stack_b, t_section_list *list);
+void	sort_three(t_stack *stack_a, t_stack *stack_b);
+void	sort_two(t_stack *stack_a, t_stack *stack_b);
+void	divide_section_further(t_stack *stack_a, t_stack *stack_b, t_section_list *list,
+		t_section *section);
+void	push_further_to_b(int to_push, int mid, t_stack *stack_a, t_stack *stack_b);
+void	reverse_sort_three_elements(t_stack *stack_a, t_stack *stack_b);
+void	reverse_sort_three(t_stack *stack_a, t_stack *stack_b);
+int		find_mid_in_section(t_stack *stack, int section_len);
+
+
 // Operations
-void	sa(t_stack *stack_a);
-void	sb(t_stack *stack_b);
+void	sa(t_stack *stack_a, t_stack *stack_b);
+void	sb(t_stack *stack_a, t_stack *stack_b);
 void	ss(t_stack *stack_a, t_stack *stack_b);
 void	pa(t_stack *stack_a, t_stack *stack_b);
 void	pb(t_stack *stack_a, t_stack *stack_b);
-void	ra(t_stack *stack_a);
-void	rb(t_stack *stack_b);
+void	ra(t_stack *stack_a, t_stack *stack_b);
+void	rb(t_stack *stack_a, t_stack *stack_b);
 void	rr(t_stack *stack_a, t_stack *stack_b);
-void	rra(t_stack *stack_a);
-void	rrb(t_stack *stack_b);
+void	rra(t_stack *stack_a, t_stack *stack_b);
+void	rrb(t_stack *stack_a, t_stack *stack_b);
 void	rrr(t_stack *stack_a, t_stack *stack_b);
 
 // Quicksort
@@ -78,13 +119,21 @@ void	swap(int *x, int *y);
 void	push(t_stack *stack, int data);
 void	error(void);
 void	validate_integers(int *list_of_integers, char **argv);
-void	check_for_duplicates(int *list_of_integers, int size);
+void	init_stacks(t_stack *stack_a, t_stack *stack_b,
+			int *list_of_integers, int size);
 int		number_of_strings(char **strings);
 bool	stack_is_sorted(t_stack *stack);
 bool	stack_has_elements(t_stack *stack);
 void	free_and_move_list(t_instruction **node);
+int	find_mid_in_stack(t_stack *stack);
 
-//Checker
+//List
+void	init_list_of_sections(t_section_list *list);
+void	add_section(int to_sort, t_section_list *list);
+void	delete_section(t_section_list *list);
+
+
+// Checker
 void	read_and_exec_instructions(t_instruction *list_of_instructions,
 			t_stack *a, t_stack *b);
 void	init_instruction_table(t_instruction_table(*instruction_table)[]);

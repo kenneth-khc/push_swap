@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:38:14 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/16 19:19:58 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/08 20:44:13 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	find_mid(int *array, int size)
 		i++;
 	}
 	mid = min + ((max - min) / 2);
+	// if (mid == 4)
+	// 	mid++;
 	return (mid);
 }
 
@@ -95,31 +97,25 @@ void	push_to_b(int to_push, int mid, t_stack *stack_a, t_stack *stack_b)
 			pb(stack_a, stack_b);
 			to_push--;
 		}
-		ra(stack_a);
+		ra(stack_a, stack_b);
 	}
 }
 
-void	push_to_a(int to_push, int mid, t_stack *stack_a, t_stack *stack_b)
+void	push_further_to_b(int to_push, int mid, t_stack *stack_a, t_stack *stack_b)
 {
-	int	rotated;
+	int	shifted_up;
 
-	rotated = 0;
+	shifted_up = 0;
 	while (to_push)
 	{
-		if (stack_b->top->simplified >= mid)
+		if (stack_a->top->simplified <= mid)
 		{
-			printf("LEFT TO PUSH: %d\n", to_push);
-			printf("PUSHING: %d\n", stack_b->top->simplified);
-			pa(stack_a, stack_b);
+			pb(stack_a, stack_b);
 			to_push--;
-			if (stack_a->top->simplified > stack_a->top->next->simplified)
-				sa(stack_a);
 		}
-		rb(stack_b);
-		rotated++;
+		ra(stack_a, stack_b);
+		shifted_up++;
 	}
-	while (rotated--)
-	{
-		rrb(stack_b);
-	}
+	while (shifted_up--)
+		rra(stack_a, stack_b);
 }

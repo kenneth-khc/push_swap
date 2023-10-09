@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:59:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/16 13:01:51 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/09 10:38:57 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ int	main(int argc, char **argv)
 // end test
 	// sorting(&a, &b, size);
 
-	pingpong(&a, &b, size);
+	pingpong(&a, &b ,size);
 }

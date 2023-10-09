@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:44:52 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/10 23:02:28 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/09/19 23:09:12 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@
 // 	stack_a->top->next->next = temp2;
 // }
 
-void	sa(t_stack *stack_a)
+void	sa(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*first;
 	t_node	*second;
 
+	(void)stack_b;
 	if (!stack_a->top || !stack_a->top->next)
 		return ;
 	first = stack_a->top;
@@ -46,11 +47,12 @@ void	sa(t_stack *stack_a)
 	ft_printf("sa\n");
 }
 
-void	sb(t_stack *stack_b)
+void	sb(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*first;
 	t_node	*second;
 
+	(void)stack_a;
 	if (!stack_b->top || !stack_b->top->next)
 		return ;
 	first = stack_b->top;
@@ -63,8 +65,8 @@ void	sb(t_stack *stack_b)
 
 void	ss(t_stack *stack_a, t_stack *stack_b)
 {
-	sa(stack_a);
-	sb(stack_b);
+	sa(stack_a, stack_b);
+	sb(stack_a, stack_b);
 }
 
 void	pa(t_stack *stack_a, t_stack *stack_b)

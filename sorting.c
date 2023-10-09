@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 22:46:43 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/16 12:52:35 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/08 20:45:29 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	sorting(t_stack *stack_a, t_stack *stack_b, int size)
 	{
 		while (stack_a->top->simplified != min)
 		{
-			rra(stack_a);
+			rra(stack_a, stack_b);
 		}
 		pb(stack_a, stack_b);
 		min++;

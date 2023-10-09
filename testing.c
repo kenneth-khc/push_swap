@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 22:27:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/10 22:27:29 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/09/18 01:22:58 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	peek_entire_stack(t_stack stack_a, t_stack stack_b)
 {
 	while (stack_a.top != NULL)
 	{
-		printf("Stack A: %d\n", stack_a.top->data);
+		printf("Stack A: %d\n", stack_a.top->simplified);
 		stack_a.top = stack_a.top->next;
 	}
 	printf("\n");
 	while (stack_b.top != NULL)
 	{
-		printf("Stack B: %d\n", stack_b.top->data);
+		printf("Stack B: %d\n", stack_b.top->simplified);
 		stack_b.top = stack_b.top->next;
 	}
 	printf("\n");

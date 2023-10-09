@@ -1,0 +1,8 @@
+.DS_Store
+.vscode/
+*.dSYM/
+*tester
+checker_Mac
+push_swap
+checker
+libft/
