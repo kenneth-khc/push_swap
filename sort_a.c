@@ -1,58 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pingpong.c                                         :+:      :+:    :+:   */
+/*   sort_a.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 03:36:58 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/09 21:42:18 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:44:32 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	pingpong(t_stack *a, t_stack *b, int size)
-{
-	t_section_list	sections;
-
-	if (stack_is_sorted(a))
-		return ;
-
-	printf("SIZE: %d\n", size);
-	sections.head = NULL;
-	sections.tail = NULL;
-
-
-	sort_a(a, b, size, &sections);
-
-	t_section *current;
-	current = sections.head;
-	while (current)
-	{
-		printf("SECTION LIST BEFORE SORT B: %d\n", current->len);
-		current = current->next;
-	}
-
-	sort_b(a, b, &sections);
-}
-
-void	sort_a(t_stack *a, t_stack *b, int num_of_elements,
-		t_section_list *list)
+void	sort_a(t_stack *stack_a, t_stack *stack_b, int num_of_elements,
+		t_section_list *sections)
 {
 	int		midpoint_a;
 	int		num_elements_to_push;
 
-	if (stack_len(a) <= 3)
+	if (stack_len(stack_a) <= 3)
 	{
-		sort_three_elements(a, b);
+		sort_three_elements(stack_a, stack_b);
 		return ;
 	}
-	midpoint_a = find_mid_in_stack(a);
-	num_elements_to_push = find_number_to_push(midpoint_a, a);
-	add_section(num_elements_to_push, list);
-	push_to_b(num_elements_to_push, midpoint_a, a, b);
-	sort_a(a, b, num_of_elements - num_elements_to_push, list);
+	midpoint_a = find_midpoint(stack_a);
+	num_elements_to_push = find_number_to_push(midpoint_a, stack_a);
+	add_section(num_elements_to_push, sections);
+	push_to_b(num_elements_to_push, midpoint_a, stack_a, stack_b);
+	sort_a(stack_a, stack_b, num_of_elements - num_elements_to_push, sections);
 }
 
 /**
@@ -67,8 +42,10 @@ void	sort_three_elements(t_stack *a, t_stack *b)
 	t_node	*second;
 	t_node	*third;
 
-	if (!a->top || !a->top->next || !a->top->next->next
-		|| section_is_sorted(a->top, 3))
+	// if (!a->top || !a->top->next || !a->top->next->next
+	// 	|| stack_is_sorted(a))
+	// 	return ;
+	if (stack_is_sorted(a))
 		return ;
 	if (a->top->simplified > a->top->next->simplified
 		&& !a->top->next->next)
@@ -95,32 +72,7 @@ void	sort_three_elements(t_stack *a, t_stack *b)
 	}
 }
 
-/**
- * Check to see if a group of elements are sorted.
- */
-
-bool	section_is_sorted(t_node *begin_node, int size)
-{
-	t_node	*current;
-	int		prev;
-
-	if (begin_node)
-	{
-		current = begin_node;
-		prev = current->data;
-		while (--size)
-		{
-			current = current->next;
-			if (prev > current->data)
-				return (false);
-			prev = current->data;
-		}
-	}
-	return (true);
-}
-
-
-void	sort_three(t_stack *stack_a, t_stack *stack_b)
+void	sort_three(t_stack *stack_a, t_stack *stack_b, t_section_list *sections)
 {
 	t_node	*first;
 	t_node	*second;
@@ -149,9 +101,10 @@ void	sort_three(t_stack *stack_a, t_stack *stack_b)
 	}
 	else if (first->simplified > second->simplified)
 		sa(stack_a, stack_b);
+	delete_matching_section(sections, 3);
 }
 
-void	sort_two(t_stack *stack_a, t_stack *stack_b)
+void	sort_two(t_stack *stack_a, t_stack *stack_b, t_section_list *sections)
 {
 	t_node	*first;
 	t_node	*second;
@@ -160,4 +113,26 @@ void	sort_two(t_stack *stack_a, t_stack *stack_b)
 	second = first->next;
 	if (first->simplified > second->simplified)
 		sa(stack_a, stack_b);
+	// (void)stack_b;
+	delete_matching_section(sections, 2);
+}
+
+void	delete_matching_section(t_section_list *sections, int num_to_delete)
+{
+	t_section	*current;
+	t_section	*new_next;
+	t_section	*prev;
+
+	current = sections->tail;
+	if (current->len == num_to_delete)
+		delete_section(sections);
+	else
+	{
+		while (current->len != num_to_delete)
+			current = current->prev;
+		new_next = current->next;
+		prev = current->prev;
+		prev->next = new_next;
+		free(current);
+	}
 }

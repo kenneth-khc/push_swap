@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pingpongb_utils.c                                  :+:      :+:    :+:   */
+/*   sort_b_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 20:23:27 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/09 22:08:30 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:57:39 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ void	reverse_sort_three_elements(t_stack *stack_a, t_stack *stack_b)
 	int	remaining_elements;
 
 	remaining_elements = stack_len(stack_b);
-	if (stack_is_sorted(stack_b))
+	if (stack_is_reverse_sorted(stack_b))
 	{
+		while (remaining_elements--)
+			pa(stack_a, stack_b);
 		return ;
 	}
 	if (remaining_elements == 1)
@@ -79,11 +81,11 @@ void	push_to_a(int to_push, int mid, t_stack *stack_a, t_stack *stack_b)
 	rotated = 0;
 	while (to_push)
 	{
-		if (stack_b->top->simplified >= mid)
+		if (stack_b->top->simplified > mid)
 		{
 			pa(stack_a, stack_b);
-			if (stack_a->top->simplified > stack_a->top->next->simplified)
-				sa(stack_a, stack_b);
+			// if (stack_a->top->simplified > stack_a->top->next->simplified)
+			// 	sa(stack_a, stack_b);
 			if (--to_push == 0)
 				break ;
 		}
@@ -105,13 +107,14 @@ void	fix_a(t_stack *stack_a, t_stack *stack_b, t_section_list *sections)
 	t_section	*current_section;
 
 	current_section = sections->tail;
+	// here v
 	if (current_section->len <= 3)
 	{
 		if (current_section->len == 3)
-			sort_three(stack_a, stack_b);
-		if (current_section->len == 2)
-			sort_two(stack_a, stack_b);
-		delete_section(sections);
+			sort_three(stack_a, stack_b, sections);
+		else if (current_section->len == 2)
+			sort_two(stack_a, stack_b, sections);
+		// delete_section(sections);
 		return ;
 	}
 	else

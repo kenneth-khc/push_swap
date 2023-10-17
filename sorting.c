@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 22:46:43 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/08 20:45:29 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:54:26 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,48 @@ bool	stack_is_sorted(t_stack *stack)
 			if (prev > current->data)
 				return (false);
 			prev = current->data;
+		}
+	}
+	return (true);
+}
+
+bool	stack_is_reverse_sorted(t_stack *stack)
+{
+	t_node	*current;
+	int		prev;
+
+	if (stack->top)
+	{
+		current = stack->top;
+		prev = current->data;
+		while (current->next)
+		{
+			current = current->next;
+			if (prev < current->data)
+				return (false);
+			prev = current->data;
+		}
+	}
+	return (true);
+}
+
+bool	stacks_are_sorted(t_stack *stack_a, t_stack *stack_b)
+{
+	t_node	*current;
+	t_node	*prev;
+
+	if (stack_b->top)
+		return (false);
+	if (stack_a->top)
+	{
+		current = stack_a->top;
+		prev = current;
+		while (current->next)
+		{
+			current = current->next;
+			if (prev->simplified > current->simplified)
+				return (false);
+			prev = prev->next;
 		}
 	}
 	return (true);

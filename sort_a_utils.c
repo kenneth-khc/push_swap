@@ -1,44 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pingpong_utils.c                                   :+:      :+:    :+:   */
+/*   sort_a_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:38:14 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/09 21:59:02 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:03:44 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	*init_temp_array(t_stack *a)
-{
-	t_node	*current;
-	int		size;
-	int		*array;
-	int		i;
-
-	current = a->top;
-	size = stack_len(a);
-	array = malloc(sizeof(int) * size);
-	if (!array)
-		error();
-	i = 0;
-	while (current)
-	{
-		array[i++] = current->simplified;
-		current = current->next;
-	}
-	return (array);
-}
-
-int	stack_len(t_stack *a)
+int	stack_len(t_stack *stack_a)
 {
 	t_node	*current;
 	int		i;
 
-	current = a->top;
+	current = stack_a->top;
 	i = 0;
 	while (current)
 	{
@@ -46,30 +25,6 @@ int	stack_len(t_stack *a)
 		current = current->next;
 	}
 	return (i);
-}
-
-int	find_mid(int *array, int size)
-{
-	int	i;
-	int	min;
-	int	max;
-	int	mid;
-
-	i = 1;
-	min = array[0];
-	max = array[0];
-	while (i < size)
-	{
-		if (array[i] <= min)
-			min = array[i];
-		if (array[i] >= max)
-			max = array[i];
-		i++;
-	}
-	mid = min + ((max - min) / 2);
-	// if (mid == 4)
-	// 	mid++;
-	return (mid);
 }
 
 int	find_number_to_push(int mid, t_stack *stack_a)

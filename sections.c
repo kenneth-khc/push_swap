@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   linkedlist_utils.c                                 :+:      :+:    :+:   */
+/*   sections.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 06:10:47 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/16 18:41:22 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:35:23 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	add_section(int to_sort, t_section_list *list)
 	new_section->len = to_sort;
 	new_section->next = NULL;
 	new_section->prev = list->tail;
-
 	if (!list->head)
 		list->head = new_section;
 	else
@@ -34,18 +33,42 @@ void	add_section(int to_sort, t_section_list *list)
 	list->tail = new_section;
 }
 
-void	delete_section(t_section_list *list)
+void	delete_section(t_section_list *section)
 {
 	t_section	*second_last;
 
-	if (!list || !list->tail)
+	if (!section || !section->tail)
 		return ;
-	second_last = list->tail->prev;
-	free(list->tail);
-	list->tail = second_last;
+	second_last = section->tail->prev;
+	free(section->tail);
+	section->tail = second_last;
 	if (second_last)
 		second_last->next = NULL;
 	else
-		list->head = NULL;
+		section->head = NULL;
 
+}
+
+/**
+ * Check to see if a group of elements are sorted.
+ */
+
+bool	section_is_sorted(t_node *begin_node, int size)
+{
+	t_node	*current;
+	int		prev;
+
+	if (begin_node)
+	{
+		current = begin_node;
+		prev = current->data;
+		while (--size)
+		{
+			current = current->next;
+			if (prev > current->data)
+				return (false);
+			prev = current->data;
+		}
+	}
+	return (true);
 }

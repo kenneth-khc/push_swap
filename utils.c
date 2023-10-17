@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:07:45 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/09 21:49:20 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:13:50 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	free_and_move_list(t_instruction **node)
 	*node = (*node)->next;
 }
 
-int	find_mid_in_stack(t_stack *stack)
+int	find_midpoint(t_stack *stack)
 {
 	t_node	*current;
 	int		min;

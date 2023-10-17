@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pingpong_b.c                                       :+:      :+:    :+:   */
+/*   sort_b.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 05:50:23 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/09 21:23:44 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:57:37 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	sort_b(t_stack *stack_a, t_stack *stack_b, t_section_list *sections)
 	t_section	*current_section;
 
 	current_section = sections->tail;
-
 	if (stack_len(stack_b) <= 3)
 	{
 		reverse_sort_three_elements(stack_a, stack_b);
@@ -49,10 +48,6 @@ void	sort_b(t_stack *stack_a, t_stack *stack_b, t_section_list *sections)
 
 void	sort_section(t_stack *stack_a, t_stack *stack_b, int section_len)
 {
-	// t_node	*first;
-	// t_node	*second;
-	// t_node	*third;
-
 	if (section_len == 1)
 	{
 		pa(stack_a, stack_b);
@@ -93,9 +88,6 @@ void	sort_section(t_stack *stack_a, t_stack *stack_b, int section_len)
 			}
 		}
 	}
-	// first = stack_b->top;
-	// second = first->next;
-	// third = second->next;
 }
 
 int	find_number_to_push_b(int mid, t_stack *stack, int section_len)
@@ -103,13 +95,13 @@ int	find_number_to_push_b(int mid, t_stack *stack, int section_len)
 	int		to_push;
 	t_node	*current;
 	int		i;
-
+// here
 	i = 0;
 	to_push = 0;
 	current = stack->top;
 	while (section_len > 0)
 	{
-		if (current->simplified >= mid)
+		if (current->simplified > mid)
 			to_push++;
 		current = current->next;
 		section_len--;
@@ -131,7 +123,7 @@ bool	elements_left_to_push(int mid, t_stack *stack)
 	current = stack->top;
 	while (current)
 	{
-		if (current->simplified >= mid)
+		if (current->simplified > mid)
 			return (true);
 		current = current->next;
 	}
