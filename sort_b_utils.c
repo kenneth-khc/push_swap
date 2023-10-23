@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 20:23:27 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/17 18:57:39 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:38:39 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ void	fix_a(t_stack *stack_a, t_stack *stack_b, t_section_list *sections)
 	{
 		pushback_to_b(stack_a, stack_b, sections, current_section);
 		// peek_entire_stack(*stack_a, *stack_b);
-		fix_a(stack_a, stack_b, sections);
-		// sort_b(stack_a, stack_b, sections);
+		// fix_a(stack_a, stack_b, sections);
+		sort_b(stack_a, stack_b, sections);
 	}
 }
 
@@ -138,7 +138,7 @@ void	pushback_to_b(t_stack *stack_a, t_stack *stack_b, t_section_list *sections,
 	to_push = find_number_to_push(midpoint_a, stack_a);
 	// push_to_b(to_push, mid, stack_a, stack_b);
 	current_section->len -= to_push;
-	add_section(to_push, sections);
+	add_section(to_push, sections, 'B');
 	push_further_to_b(to_push, midpoint_a, stack_a, stack_b);
 	// push_to_b(to_push, midpoint_a, stack_a, stack_b);
 }
@@ -160,7 +160,7 @@ void	push_further_to_b(int to_push, int mid, t_stack *stack_a, t_stack *stack_b)
 			ra(stack_a, stack_b);
 			shifted_up++;
 		}
-	}
+	}//here
 	while (shifted_up--)
 		rra(stack_a, stack_b);
 	// while (shifted_up--)

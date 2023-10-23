@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:07:45 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/10 16:13:50 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:04:35 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,45 +35,57 @@ void	free_and_move_list(t_instruction **node)
 
 int	find_midpoint(t_stack *stack)
 {
-	t_node	*current;
 	int		min;
 	int		max;
 	int		mid;
 
-	current = stack->top;
-	min = current->simplified;
-	max = current->simplified;
-	while (current)
-	{
-		if (current->simplified <= min)
-			min = current->simplified;
-		if (current->simplified >= max)
-			max = current->simplified;
-		current = current->next;
-	}
+	find_min_max(stack, &min, &max);
 	mid = min + ((max - min) / 2);
 	return (mid);
 }
 
-int	find_mid_in_section(t_stack *stack, int section_len)
+void	find_min_max(t_stack *stack, int *min, int *max)
 {
 	t_node	*current;
+
+	current = stack->top;
+	*min = current->simplified;
+	*max = current->simplified;
+	while (current)
+	{
+		if (current->simplified <= *min)
+			*min = current->simplified;
+		if (current->simplified >= *max)
+			*max = current->simplified;
+		current = current->next;
+	}
+}
+
+int	find_mid_in_section(t_stack *stack, int section_len)
+{
 	int		min;
 	int		max;
 	int		mid;
 
-	current = stack->top;
-	min = current->simplified;
-	max = current->simplified;
-	while (section_len > 0)
-	{
-		if (current->simplified <= min)
-			min = current->simplified;
-		if (current->simplified >= max)
-			max = current->simplified;
-		current = current->next;
-		section_len--;
-	}
+	find_section_min_max(stack, section_len, &min, &max);
 	mid = min + ((max - min) / 2);
 	return (mid);
+}
+
+void	find_section_min_max(t_stack *stack, int len, int *min, int *max)
+{
+	t_node	*current;
+
+	current = stack->top;
+	*min = current->simplified;
+	*max = current->simplified;
+	while (len > 0)
+	{
+		if (current->simplified <= *min)
+			*min = current->simplified;
+		if (current->simplified >= *max)
+			*max = current->simplified;
+		current = current->next;
+		len--;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/17 18:28:26 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/23 21:08:48 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,6 @@ struct s_stack
 {
 	t_node	*top;
 };
-
-struct s_section_list
-{
-	t_section	*head;
-	t_section	*tail;
-};
-
 struct s_node
 {
 	int		data;
@@ -44,9 +37,16 @@ struct s_node
 	t_node	*next;
 };
 
+struct s_section_list
+{
+	t_section	*head;
+	t_section	*tail;
+};
+
 struct s_section
 {
 	int			len;
+	char		in;
 	t_section	*prev;
 	t_section	*next;
 };
@@ -126,11 +126,13 @@ bool	stack_is_reverse_sorted(t_stack *stack);
 bool	stacks_are_sorted(t_stack *stack_a, t_stack *stack_b);
 bool	stack_has_elements(t_stack *stack);
 void	free_and_move_list(t_instruction **node);
-int	find_midpoint(t_stack *stack);
+int		find_midpoint(t_stack *stack);
+void	find_min_max(t_stack *stack, int *min, int *max);
+void	find_section_min_max(t_stack *stack, int len, int *min, int *max);
 
 //List
 void	init_list_of_sections(t_section_list *list);
-void	add_section(int to_sort, t_section_list *list);
+void	add_section(int to_sort, t_section_list *list, char stack);
 void	delete_section(t_section_list *list);
 
 
@@ -148,5 +150,16 @@ void	peek_entire_stack(t_stack stack_a, t_stack stack_b);
 void	peek_section_list(t_section_list sections);
 void	fill_stack_b_for_test(t_stack *stack_b);
 void	execute_instructions_for_test(t_stack *a, t_stack *b);
+
+
+void	sort_current_section(t_stack *stack_a, t_stack *stack_b, t_section *section);
+void	update_section_list(t_section_list *sections);
+void	sort_three_a(t_stack *stack_a, t_stack *stack_b);
+void	sort_two_a(t_stack *stack_a, t_stack *stack_b);
+void    divide_section(t_stack *stack_a, t_stack *stack_b, t_section_list *sections);
+int    divide_section_b(t_stack *stack_a, t_stack *stack_b,
+t_section *section);
+int	divide_section_a(t_stack *stack_a, t_stack *stack_b,
+t_section *section);
 
 #endif

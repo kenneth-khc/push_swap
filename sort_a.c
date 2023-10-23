@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 03:36:58 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/17 18:44:32 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/23 20:25:48 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	sort_a(t_stack *stack_a, t_stack *stack_b, int num_of_elements,
 	}
 	midpoint_a = find_midpoint(stack_a);
 	num_elements_to_push = find_number_to_push(midpoint_a, stack_a);
-	add_section(num_elements_to_push, sections);
+	add_section(num_elements_to_push, sections, 'B');
 	push_to_b(num_elements_to_push, midpoint_a, stack_a, stack_b);
 	sort_a(stack_a, stack_b, num_of_elements - num_elements_to_push, sections);
 }

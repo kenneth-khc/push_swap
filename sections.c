@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 06:10:47 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/17 17:35:23 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/23 20:53:36 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	init_list_of_sections(t_section_list *list)
 	list->tail = NULL;
 }
 
-void	add_section(int to_sort, t_section_list *list)
+void	add_section(int to_sort, t_section_list *list, char stack)
 {
 	t_section	*new_section;
 
@@ -31,12 +31,19 @@ void	add_section(int to_sort, t_section_list *list)
 	else
 		list->tail->next = new_section;
 	list->tail = new_section;
+	new_section->in = stack;
 }
 
 void	delete_section(t_section_list *section)
 {
 	t_section	*second_last;
 
+	if (!section->tail->prev)
+	{
+		free(section->tail);
+		section->tail = NULL;
+		return ;
+	}
 	if (!section || !section->tail)
 		return ;
 	second_last = section->tail->prev;
@@ -46,7 +53,6 @@ void	delete_section(t_section_list *section)
 		second_last->next = NULL;
 	else
 		section->head = NULL;
-
 }
 
 /**
