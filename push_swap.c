@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:59:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/25 11:20:20 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/25 19:28:53 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ int	main(int argc, char **argv)
 	size = 0;
 	list_of_integers = parse_arguments(argc, ++argv, &size);
 	init_stacks(&a, &b, list_of_integers, size);
-
-	if (stacks_are_sorted(&a, &b))
-		return (0);
-	else
+	if (!stacks_are_sorted(&a, &b))
 		quicksort(&a, &b, size);
+	else
+		return (0);
 
 // printf("--------------------------------- END RESULT --------------------------------\n");
 // printf("SIZE: %d\n", size);

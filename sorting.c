@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sorting.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 22:46:43 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/10 17:54:26 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/25 16:56:37 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ int	find_min(t_stack *stack_a)
 	t_node	*current;
 
 	current = stack_a->top;
-	x = current->data;
+	x = current->simplified;
 	while (current)
 	{
-		if (current->data <= x)
-			x = current->data;
+		if (current->simplified <= x)
+			x = current->simplified;
 		current = current->next;
 	}
 	return (x);

@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 20:28:21 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/25 11:45:26 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/25 19:54:38 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_section *section)
 	int	to_push;
 
 	midpoint = find_mid_in_section(stack_a, section->len);
-	to_push = find_number_to_push(midpoint, stack_a);
+	to_push = find_nums_to_push(midpoint, stack_a);
 	section->len -= to_push;
 	push_further_to_b(to_push, midpoint, stack_a, stack_b);
 	return (to_push);

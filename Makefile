@@ -12,7 +12,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SOURCES = push_swap.c arguments.c errors.c \
 operations.c operations2.c sorting.c sections.c \
 utils.c testing.c stack.c quicksort.c sort_a.c sort_a_utils.c sort_b.c sort_b_utils.c \
-divide_and_conquer.c
+divide_and_conquer.c solve_a.c
 
 SOURCES_BONUS = checker.c stack.c utils.c arguments.c errors.c operations.c operations2.c testing.c quicksort.c sorting.c
 

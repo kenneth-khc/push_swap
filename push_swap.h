@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/25 11:19:32 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/25 19:54:38 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,23 +76,19 @@ void	sort_three_elements(t_stack *stack_a, t_stack *stack_b);
 bool	section_is_sorted(t_node *begin_node, int size);
 void	sort_a(t_stack *a, t_stack *b, int num_of_elements, t_section_list *list);
 int		stack_len(t_stack *a);
-int		find_number_to_push(int mid, t_stack *stack_a);
+int		find_nums_to_push(int mid, t_stack *stack_a);
 void	push_to_b(int to_push, int mid, t_stack *stack_a, t_stack *stack_b);
 void	sort_b(t_stack *stack_a, t_stack *stack_b, t_section_list *list);
 void	sort_section(t_stack *stack_a, t_stack *stack_b, int section_len);
 void	push_to_a(int to_push, int mid, t_stack *stack_a, t_stack *stack_b);
 int		find_number_to_push_b(int mid, t_stack *stack, int section_len);
 bool	elements_left_to_push(int mid, t_stack *stack);
-void	fix_a(t_stack *stack_a, t_stack *stack_b, t_section_list *list);
-void	sort_three(t_stack *stack_a, t_stack *stack_b, t_section_list *sections);
-void	sort_two(t_stack *stack_a, t_stack *stack_b, t_section_list *sections);
 void	pushback_to_b(t_stack *stack_a, t_stack *stack_b, t_section_list *list,
 		t_section *section);
 void	push_further_to_b(int to_push, int mid, t_stack *stack_a, t_stack *stack_b);
 void	reverse_sort_three_elements(t_stack *stack_a, t_stack *stack_b);
 void	reverse_sort_three(t_stack *stack_a, t_stack *stack_b);
 int		find_mid_in_section(t_stack *stack, int section_len);
-void	delete_matching_section(t_section_list *sections, int num_to_delete);
 
 
 // Operations
@@ -163,5 +159,9 @@ int	divide_section_a(t_stack *stack_a, t_stack *stack_b,
 t_section *section);
 void	divide_a_until_sorted(t_stack *stack_a, t_stack *stack_b,
 t_section_list *sections, t_section *latest_a);
+int	push_half_to_b(t_stack *stack_a, t_stack *stack_b,
+						t_section_list *sections);
+void	sort_four(t_stack *a, t_stack *b);
+void	sort_five(t_stack *a, t_stack *b);
 
 #endif

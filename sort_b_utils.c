@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 20:23:27 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/20 17:38:39 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/25 19:54:38 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,30 +102,6 @@ void	push_to_a(int to_push, int mid, t_stack *stack_a, t_stack *stack_b)
 	}
 }
 
-void	fix_a(t_stack *stack_a, t_stack *stack_b, t_section_list *sections)
-{
-	t_section	*current_section;
-
-	current_section = sections->tail;
-	// here v
-	if (current_section->len <= 3)
-	{
-		if (current_section->len == 3)
-			sort_three(stack_a, stack_b, sections);
-		else if (current_section->len == 2)
-			sort_two(stack_a, stack_b, sections);
-		// delete_section(sections);
-		return ;
-	}
-	else
-	{
-		pushback_to_b(stack_a, stack_b, sections, current_section);
-		// peek_entire_stack(*stack_a, *stack_b);
-		// fix_a(stack_a, stack_b, sections);
-		sort_b(stack_a, stack_b, sections);
-	}
-}
-
 void	pushback_to_b(t_stack *stack_a, t_stack *stack_b, t_section_list *sections,
 		t_section *section)
 {
@@ -135,7 +111,7 @@ void	pushback_to_b(t_stack *stack_a, t_stack *stack_b, t_section_list *sections,
 
 	current_section = sections->tail;
 	midpoint_a = find_mid_in_section(stack_a, section->len);
-	to_push = find_number_to_push(midpoint_a, stack_a);
+	to_push = find_nums_to_push(midpoint_a, stack_a);
 	// push_to_b(to_push, mid, stack_a, stack_b);
 	current_section->len -= to_push;
 	add_section(to_push, sections, 'B');

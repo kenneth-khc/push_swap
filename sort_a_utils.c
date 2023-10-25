@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_a_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:38:14 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/10 17:03:44 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/25 22:23:05 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	stack_len(t_stack *stack_a)
 	return (i);
 }
 
-int	find_number_to_push(int mid, t_stack *stack_a)
+int	find_nums_to_push(int mid, t_stack *stack_a)
 {
 	int		to_push;
 	t_node	*current;
@@ -56,3 +56,20 @@ void	push_to_b(int to_push, int mid, t_stack *stack_a, t_stack *stack_b)
 			ra(stack_a, stack_b);
 	}
 }
+
+// char	decide_direction(t_stack *stack, int mid)
+// {
+// 	int		steps_up;
+// 	int		steps_down;
+// 	t_node	*current;
+
+// 	steps_up = 0;
+// 	steps_down = 0;
+// 	current = stack->top;
+// 	while (current->simplified > mid)
+// 	{
+// 		steps_down++;
+// 		current = current->next;
+// 	}
+	
+// }
