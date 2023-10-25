@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:44:52 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/09 14:56:22 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/25 10:41:27 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	sa(t_stack *stack_a, t_stack *stack_b)
 	first->next = second->next;
 	second->next = first;
 	stack_a->top = second;
-	//ft_printf("sa\n");
+	ft_printf("sa\n");
 }
 
 void	sb(t_stack *stack_a, t_stack *stack_b)
@@ -60,7 +60,7 @@ void	sb(t_stack *stack_a, t_stack *stack_b)
 	first->next = second->next;
 	second->next = first;
 	stack_b->top = second;
-	//ft_printf("sb\n");
+	ft_printf("sb\n");
 }
 
 void	ss(t_stack *stack_a, t_stack *stack_b)
@@ -81,7 +81,7 @@ void	pa(t_stack *stack_a, t_stack *stack_b)
 	stack_a->top = b_first;
 	stack_b->top = b_first->next;
 	b_first->next = a_first;
-	//ft_printf("pa\n");
+	ft_printf("pa\n");
 }
 
 void	pb(t_stack *stack_a, t_stack *stack_b)
@@ -96,5 +96,5 @@ void	pb(t_stack *stack_a, t_stack *stack_b)
 	stack_b->top = a_first;
 	stack_a->top = a_first->next;
 	a_first->next = b_first;
-	//ft_printf("pb\n");
+	ft_printf("pb\n");
 }

@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 20:28:21 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/23 21:10:37 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/25 11:45:26 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ t_section_list *sections)
 	}
 	else if (current_section->in == 'A')
 	{
-		pushed = divide_section_a(stack_a, stack_b, current_section);
-		add_section(pushed, sections, 'B');
+		divide_a_until_sorted(stack_a, stack_b, sections, current_section);
 	}
 }
 
@@ -55,4 +54,24 @@ t_section *section)
 	section->len -= to_push;
 	push_further_to_b(to_push, midpoint, stack_a, stack_b);
 	return (to_push);
+}
+
+void	divide_a_until_sorted(t_stack *stack_a, t_stack *stack_b,
+t_section_list *sections, t_section *latest_a)
+{
+	t_section	*current_section;
+	int			pushed;
+
+	current_section = sections->tail;
+	if (latest_a->len <= 3)
+	{
+		sort_current_section(stack_a, stack_b, latest_a);
+		return ;
+	}
+	else
+	{
+		pushed = divide_section_a(stack_a, stack_b, latest_a);
+		add_section(pushed, sections, 'B');
+		divide_a_until_sorted(stack_a, stack_b, sections, latest_a);
+	}
 }

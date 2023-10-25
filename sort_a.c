@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 03:36:58 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/23 20:25:48 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/25 11:34:05 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	sort_a(t_stack *stack_a, t_stack *stack_b, int num_of_elements,
 		t_section_list *sections)
 {
-	int		midpoint_a;
+	int		midpoint;
 	int		num_elements_to_push;
 
 	if (stack_len(stack_a) <= 3)
@@ -23,13 +23,17 @@ void	sort_a(t_stack *stack_a, t_stack *stack_b, int num_of_elements,
 		sort_three_elements(stack_a, stack_b);
 		return ;
 	}
-	midpoint_a = find_midpoint(stack_a);
-	num_elements_to_push = find_number_to_push(midpoint_a, stack_a);
-	add_section(num_elements_to_push, sections, 'B');
-	push_to_b(num_elements_to_push, midpoint_a, stack_a, stack_b);
-	sort_a(stack_a, stack_b, num_of_elements - num_elements_to_push, sections);
+	else
+	{
+		midpoint = find_midpoint(stack_a);
+		num_elements_to_push = find_number_to_push(midpoint, stack_a);
+		add_section(num_elements_to_push, sections, 'B');
+		push_to_b(num_elements_to_push, midpoint, stack_a, stack_b);
+		sort_a(stack_a, stack_b, num_of_elements - num_elements_to_push, sections);
+	}
 }
 
+void	push_half_to_b(t_stack *stack_a, t_stack *stack_b);
 /**
  * Sorting 3 elements is simple. 
  * There are only 3! possible permutations.

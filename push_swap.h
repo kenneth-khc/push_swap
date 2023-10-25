@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/23 21:08:48 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/25 11:19:32 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int		*store_args(char **argv, int *size);
 void	sorting(t_stack *stack_a, t_stack *stack_b, int size);
 int		find_min(t_stack *stack_a);
 
-// Pingpong
-void	pingpong(t_stack *a, t_stack *b, int size);
+// quicksort
+void	quicksort(t_stack *a, t_stack *b, int size);
 void	sort_three_elements(t_stack *stack_a, t_stack *stack_b);
 bool	section_is_sorted(t_node *begin_node, int size);
 void	sort_a(t_stack *a, t_stack *b, int num_of_elements, t_section_list *list);
@@ -161,5 +161,7 @@ int    divide_section_b(t_stack *stack_a, t_stack *stack_b,
 t_section *section);
 int	divide_section_a(t_stack *stack_a, t_stack *stack_b,
 t_section *section);
+void	divide_a_until_sorted(t_stack *stack_a, t_stack *stack_b,
+t_section_list *sections, t_section *latest_a);
 
 #endif

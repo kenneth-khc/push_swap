@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 05:50:23 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/23 21:20:03 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:06:28 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,68 +14,19 @@
 
 void	sort_b(t_stack *stack_a, t_stack *stack_b, t_section_list *sections)
 {
-	int			midpoint_b;
-	int			num_elements_to_push;
 	t_section	*current_section;
 
 	current_section = sections->tail;
-	/// check base case
-	if (stack_len(stack_b) <= 3)
-	{
-		reverse_sort_three_elements(stack_a, stack_b);
-		return ;
-	}
-	// Finish sorting sections
 	if (current_section == NULL)
 		return ;
-	if (current_section->len <= 3)
+	if (current_section->len > 3)
+		divide_section(stack_a, stack_b, sections);
+	else if (current_section->len <= 3)
 	{
 		sort_current_section(stack_a, stack_b, current_section);
-		// sort_section(stack_a, stack_b, current_section->len);
-		// delete_section(sections);
 		update_section_list(sections);
-		sort_b(stack_a, stack_b, sections);
 	}
-	else if (1 == 1)
-	{
-		divide_section(stack_a, stack_b, sections);
-		sort_b(stack_a, stack_b, sections);
-	}
-	else if (1 == 2)
-	{
-		midpoint_b = find_mid_in_section(stack_b, current_section->len);
-		num_elements_to_push = find_number_to_push_b(midpoint_b, stack_b, current_section->len);
-		current_section->len -= num_elements_to_push;
-		add_section(num_elements_to_push, sections, 'B');
-
-		push_to_a(num_elements_to_push, midpoint_b, stack_a, stack_b);
-		fix_a(stack_a, stack_b, sections);
-		// delete_section(list);
-		sort_b(stack_a, stack_b, sections);
-	}
-}
-
-void	update_section_list(t_section_list *sections)
-{
-	t_section	*last_section;
-	t_section	*second_last;
-
-	last_section = sections->tail;
-	if (!last_section->prev)
-	{
-		free(sections->tail);
-		sections->tail = NULL;
-		return ;
-	}
-	// if (!sections || !section->tail)
-	// 	return ;
-	second_last = last_section->prev;
-	free(last_section);
-	sections->tail = second_last;
-	if (second_last)
-		second_last->next = NULL;
-	else
-		sections->head = NULL;
+	sort_b(stack_a, stack_b, sections);
 }
 
 void	sort_current_section(t_stack *stack_a, t_stack *stack_b, t_section *section)
@@ -83,10 +34,8 @@ void	sort_current_section(t_stack *stack_a, t_stack *stack_b, t_section *section
 	if (section->in == 'B')
 	{
 		sort_section(stack_a, stack_b, section->len);
-		printf("yea");
 	}
-		// sort section in b
-	else if (section->in == 'A') // fix section in A
+	else if (section->in == 'A')
 	{
 		if (section->len == 3)
 			sort_three_a(stack_a, stack_b);
@@ -94,6 +43,22 @@ void	sort_current_section(t_stack *stack_a, t_stack *stack_b, t_section *section
 			sort_two_a(stack_a, stack_b);
 	}
 }
+
+void	update_section_list(t_section_list *sections)
+{
+	t_section	*last;
+	t_section	*second_last;
+
+	last = sections->tail;
+	second_last = last->prev;
+	free(last);
+	sections->tail = second_last;
+	if (second_last)
+		second_last->next = NULL;
+	else
+		sections->head = NULL;
+}
+
 
 void	sort_three_a(t_stack *stack_a, t_stack *stack_b)
 {

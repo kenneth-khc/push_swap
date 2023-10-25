@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:59:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/10 16:08:47 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/25 11:20:20 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,22 @@ int	main(int argc, char **argv)
 	list_of_integers = parse_arguments(argc, ++argv, &size);
 	init_stacks(&a, &b, list_of_integers, size);
 
-	pingpong(&a, &b, size);
-	
-printf("--------------------------------- END RESULT --------------------------------\n");
-peek_entire_stack(a, b);
+	if (stacks_are_sorted(&a, &b))
+		return (0);
+	else
+		quicksort(&a, &b, size);
+
+// printf("--------------------------------- END RESULT --------------------------------\n");
+// printf("SIZE: %d\n", size);
+// peek_entire_stack(a, b);
 }
 
-void	pingpong(t_stack *stack_a, t_stack *stack_b, int size)
+void	quicksort(t_stack *stack_a, t_stack *stack_b, int size)
 {
 	t_section_list	sections;
 
-	if (stacks_are_sorted(stack_a, stack_b))
-		return ;
-	printf("SIZE: %d\n", size);
 	sections.head = NULL;
 	sections.tail = NULL;
-
 
 	sort_a(stack_a, stack_b, size, &sections);
 
@@ -46,7 +46,7 @@ void	pingpong(t_stack *stack_a, t_stack *stack_b, int size)
 	current = sections.head;
 	while (current)
 	{
-		printf("SECTION LIST BEFORE SORT B: %d\n", current->len);
+		// printf("SECTION LIST BEFORE SORT B: %d\n", current->len);
 		current = current->next;
 	}
 
