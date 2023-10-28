@@ -6,14 +6,11 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:44:35 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/15 05:21:20 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/28 14:56:59 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static void	check_for_duplicates(int *array, int size);
-static void	simplify_stack(int *array, t_stack *stack_a);
 
 /**
  * Initialize stack A with the arguments passed into the program.
@@ -46,17 +43,17 @@ void	init_stacks(t_stack *stack_a, t_stack *stack_b,
 		push(stack_a, list_of_integers[size]);
 	simplify_stack(temp, stack_a);
 	free(temp);
+	free(list_of_integers);
 }
 
 /**
  * We do not handle duplicate integers.
- * Check the list of integers for duplicates by sorting it.
- * Iterate through the list, if duplicates are present,
- * they will be placed next to each other.
+ * Check for duplicates by iterating through a sorted list,
+ * if duplicates are present, they will be placed next to each other.
  * Throw error.
 */
 
-static void	check_for_duplicates(int *array, int size)
+void	check_for_duplicates(int *array, int size)
 {
 	int	i;
 
@@ -77,7 +74,7 @@ static void	check_for_duplicates(int *array, int size)
  * that number to the node.
  */
 
-static void	simplify_stack(int *array, t_stack *stack_a)
+void	simplify_stack(int *array, t_stack *stack_a)
 {
 	int		i;
 	t_node	*current;

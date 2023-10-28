@@ -3,73 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   sort_a_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:38:14 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/25 22:23:05 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:08:12 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	stack_len(t_stack *stack_a)
+bool	elements_are_ascending(t_stack *stack)
 {
 	t_node	*current;
-	int		i;
+	int		prev;
 
-	current = stack_a->top;
-	i = 0;
-	while (current)
+	if (stack->top)
 	{
-		i++;
-		current = current->next;
-	}
-	return (i);
-}
-
-int	find_nums_to_push(int mid, t_stack *stack_a)
-{
-	int		to_push;
-	t_node	*current;
-
-	to_push = 0;
-	current = stack_a->top;
-	while (current)
-	{
-		if (current->simplified <= mid)
-			to_push++;
-		current = current->next;
-	}
-	return (to_push);
-}
-
-void	push_to_b(int to_push, int mid, t_stack *stack_a, t_stack *stack_b)
-{
-	while (to_push)
-	{
-		if (stack_a->top->simplified <= mid)
+		current = stack->top;
+		prev = current->simplified;
+		while (current->next)
 		{
-			pb(stack_a, stack_b);
-			to_push--;
+			current = current->next;
+			if (prev > current->simplified)
+				return (false);
+			prev = current->simplified;
 		}
-		else
-			ra(stack_a, stack_b);
 	}
+	return (true);
 }
 
-// char	decide_direction(t_stack *stack, int mid)
-// {
-// 	int		steps_up;
-// 	int		steps_down;
-// 	t_node	*current;
+bool	section_is_ascending(t_stack *stack, int len)
+{
+	t_node	*current;
+	int		prev;
 
-// 	steps_up = 0;
-// 	steps_down = 0;
-// 	current = stack->top;
-// 	while (current->simplified > mid)
-// 	{
-// 		steps_down++;
-// 		current = current->next;
-// 	}
-	
-// }
+	current = stack->top;
+	prev = current->simplified;
+	while (len--)
+	{
+		current = current->next;
+		if (prev > current->simplified)
+			return (false);
+		prev = current->simplified;
+	}
+	return (true);
+}
+
+char	decide_direction_a(t_stack *stack, int midpoint)
+{
+	t_node	*current;
+	int		steps_to_target;
+
+	current = stack->top;
+	steps_to_target = 0;
+	while (current->simplified > midpoint)
+	{
+		steps_to_target++;
+		current = current->next;
+	}
+	if (steps_to_target <= midpoint)
+		return (UP);
+	else
+		return (DOWN);
+}

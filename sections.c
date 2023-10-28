@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sections.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 06:10:47 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/23 20:53:36 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/28 12:27:18 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	init_list_of_sections(t_section_list *list)
-{
-	list->head = NULL;
-	list->tail = NULL;
-}
 
 void	add_section(int to_sort, t_section_list *list, char stack)
 {
@@ -32,27 +26,6 @@ void	add_section(int to_sort, t_section_list *list, char stack)
 		list->tail->next = new_section;
 	list->tail = new_section;
 	new_section->in = stack;
-}
-
-void	delete_section(t_section_list *section)
-{
-	t_section	*second_last;
-
-	if (!section->tail->prev)
-	{
-		free(section->tail);
-		section->tail = NULL;
-		return ;
-	}
-	if (!section || !section->tail)
-		return ;
-	second_last = section->tail->prev;
-	free(section->tail);
-	section->tail = second_last;
-	if (second_last)
-		second_last->next = NULL;
-	else
-		section->head = NULL;
 }
 
 /**
@@ -77,4 +50,19 @@ bool	section_is_sorted(t_node *begin_node, int size)
 		}
 	}
 	return (true);
+}
+
+void	remove_section(t_section_list *sections)
+{
+	t_section	*last;
+	t_section	*second_last;
+
+	last = sections->tail;
+	second_last = last->prev;
+	free(last);
+	sections->tail = second_last;
+	if (second_last)
+		second_last->next = NULL;
+	else
+		sections->head = NULL;
 }

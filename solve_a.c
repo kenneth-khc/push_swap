@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solve_a.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:28:54 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/25 17:23:59 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/28 15:24:18 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,30 @@
  */
 
 
-void	sort_three_elements(t_stack *a, t_stack *b)
+void	sort_three(t_stack *a, t_stack *b)
 {
 	t_node	*first;
 	t_node	*second;
 	t_node	*third;
 
+	if (elements_are_ascending(a))
+		return ;
 	first = a->top;
 	second = first->next;
 	third = second->next;
-	if (first->data > second->data && first->data > third->data)
+	if (first->simplified > second->simplified
+		&& first->simplified > third->simplified)
 	{
 		ra(a, b);
-		if (second->data > third->data)
+		if (second->simplified > third->simplified)
 			sa(a, b);
 	}
-	else if (first->data > second->data)
+	else if (first->simplified > second->simplified)
 		sa(a, b);
-	else if (first->data < second->data)
+	else if (first->simplified < second->simplified)
 	{
 		rra(a, b);
-		if (third->data > first->data)
+		if (third->simplified > first->simplified)
 			sa(a, b);
 	}
 }
@@ -58,7 +61,7 @@ void	sort_four(t_stack *a, t_stack *b)
 		}
 		ra(a, b);
 	}
-	sort_three_elements(a, b);
+	sort_three(a, b);
 	pa(a, b);
 }
 
@@ -82,7 +85,7 @@ void	sort_five(t_stack *a, t_stack *b)
 		}
 		ra(a, b);
 	}
-	sort_three_elements(a, b);
+	sort_three(a, b);
 	if (b->top->simplified < b->top->next->simplified)
 		sb(a, b);
 	pa(a, b);

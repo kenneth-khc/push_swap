@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   divide_and_conquer.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 20:28:21 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/25 19:54:38 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:50:18 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,33 @@ t_section *section)
 	int	to_push;
 
 	midpoint = find_mid_in_section(stack_b, section->len);
-	to_push = find_number_to_push_b(midpoint, stack_b, section->len);
+	to_push = find_nums_to_push_b(midpoint, stack_b, section->len);
 	section->len -= to_push;
 	push_to_a(to_push, midpoint, stack_a, stack_b);
 	return (to_push);
 }
 
-int	divide_section_a(t_stack *stack_a, t_stack *stack_b,
-t_section *section)
+int	find_nums_to_push_b(int mid, t_stack *stack, int section_len)
 {
-	int	midpoint;
-	int	to_push;
+	int		to_push;
+	t_node	*current;
 
-	midpoint = find_mid_in_section(stack_a, section->len);
-	to_push = find_nums_to_push(midpoint, stack_a);
-	section->len -= to_push;
-	push_further_to_b(to_push, midpoint, stack_a, stack_b);
+	to_push = 0;
+	current = stack->top;
+	while (section_len > 0)
+	{
+		if (current->simplified > mid)
+			to_push++;
+		current = current->next;
+		section_len--;
+	}
+	// while (i < section_len)
+	// {
+	// 	if (current->simplified >= mid)
+	// 		to_push++;
+	// 	current = current->next;
+	// 	i++;
+	// }
 	return (to_push);
 }
 
@@ -75,3 +86,17 @@ t_section_list *sections, t_section *latest_a)
 		divide_a_until_sorted(stack_a, stack_b, sections, latest_a);
 	}
 }
+
+int	divide_section_a(t_stack *stack_a, t_stack *stack_b,
+t_section *section)
+{
+	int	midpoint;
+	int	to_push;
+
+	midpoint = find_mid_in_section(stack_a, section->len);
+	to_push = find_nums_to_push(midpoint, stack_a);
+	section->len -= to_push;
+	push_further_to_b(to_push, midpoint, stack_a, stack_b);
+	return (to_push);
+}
+

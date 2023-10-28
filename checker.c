@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:18:53 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/25 10:41:27 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/26 13:36:58 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 	list_of_integers = parse_arguments(argc, ++argv, &size);
 	init_stacks(list_of_integers, size, &a, &b);
 	read_and_exec_instructions(&list_of_instructions, &a, &b);
-	if (stack_is_sorted(&a) && !stack_has_elements(&b))
+	if (elements_are_ascending(&a) && !stack_has_elements(&b))
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");
