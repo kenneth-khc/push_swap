@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 19:24:22 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 19:26:03 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 23:15:59 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	rrr(t_stack *a, t_stack *b)
 	t_node	*first;
 	t_node	*second_last;
 
+	if (!a->top || !a->top->next)
+		return ;
 	first = a->top;
 	second_last = a->top;
 	while (second_last->next->next)
@@ -25,6 +27,8 @@ void	rrr(t_stack *a, t_stack *b)
 	second_last->next->next = first;
 	a->top = second_last->next;
 	second_last->next = NULL;
+	if (!b->top || !b->top->next)
+		return ;
 	first = b->top;
 	second_last = b->top;
 	while (second_last->next->next)
