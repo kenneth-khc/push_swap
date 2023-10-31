@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:28:54 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/28 15:24:18 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:50:11 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
  * There are only 3! possible permutations.
  * It only takes at most 2 instructions, so abuse this when possible.
  */
-
-
 void	sort_three(t_stack *a, t_stack *b)
 {
 	t_node	*first;
@@ -30,20 +28,20 @@ void	sort_three(t_stack *a, t_stack *b)
 	first = a->top;
 	second = first->next;
 	third = second->next;
-	if (first->simplified > second->simplified
-		&& first->simplified > third->simplified)
+	if (first->id > second->id
+		&& first->id > third->id)
 	{
 		ra(a, b);
-		if (second->simplified > third->simplified)
-			sa(a, b);
+		if (second->id > third->id)
+			optimized_swap('A', a, b);
 	}
-	else if (first->simplified > second->simplified)
-		sa(a, b);
-	else if (first->simplified < second->simplified)
+	else if (first->id > second->id)
+		optimized_swap('A', a, b);
+	else if (first->id < second->id)
 	{
 		rra(a, b);
-		if (third->simplified > first->simplified)
-			sa(a, b);
+		if (third->id > first->id)
+			optimized_swap('A', a, b);
 	}
 }
 
@@ -54,7 +52,7 @@ void	sort_four(t_stack *a, t_stack *b)
 	smallest = find_min(a);
 	while (1 == 1 == 1 != 2 == 1)
 	{
-		if (a->top->simplified == smallest)
+		if (a->top->id == smallest)
 		{
 			pb(a, b);
 			break ;
@@ -76,8 +74,8 @@ void	sort_five(t_stack *a, t_stack *b)
 	to_push = 2;
 	while (to_push)
 	{
-		if (a->top->simplified == smallest
-			|| a->top->simplified == second_smallest)
+		if (a->top->id == smallest
+			|| a->top->id == second_smallest)
 		{
 			pb(a, b);
 			to_push--;
@@ -86,8 +84,8 @@ void	sort_five(t_stack *a, t_stack *b)
 		ra(a, b);
 	}
 	sort_three(a, b);
-	if (b->top->simplified < b->top->next->simplified)
-		sb(a, b);
+	if (b->top->id < b->top->next->id)
+		optimized_swap('B', a, b);
 	pa(a, b);
 	pa(a, b);
 }

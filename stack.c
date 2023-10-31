@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:44:35 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/28 14:56:59 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:52:39 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@
  * Create a temporary array for processing.
  * We need it to check for duplicates and to simplify our numbers.
 */
-
 void	init_stacks(t_stack *stack_a, t_stack *stack_b,
-	int *list_of_integers, int size)
+	int *integer_arr, int size)
 {
 	int	*temp;
 	int	i;
@@ -34,16 +33,16 @@ void	init_stacks(t_stack *stack_a, t_stack *stack_b,
 	i = 0;
 	while (i < size)
 	{
-		temp[i] = list_of_integers[i];
+		temp[i] = integer_arr[i];
 		i++;
 	}
 	quick_sort(temp, size);
 	check_for_duplicates(temp, size);
 	while (--size >= 0)
-		push(stack_a, list_of_integers[size]);
+		push(stack_a, integer_arr[size]);
 	simplify_stack(temp, stack_a);
 	free(temp);
-	free(list_of_integers);
+	free(integer_arr);
 }
 
 /**
@@ -52,7 +51,6 @@ void	init_stacks(t_stack *stack_a, t_stack *stack_b,
  * if duplicates are present, they will be placed next to each other.
  * Throw error.
 */
-
 void	check_for_duplicates(int *array, int size)
 {
 	int	i;
@@ -73,7 +71,6 @@ void	check_for_duplicates(int *array, int size)
  * sorted array to find the position the data is in, then assign
  * that number to the node.
  */
-
 void	simplify_stack(int *array, t_stack *stack_a)
 {
 	int		i;
@@ -85,7 +82,7 @@ void	simplify_stack(int *array, t_stack *stack_a)
 		i = 0;
 		while (current->data != array[i])
 			i++;
-		current->simplified = i;
+		current->id = i;
 		current = current->next;
 	}
 }
@@ -95,7 +92,6 @@ void	simplify_stack(int *array, t_stack *stack_a)
  * It is now the top element of the stack and point towards the
  * previous top element.
 */
-
 void	push(t_stack *stack, int data)
 {
 	t_node	*new_node;
@@ -107,4 +103,3 @@ void	push(t_stack *stack, int data)
 	new_node->next = stack->top;
 	stack->top = new_node;
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:21:53 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/26 12:46:45 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:00:43 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "push_swap.h"
 # include <stdio.h>
 # include <stdbool.h>
+
+# define NUM_OF_INSTRUCTIONS 11
 
 typedef struct s_instruction		t_instruction;
 typedef void						(*t_function_pointer)();

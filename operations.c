@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:44:52 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/25 10:41:27 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:26:06 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,7 @@
 
 #include "push_swap.h"
 
-// void	sa(t_stack *stack_a)
-// {
-// 	t_node	*temp;
-// 	t_node	*temp2;
-
-// 	printf("TOP: %d\n", stack_a->top->data);
-// 	printf("TOP NEXT: %d\n", stack_a->top->next->data);
-// 	temp = stack_a->top;
-// 	temp2 = stack_a->top->next->next;
-// 	stack_a->top = stack_a->top->next;
-// 	stack_a->top->next = temp;
-// 	stack_a->top->next->next = temp2;
-// }
-
+/* Swap the first two elements of stack A. */
 void	sa(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*first;
@@ -47,6 +34,7 @@ void	sa(t_stack *stack_a, t_stack *stack_b)
 	ft_printf("sa\n");
 }
 
+/* Swap the first two elements of stack B. */
 void	sb(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*first;
@@ -63,12 +51,26 @@ void	sb(t_stack *stack_a, t_stack *stack_b)
 	ft_printf("sb\n");
 }
 
+/* Swap the first two elements of stack A and stack B. */
 void	ss(t_stack *stack_a, t_stack *stack_b)
 {
-	sa(stack_a, stack_b);
-	sb(stack_a, stack_b);
+	t_node	*first;
+	t_node	*second;
+
+	first = stack_a->top;
+	second = first->next;
+	first->next = second->next;
+	second->next = first;
+	stack_a->top = second;
+	first = stack_b->top;
+	second = first->next;
+	first->next = second->next;
+	second->next = first;
+	stack_b->top = second;
+	ft_printf("ss\n");
 }
 
+/* Push the top element from stack B to stack A. */
 void	pa(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*a_first;
@@ -84,6 +86,7 @@ void	pa(t_stack *stack_a, t_stack *stack_b)
 	ft_printf("pa\n");
 }
 
+/* Push the top element from stack A to stack B. */
 void	pb(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*a_first;

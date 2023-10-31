@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 22:47:27 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/14 03:45:42 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:00:47 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,29 @@ void	error(void)
 /**
  * Using the list of integers stored in the array,
  * convert each element back to a string and
- * compare it with the original string
- * If they do not match, a non integer was entered, therefore error
+ * compare it with the original string.
+ * If they do not match, a non integer was entered, therefore error.
+ * + signs are trimmed.
 */
-
-void	validate_integers(int *list_of_integers, char **argv)
+void	validate_integers(int *integer_arr, char **strings)
 {
+	char	**strings_ptr;
+	char	*trimmed_arg;
 	char	*reconverted;
+	int		len;
 
-	if (*argv == NULL || **argv == '\0')
-		error();
-	while (*argv)
+	strings_ptr = strings;
+	while (*strings)
 	{
-		reconverted = ft_itoa(*list_of_integers++);
-		if (ft_strncmp(reconverted, *argv, ft_strlen(reconverted) + 1) != 0)
+		trimmed_arg = ft_strtrim(*strings, "+");
+		reconverted = ft_itoa(*integer_arr++);
+		len = ft_strlen(reconverted) + 1;
+		if (ft_strncmp(reconverted, trimmed_arg, len))
 			error();
 		free(reconverted);
-		argv++;
+		free(trimmed_arg);
+		free(*strings);
+		strings++;
 	}
+	free(strings_ptr);
 }

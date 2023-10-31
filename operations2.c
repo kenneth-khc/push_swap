@@ -3,95 +3,110 @@
 /*                                                        :::      ::::::::   */
 /*   operations2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:53:03 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/25 10:41:27 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:24:32 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ra(t_stack *stack_a, t_stack *stack_b)
+/* Shift stack A upwards. */
+void	ra(t_stack *a, t_stack *b)
 {
 	t_node	*first;
 	t_node	*last;
 
-	(void)stack_b;
-	if (!stack_a->top || !stack_a->top->next)
+	(void)b;
+	if (!a->top || !a->top->next)
 		return ;
-	first = stack_a->top;
-	last = stack_a->top;
+	first = a->top;
+	last = a->top;
 	while (last->next)
 		last = last->next;
 	last->next = first;
-	stack_a->top = first->next;
+	a->top = first->next;
 	first->next = NULL;
 	ft_printf("ra\n");
 }
 
-void	rb(t_stack *stack_a, t_stack *stack_b)
+/* Shift stack B upwards. */
+void	rb(t_stack *a, t_stack *b)
 {
 	t_node	*first;
 	t_node	*last;
 
-	(void)stack_a;
-	if (!stack_b->top || !stack_b->top->next)
+	(void)a;
+	if (!b->top || !b->top->next)
 		return ;
-	first = stack_b->top;
-	last = stack_b->top;
+	first = b->top;
+	last = b->top;
 	while (last->next)
 		last = last->next;
 	last->next = first;
-	stack_b->top = first->next;
+	b->top = first->next;
 	first->next = NULL;
 	ft_printf("rb\n");
 }
 
-void	rr(t_stack *stack_a, t_stack *stack_b)
+/* Shift both stack A and stack B upwards. */
+void	rr(t_stack *a, t_stack *b)
 {
-	ra(stack_a, stack_b);
-	rb(stack_a, stack_b);
+	t_node	*first;
+	t_node	*last;
+
+	first = a->top;
+	last = a->top;
+	while (last->next)
+		last = last->next;
+	last->next = first;
+	a->top = first->next;
+	first->next = NULL;
+	first = b->top;
+	last = b->top;
+	while (last->next)
+		last = last->next;
+	last->next = first;
+	b->top = first->next;
+	first->next = NULL;
+	ft_printf("rr\n");
 }
 
-void	rra(t_stack *stack_a, t_stack *stack_b)
+/* Shift stack A downwards. */
+void	rra(t_stack *a, t_stack *b)
 {
 	t_node	*first;
 	t_node	*second_last;
 
-	(void)stack_b;
-	if (!stack_a->top || !stack_a->top->next)
+	(void)b;
+	if (!a->top || !a->top->next)
 		return ;
-	first = stack_a->top;
-	second_last = stack_a->top;
+	first = a->top;
+	second_last = a->top;
 	while (second_last->next->next)
 		second_last = second_last->next;
 	second_last->next->next = first;
-	stack_a->top = second_last->next;
+	a->top = second_last->next;
 	second_last->next = NULL;
 	ft_printf("rra\n");
 }
 
-void	rrb(t_stack *stack_a, t_stack *stack_b)
+/* Shift stack B downwards. */
+void	rrb(t_stack *a, t_stack *b)
 {
 	t_node	*first;
 	t_node	*second_last;
 
-	(void)stack_a;
-	if (!stack_b->top || !stack_b->top->next)
+	(void)a;
+	if (!b->top || !b->top->next)
 		return ;
-	first = stack_b->top;
-	second_last = stack_b->top;
+	first = b->top;
+	second_last = b->top;
 	while (second_last->next->next)
 		second_last = second_last->next;
 	second_last->next->next = first;
-	stack_b->top = second_last->next;
+	b->top = second_last->next;
 	second_last->next = NULL;
 	ft_printf("rrb\n");
-}
-
-void	rrr(t_stack *stack_a, t_stack *stack_b)
-{
-	rra(stack_a, stack_b);
-	rrb(stack_a, stack_b);
 }

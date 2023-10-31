@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:59:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/28 18:52:16 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 20:08:24 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,11 @@ int	main(int argc, char **argv)
 	t_stack	a;
 	t_stack	b;
 
-	size = 0;
 	list_of_integers = parse_arguments(argc, ++argv, &size);
 	init_stacks(&a, &b, list_of_integers, size);
 	if (stacks_are_not_sorted(&a, &b))
 		quicksort(&a, &b, size);
 	free_stack(&a);
-
-// printf("--------------------------------- END RESULT --------------------------------\n");
-// printf("SIZE: %d\n", size);
-// peek_entire_stack(a, b);
 }
 
 void	quicksort(t_stack *a, t_stack *b, int size)
@@ -37,17 +32,7 @@ void	quicksort(t_stack *a, t_stack *b, int size)
 
 	sections.head = NULL;
 	sections.tail = NULL;
-
 	sort_a(a, b, size, &sections);
-
-	t_section *current;
-	current = sections.head;
-	while (current)
-	{
-		// printf("SECTION LIST BEFORE SORT B: %d\n", current->len);
-		current = current->next;
-	}
-
 	sort_b(a, b, &sections);
 }
 
@@ -74,8 +59,8 @@ void	sort_a(t_stack *a, t_stack *b, int num_of_elements,
 		else if (len == 3)
 			sort_three(a, b);
 		else if (len == 2)
-			if (a->top->simplified > a->top->next->simplified)
-				sa(a, b);
+			if (a->top->id > a->top->next->id)
+				optimized_swap('A', a, b);
 		return ;
 	}
 }
@@ -91,7 +76,10 @@ void	sort_b(t_stack *a, t_stack *b, t_section_list *sections)
 		divide_section(a, b, sections);
 	else if (current_section->len <= 3)
 	{
-		sort_current_section(a, b, current_section);
+		if (current_section->in == 'B')
+			sort_section_b(a, b, current_section->len);
+		else if (current_section->in == 'A')
+			sort_section_a(a, b, current_section->len);
 		remove_section(sections);
 	}
 	sort_b(a, b, sections);

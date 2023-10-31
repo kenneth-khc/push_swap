@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 03:36:58 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/28 18:01:09 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 21:14:12 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,40 +39,39 @@ int	find_midpoint(t_stack *stack)
 	return (mid);
 }
 
-int	find_nums_to_push(int mid, t_stack *stack_a)
+int	find_nums_to_push(int mid, t_stack *a)
 {
 	int		to_push;
 	t_node	*current;
 
 	to_push = 0;
-	current = stack_a->top;
+	current = a->top;
 	while (current)
 	{
-		if (current->simplified <= mid)
+		if (current->id <= mid)
 			to_push++;
 		current = current->next;
 	}
 	return (to_push);
 }
 
-void	push_to_b(int to_push, int mid, t_stack *stack_a, t_stack *stack_b)
+void	push_to_b(int to_push, int mid, t_stack *a, t_stack *b)
 {
 	char	direction;
+	bool	checked;
 
+	checked = false;
 	while (to_push)
 	{
-		if (stack_a->top->simplified <= mid)
+		if (!checked)
+			direction = decide_direction_a(a, mid, &checked);
+		if (a->top->id <= mid)
 		{
-			pb(stack_a, stack_b);
+			pb(a, b);
 			to_push--;
+			checked = false;
 		}
 		else
-		{
-			direction = decide_direction_a(stack_a, mid);
-			if (direction == UP)
-				ra(stack_a, stack_b);
-			else if (direction == DOWN)
-				rra(stack_a, stack_b);
-		}
+			shift_stack(a, b, direction, 'A');
 	}
 }

@@ -6,93 +6,11 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 20:23:27 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/28 18:57:14 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 21:12:51 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-// void	reverse_sort_three_elements(t_stack *stack_a, t_stack *stack_b)
-// {
-// 	int	remaining_elements;
-
-// 	remaining_elements = stack_len(stack_b);
-// 	if (elements_are_descending(stack_b))
-// 	{
-// 		while (remaining_elements--)
-// 			pa(stack_a, stack_b);
-// 		return ;
-// 	}
-// 	if (remaining_elements == 1)
-// 		pa(stack_a, stack_b);
-// 	else if (remaining_elements == 2)
-// 	{
-// 		if (stack_b->top->simplified < stack_b->top->next->simplified)
-// 			sb(stack_a, stack_b);
-// 		pa(stack_a, stack_b);
-// 		pa(stack_a, stack_b);
-// 	}
-// 	else
-// 		reverse_sort_three(stack_a, stack_b);
-// }
-
-// void	reverse_sort_three(t_stack *stack_a, t_stack *stack_b)
-// {
-// 	t_node	*first;
-// 	t_node	*second;
-// 	t_node	*third;
-
-// 	first = stack_b->top;
-// 	second = first->next;
-// 	third = second->next;
-// 	if (first->simplified == stack_a->top->simplified - 1)
-// 	{
-// 		pa(stack_a, stack_b);
-// 		if (second->simplified < third->simplified)
-// 			sb(stack_a, stack_b);
-// 		pa(stack_a, stack_b);
-// 		pa(stack_a, stack_b);
-// 	}
-// 	else if (second->simplified == stack_a->top->simplified - 1)
-// 	{
-// 		if (first->simplified < third->simplified)
-// 			rrb(stack_a, stack_b);
-// 		else
-// 			sb(stack_a, stack_b);
-// 		pa(stack_a, stack_b);
-// 		pa(stack_a, stack_b);
-// 		pa(stack_a, stack_b);
-// 	}
-// 	else
-// 	{
-// 		rrb(stack_a, stack_b);
-// 		pa(stack_a, stack_b);
-// 		if (first->simplified < second->simplified)
-// 			sb(stack_a, stack_b);
-// 		pa(stack_a, stack_b);
-// 		pa(stack_a, stack_b);
-// 	}
-// }
-
-bool	elements_are_descending(t_stack *stack)
-{
-	t_node	*current;
-	int		prev;
-
-	if (stack->top)
-	{
-		current = stack->top;
-		prev = current->simplified;
-		while (current->next)
-		{
-			current = current->next;
-			if (prev < current->simplified)
-				return (false);
-			prev = current->simplified;
-		}
-	}
-	return (true);
-}
 
 bool	section_is_descending(t_stack *stack, int len)
 {
@@ -100,91 +18,106 @@ bool	section_is_descending(t_stack *stack, int len)
 	int		prev;
 
 	current = stack->top;
-	prev = current->simplified;
+	prev = current->id;
 	while (--len)
 	{
 		current = current->next;
-		if (prev < current->simplified)
+		if (prev < current->id)
 			return (false);
-		prev = current->simplified;
+		prev = current->id;
 	}
 	return (true);
 }
 
-char	decide_direction_b(t_stack *stack, int midpoint)
+char	decide_direction_b(t_stack *stack, int midpoint, bool *checked)
 {
 	t_node	*current;
 	int		steps_to_target;
 
 	current = stack->top;
 	steps_to_target = 0;
-	while (current->simplified < midpoint)
+	while (current->id < midpoint)
 	{
-		steps_to_target++;
 		current = current->next;
+		steps_to_target++;
 	}
+	*checked = true;
 	if (steps_to_target <= midpoint)
 		return (UP);
 	else
 		return (DOWN);
 }
 
-void	push_to_a(int to_push, int mid, t_stack *stack_a, t_stack *stack_b)
+void	push_section_to_a(int to_push, int mid, t_stack *a, t_stack *b)
 {
 	char	direction;
-	int		rotated;
+	int		shifted_up;
+	bool	checked;
 
-	rotated = 0;
+	shifted_up = 0;
+	checked = false;
 	while (to_push)
 	{
-		if (stack_b->top->simplified > mid)
+		if (!checked)
+			direction = decide_direction_b(b, mid, &checked);
+		if (b->top->id > mid)
 		{
-			pa(stack_a, stack_b);
-			if (--to_push == 0)
-				break ;
+			pa(a, b);
+			to_push--;
+			checked = false;
 		}
 		else
 		{
-			direction = decide_direction_b(stack_a, mid);
-			if (direction == UP)
-				rb(stack_a, stack_b);
-			else if (direction == DOWN)
-				rrb(stack_a, stack_b);
-			rotated++;
+			shift_stack(a, b, direction, 'B');
+			shifted_up++;
 		}
 	}
-	while (rotated > 0)
+	while (shifted_up--)
+		rrb(a, b);
+}
+
+void	push_last_section(int to_push, int mid, t_stack *a, t_stack *b)
+{
+	char	direction;
+	bool	checked;
+
+	checked = false;
+	while (to_push)
 	{
-		rrb(stack_a, stack_b);
-		rotated--;
+		if (!checked)
+			direction = decide_direction_b(b, mid, &checked);
+		if (b->top->id > mid)
+		{
+			pa(a, b);
+			if (--to_push == 0)
+				break ;
+			checked = false;
+		}
+		else
+		{
+			shift_stack(a, b, direction, 'B');
+		}
 	}
 }
 
-void	push_further_to_b(int to_push, int mid, t_stack *stack_a, t_stack *stack_b)
+void	pushback_to_b(int to_push, int mid, t_stack *a, t_stack *b)
 {
 	int		shifted_up;
-	char	direction;
 
 	shifted_up = 0;
 	while (to_push)
 	{
-		if (stack_a->top->simplified <= mid)
+		if (a->top->id <= mid)
 		{
-			pb(stack_a, stack_b);
+			pb(a, b);
 			to_push--;
 		}
 		else
 		{
-			direction = decide_direction_a(stack_a, mid);
-			if (direction == UP)
-				ra(stack_a, stack_b);
-			else if (direction == DOWN)
-				rra(stack_a, stack_b);
+			ra(a, b);
 			shifted_up++;
 		}
-	}//here
+	}
 	while (shifted_up--)
-		rra(stack_a, stack_b);
-	// while (shifted_up--)
-		// rra(stack_a, stack_b);
+		rra(a, b);
 }
