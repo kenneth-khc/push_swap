@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 06:10:47 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/28 12:27:18 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 23:19:02 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,6 @@ void	add_section(int to_sort, t_section_list *list, char stack)
 		list->tail->next = new_section;
 	list->tail = new_section;
 	new_section->in = stack;
-}
-
-/**
- * Check to see if a group of elements are sorted.
- */
-
-bool	section_is_sorted(t_node *begin_node, int size)
-{
-	t_node	*current;
-	int		prev;
-
-	if (begin_node)
-	{
-		current = begin_node;
-		prev = current->data;
-		while (--size)
-		{
-			current = current->next;
-			if (prev > current->data)
-				return (false);
-			prev = current->data;
-		}
-	}
-	return (true);
 }
 
 void	remove_section(t_section_list *sections)
