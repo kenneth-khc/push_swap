@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:44:52 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 22:09:59 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 23:04:47 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,81 +18,85 @@
 #include "../push_swap.h"
 
 /* Swap the first two elements of stack A. */
-void	sa(t_stack *stack_a, t_stack *stack_b)
+void	sa(t_stack *a, t_stack *b)
 {
 	t_node	*first;
 	t_node	*second;
 
-	(void)stack_b;
-	if (!stack_a->top || !stack_a->top->next)
+	(void)b;
+	if (!a->top || !a->top->next)
 		return ;
-	first = stack_a->top;
+	first = a->top;
 	second = first->next;
 	first->next = second->next;
 	second->next = first;
-	stack_a->top = second;
+	a->top = second;
 }
 
 /* Swap the first two elements of stack B. */
-void	sb(t_stack *stack_a, t_stack *stack_b)
+void	sb(t_stack *a, t_stack *b)
 {
 	t_node	*first;
 	t_node	*second;
 
-	(void)stack_a;
-	if (!stack_b->top || !stack_b->top->next)
+	(void)a;
+	if (!b->top || !b->top->next)
 		return ;
-	first = stack_b->top;
+	first = b->top;
 	second = first->next;
 	first->next = second->next;
 	second->next = first;
-	stack_b->top = second;
+	b->top = second;
 }
 
 /* Swap the first two elements of stack A and stack B. */
-void	ss(t_stack *stack_a, t_stack *stack_b)
+void	ss(t_stack *a, t_stack *b)
 {
 	t_node	*first;
 	t_node	*second;
 
-	first = stack_a->top;
+	if (!a->top || !a->top->next)
+		return ;
+	first = a->top;
 	second = first->next;
 	first->next = second->next;
 	second->next = first;
-	stack_a->top = second;
-	first = stack_b->top;
+	a->top = second;
+	if (!b->top || !a->top->next)
+		return ;
+	first = b->top;
 	second = first->next;
 	first->next = second->next;
 	second->next = first;
-	stack_b->top = second;
+	b->top = second;
 }
 
 /* Push the top element from stack B to stack A. */
-void	pa(t_stack *stack_a, t_stack *stack_b)
+void	pa(t_stack *a, t_stack *b)
 {
 	t_node	*a_first;
 	t_node	*b_first;
 
-	if (!stack_b->top)
+	if (!b->top)
 		return ;
-	a_first = stack_a->top;
-	b_first = stack_b->top;
-	stack_a->top = b_first;
-	stack_b->top = b_first->next;
+	a_first = a->top;
+	b_first = b->top;
+	a->top = b_first;
+	b->top = b_first->next;
 	b_first->next = a_first;
 }
 
 /* Push the top element from stack A to stack B. */
-void	pb(t_stack *stack_a, t_stack *stack_b)
+void	pb(t_stack *a, t_stack *b)
 {
 	t_node	*a_first;
 	t_node	*b_first;
 
-	if (!stack_a->top)
+	if (!a->top)
 		return ;
-	a_first = stack_a->top;
-	b_first = stack_b->top;
-	stack_b->top = a_first;
-	stack_a->top = a_first->next;
+	a_first = a->top;
+	b_first = b->top;
+	b->top = a_first;
+	a->top = a_first->next;
 	a_first->next = b_first;
 }

@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:59:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 20:08:24 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 22:43:09 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 	init_stacks(&a, &b, list_of_integers, size);
 	if (stacks_are_not_sorted(&a, &b))
 		quicksort(&a, &b, size);
-	free_stack(&a);
+	free_stacks(&a, &b);
 }
 
 void	quicksort(t_stack *a, t_stack *b, int size)

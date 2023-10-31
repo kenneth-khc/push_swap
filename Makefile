@@ -1,9 +1,9 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+FSAN = -fsanitize=address -g3
 RED = \033[0;91m
 GREEN = \033[92m
 RESET = \033[0m
-#FSAN = -fsanitize=address -g3
 
 NAME = push_swap
 BONUS_NAME = checker
@@ -18,17 +18,21 @@ divide_and_conquer.c solve_a.c optimize_swaps.c optimize_rotates.c
 CHECKER_DIR = checker_src
 SOURCES_BONUS = $(CHECKER_DIR)/checker.c $(CHECKER_DIR)/checker_utils.c stack.c stack_utils.c arguments.c \
 errors.c $(CHECKER_DIR)/checker_operations.c $(CHECKER_DIR)/checker_operations2.c $(CHECKER_DIR)/checker_operations3.c \
-quicksort.c sorting.c sort_a_utils.c 
+quicksort.c sorting.c sort_a_utils.c stack_utils2.c optimize_swaps.c
 
 ARG = 1 2 3
 
 all: $(NAME)
 
-bonus: all
+bonus: $(BONUS_NAME)
 
 $(NAME): $(LIBFT)
-	$(CC) $(SOURCES) $(CFLAGS) $(LIBFT) -o $(NAME) -g
+	$(CC) $(SOURCES) $(CFLAGS) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)$(NAME) compiled!$(RESET)"
+
+$(BONUS_NAME): $(LIBFT)
+	$(CC) $(SOURCES_BONUS) $(CFLAGS) $(LIBFT) -o $(BONUS_NAME)
+	@echo "$(GREEN)$(BONUS_NAME) compiled!$(RESET)"
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
@@ -38,8 +42,9 @@ clean:
 
 fclean: clean
 	@make -C $(LIBFT_DIR) fclean
-	@rm -f $(NAME)
+	@rm -f $(NAME) $(BONUS_NAME)
 	@echo "$(RED)$(NAME) cleaned!$(RESET)"
+	@echo "$(RED)$(BONUS_NAME) cleaned!$(RESET)"
 
 re: fclean all
 

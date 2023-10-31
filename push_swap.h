@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 21:13:36 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 22:43:03 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ char	decide_direction_a(t_stack *stack, int midpoint, bool *checked);
 char	decide_direction_b(t_stack *stack, int midpoint, bool *checked);
 
 int		find_min(t_stack *a);
-void	free_stack(t_stack *stack);
+void	free_stacks(t_stack *a, t_stack *b);
 bool	section_is_descending(t_stack *stack, int len);
 bool	top_is_ascending(t_stack *stack);
 bool	top_is_descending(t_stack *stack);

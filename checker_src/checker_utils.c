@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:26:31 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 22:31:19 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 23:02:38 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	free_instruction_list(t_instruction *head)
 	while (head)
 	{
 		prev = head;
-		free(prev);
 		head = head->next;
+		free(prev);
 	}
 }

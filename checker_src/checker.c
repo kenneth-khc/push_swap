@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:18:53 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 22:31:24 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 23:00:32 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,17 @@ int	main(int argc, char **argv)
 	t_stack			b;
 	int				size;
 	int				*integer_arr;
-	t_instruction	instructions_list;
+	t_instruction	*instructions_list;
 
 	integer_arr = parse_arguments(argc, ++argv, &size);
 	init_stacks(&a, &b, integer_arr, size);
-	read_and_exec_instructions(&instructions_list, &a, &b);
+	instructions_list = malloc(sizeof(t_instruction));
+	read_and_exec_instructions(instructions_list, &a, &b);
 	if (elements_are_ascending(&a) && stack_is_empty(&b))
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");
+	free_stacks(&a, &b);
 }
 
 /**
@@ -63,7 +65,7 @@ void	read_and_exec_instructions(t_instruction *instructions_list,
 		current = current->next;
 	}
 	execute_instructions(instructions_list, &instruction_table, a, b);
-	free_instruction_list(instructions_list->next);
+	free_instruction_list(instructions_list);
 }
 
 /**

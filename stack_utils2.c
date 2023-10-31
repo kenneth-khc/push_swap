@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:44:47 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 21:05:10 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 22:42:46 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,20 @@ void	find_min_max(t_stack *stack, int *min, int *max)
 	}
 }
 
-void	free_stack(t_stack *stack)
+void	free_stacks(t_stack *a, t_stack *b)
 {
 	t_node	*current;
 	t_node	*prev;
 
-	current = stack->top;
+	current = a->top;
+	prev = NULL;
+	while (current)
+	{
+		prev = current;
+		current = current->next;
+		free(prev);
+	}
+	current = b->top;
 	prev = NULL;
 	while (current)
 	{
