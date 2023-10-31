@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 22:46:43 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 19:37:03 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 21:34:56 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,4 @@ int	find_min(t_stack *stack_a)
 		current = current->next;
 	}
 	return (x);
-}
-
-bool	stack_has_elements(t_stack *stack)
-{
-	if (stack->top)
-		return (true);
-	return (false);
 }

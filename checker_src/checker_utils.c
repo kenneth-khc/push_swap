@@ -6,14 +6,28 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:26:31 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 16:32:08 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 22:31:19 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-void	free_and_move_list(t_instruction **node)
+bool	stack_is_empty(t_stack *stack)
 {
-	free((*node)->instruction);
-	*node = (*node)->next;
+	if (stack->top)
+		return (false);
+	return (true);
+}
+
+void	free_instruction_list(t_instruction *head)
+{
+	t_instruction	*prev;
+
+	prev = NULL;
+	while (head)
+	{
+		prev = head;
+		free(prev);
+		head = head->next;
+	}
 }

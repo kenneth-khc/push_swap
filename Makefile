@@ -15,9 +15,12 @@ sorting.c sections.c stack.c stack_utils.c stack_utils2.c stack_utils3.c \
 quicksort.c sort_a.c sort_a_utils.c sort_b.c sort_b_utils.c \
 divide_and_conquer.c solve_a.c optimize_swaps.c optimize_rotates.c
 
-SOURCES_BONUS = checker.c stack.c utils.c arguments.c errors.c operations.c operations2.c testing.c quicksort.c sorting.c
+CHECKER_DIR = checker_src
+SOURCES_BONUS = $(CHECKER_DIR)/checker.c $(CHECKER_DIR)/checker_utils.c stack.c stack_utils.c arguments.c \
+errors.c $(CHECKER_DIR)/checker_operations.c $(CHECKER_DIR)/checker_operations2.c $(CHECKER_DIR)/checker_operations3.c \
+quicksort.c sorting.c sort_a_utils.c 
 
-ARG =
+ARG = 1 2 3
 
 all: $(NAME)
 
@@ -62,7 +65,7 @@ a: $(LIBFT)
 b: $(LIBFT)
 	@$(CC) $(SOURCES_BONUS) $(CFLAGS) $(LIBFT) -o $(BONUS_NAME) $(FSAN)
 	@echo "$(GREEN)checker compiled!$(RESET)"
-	@./$(BONUS_NAME) $(ARG) 2>&1 | cat -e
+	@./$(BONUS_NAME) $(ARG)
 	@echo "$(GREEN"checker done!$RESET)"
 
 .PHONY: all clean fclean re bonus

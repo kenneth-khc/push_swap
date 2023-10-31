@@ -3,34 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kecheong <kecheong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:18:53 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/26 13:36:58 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/10/31 22:31:24 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
+#include "checker.h"
 
 /**
  * This is a program to check if given a list of operations on a stack of
  * integers, whether the list of operations 
  * successfully sorts the stack or not.
  */
-
 int	main(int argc, char **argv)
 {
 	t_stack			a;
 	t_stack			b;
 	int				size;
-	int				*list_of_integers;
-	t_instruction	list_of_instructions;
+	int				*integer_arr;
+	t_instruction	instructions_list;
 
-	size = 0;
-	list_of_integers = parse_arguments(argc, ++argv, &size);
-	init_stacks(list_of_integers, size, &a, &b);
-	read_and_exec_instructions(&list_of_instructions, &a, &b);
-	if (elements_are_ascending(&a) && !stack_has_elements(&b))
+	integer_arr = parse_arguments(argc, ++argv, &size);
+	init_stacks(&a, &b, integer_arr, size);
+	read_and_exec_instructions(&instructions_list, &a, &b);
+	if (elements_are_ascending(&a) && stack_is_empty(&b))
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");
@@ -43,15 +42,14 @@ int	main(int argc, char **argv)
  * signalling the end of the instructions.
  * After storing all instructions, operate on the stack.
  */
-
-void	read_and_exec_instructions(t_instruction *list_of_instructions,
+void	read_and_exec_instructions(t_instruction *instructions_list,
 		t_stack *a, t_stack *b)
 {
 	t_instruction_table	instruction_table[NUM_OF_INSTRUCTIONS];
 	t_instruction		*current;
 
 	init_instruction_table(&instruction_table);
-	current = list_of_instructions;
+	current = instructions_list;
 	while (1)
 	{
 		current->instruction = get_next_line(STDIN_FILENO);
@@ -64,15 +62,15 @@ void	read_and_exec_instructions(t_instruction *list_of_instructions,
 		current->next = malloc(sizeof(t_instruction));
 		current = current->next;
 	}
-	execute_instructions(list_of_instructions, &instruction_table, a, b);
+	execute_instructions(instructions_list, &instruction_table, a, b);
+	free_instruction_list(instructions_list->next);
 }
 
 /**
- * Initialize an array of structures containing strings of the name of
+ * Initialize an array of structs containing strings of the name of
  * the operations and a pointer to its function.
  * This array of structures will be known as the instruction table.
  */
-
 void	init_instruction_table(t_instruction_table (*table)[])
 {
 	(*table)[0] = (t_instruction_table){"sa\n", sa};
@@ -93,17 +91,19 @@ void	init_instruction_table(t_instruction_table (*table)[])
  * If it does not match any of the possible instructions,
  * immediately throw an error.
  */
-
 void	validate_instruction(char *instruction,
 			t_instruction_table (*table)[])
 {
-	int	i;
+	int			i;
+	int			len;
+	const char	*name;
 
 	i = 0;
 	while (i < NUM_OF_INSTRUCTIONS)
 	{
-		if (ft_strncmp(instruction, (*table)[i].instruction_name,
-			ft_strlen(instruction) + 1) == 0)
+		len = ft_strlen(instruction) + 1;
+		name = (*table)[i].instruction_name;
+		if (!ft_strncmp(instruction, name, len))
 			return ;
 		i++;
 	}
@@ -116,21 +116,23 @@ void	validate_instruction(char *instruction,
  * the instruction table and call its function accordingly.
  * Free each instruction as it is not longer needed.
 */
-
-void	execute_instructions(t_instruction *list_of_instructions,
+void	execute_instructions(t_instruction *instructions_list,
 		t_instruction_table (*table)[], t_stack *stack_a, t_stack *stack_b)
 {
 	int				i;
+	int				len;
+	const char		*name;
 	t_instruction	*current;
 
-	current = list_of_instructions;
+	current = instructions_list;
 	while (current->next)
 	{
 		i = 0;
 		while (i < NUM_OF_INSTRUCTIONS)
 		{
-			if (ft_strncmp(current->instruction, (*table)[i].instruction_name,
-				ft_strlen(current->instruction) + 1) == 0)
+			name = (*table)[i].instruction_name;
+			len = ft_strlen(current->instruction) + 1;
+			if (!ft_strncmp(current->instruction, name, len))
 				(*table)[i].instruction(stack_a, stack_b);
 			i++;
 		}
