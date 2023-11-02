@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:59:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 22:43:09 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:50:53 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 int	main(int argc, char **argv)
 {
-	int		*list_of_integers;
-	int		size;
+	int		*integers;
+	int		arr_size;
 	t_stack	a;
 	t_stack	b;
 
-	list_of_integers = parse_arguments(argc, ++argv, &size);
-	init_stacks(&a, &b, list_of_integers, size);
+	integers = parse_arguments(argc, ++argv, &arr_size);
+	init_stacks(&a, &b, integers, arr_size);
 	if (stacks_are_not_sorted(&a, &b))
-		quicksort(&a, &b, size);
+		quicksort(&a, &b, arr_size);
 	free_stacks(&a, &b);
 }
 
-void	quicksort(t_stack *a, t_stack *b, int size)
+void	quicksort(t_stack *a, t_stack *b, int arr_size)
 {
 	t_section_list	sections;
 
 	sections.head = NULL;
 	sections.tail = NULL;
-	sort_a(a, b, size, &sections);
+	sort_a(a, b, arr_size, &sections);
 	sort_b(a, b, &sections);
 }
 

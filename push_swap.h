@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 23:57:22 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:31:30 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ enum e_directions {
 	UP = 'U',
 	DOWN = 'D'
 };
+
+# define UNUSED (void)
 
 typedef struct s_stack				t_stack;
 typedef struct s_node				t_node;
@@ -58,9 +60,9 @@ int		*parse_arguments(int argc, char **argv, int *size);
 char	*join_arguments(char *s1, const char *s2);
 char	**extract_arguments(char **argv);
 int		count_numbers(char **strings);
-void	validate_integers(int *integer_arr, char **argv);
+void	validate_integers(int *integers, char **argv);
 void	check_for_duplicates(int *array, int size);
-void	init_stacks(t_stack *a, t_stack *b, int *integer_arr, int size);
+void	init_stacks(t_stack *a, t_stack *b, int *integers, int size);
 void	simplify_stack(int *array, t_stack *a);
 
 /* Real quicksort */
@@ -143,5 +145,20 @@ void	push_to_opposite_stack(t_stack *a, t_stack *b, char current_stack);
 // Sections list
 void	add_section(int to_sort, t_section_list *list, char stack);
 void	remove_section(t_section_list *sections);
+
+// organize later
+
+void	sort_section_a_5(t_stack *a, t_stack *b, int section_len);
+void	sort_three2(t_stack *a, t_stack *b);
+void	sort_five2(t_stack *a, t_stack *b);
+void	sort_four2(t_stack *a, t_stack *b);
+int		find_section_minimum(t_stack *stack, int section_len);
+
+void	sort_six2(t_stack *a, t_stack *b);
+
+int		find_steps_to_reverse_target(t_stack *stack, int midpoint);
+bool	has_next_target(t_node **current, t_node **last, int mid, int *steps);
+
+char	compare_directions(t_stack *stack, int steps_up, int steps_down);
 
 #endif

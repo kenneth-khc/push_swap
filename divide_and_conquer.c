@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 20:28:21 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 23:32:41 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/01 23:25:47 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,22 @@ t_section_list *sections, t_section *latest_a)
 	int			pushed;
 
 	current_section = sections->tail;
+	// if (latest_a->len <= 6)
+	// {
+	// 	sort_section_a_5(a, b, latest_a->len);
+	// 	remove_section(sections);
+	// 	return ;
+	// }
 	if (latest_a->len <= 3)
 	{
 		sort_section_a(a, b, latest_a->len);
 		return ;
 	}
+	// if (latest_a->len <= 5)
+	// {
+	// 	sort_section_a_5(a, b, latest_a->len);
+	// 	return ;
+	// }
 	else
 	{
 		pushed = divide_section_a(a, b, latest_a);

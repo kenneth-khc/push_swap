@@ -13,7 +13,7 @@ SOURCES = push_swap.c arguments.c errors.c \
 operations.c operations2.c operations3.c \
 sorting.c sections.c stack.c stack_utils.c stack_utils2.c stack_utils3.c \
 quicksort.c sort_a.c sort_a_utils.c sort_b.c sort_b_utils.c \
-divide_and_conquer.c solve_a.c optimize_swaps.c optimize_rotates.c
+divide_and_conquer.c solve_a.c solve_a2.c optimize_swaps.c optimize_rotates.c
 
 CHECKER_DIR = checker_src
 SOURCES_BONUS = $(CHECKER_DIR)/checker.c $(CHECKER_DIR)/checker_utils.c stack.c stack_utils.c arguments.c \

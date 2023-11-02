@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:44:52 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 23:15:00 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:14:05 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	sa(t_stack *a, t_stack *b)
 {
 	t_node	*first;
 	t_node	*second;
+	UNUSED	b;
 
-	(void)b;
 	if (!a->top || !a->top->next)
 		return ;
 	first = a->top;

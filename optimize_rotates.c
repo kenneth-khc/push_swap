@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:21:35 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/30 17:33:09 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/02 19:31:00 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ bool	rr_optimizable(t_stack *a, t_stack *b)
 				optimized_swap('B', a, b);
 				return (true);
 			}
+			;
 		}
 	}
 	return (false);
@@ -55,6 +56,7 @@ bool	rrr_optimizable(t_stack *a, t_stack *b)
 				optimized_swap('B', a, b);
 				return (true);
 			}
+			;
 		}
 	}
 	return (false);

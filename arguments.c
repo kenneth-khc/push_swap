@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:08:50 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 19:03:00 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:50:28 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 int	*parse_arguments(int argc, char **argv, int *size)
 {
 	char	**strings;
-	int		*integer_arr;
+	int		*integers;
 	int		i;
 
 	if (argc == 1)
@@ -29,16 +29,16 @@ int	*parse_arguments(int argc, char **argv, int *size)
 	i = 0;
 	strings = extract_arguments(argv);
 	*size = count_numbers(strings);
-	integer_arr = malloc(sizeof(*size) * *size);
-	if (!integer_arr)
+	integers = malloc(sizeof(*size) * *size);
+	if (!integers)
 		error();
 	while (strings[i])
 	{
-		integer_arr[i] = ft_atoi(strings[i]);
+		integers[i] = ft_atoi(strings[i]);
 		i++;
 	}
-	validate_integers(integer_arr, strings);
-	return (integer_arr);
+	validate_integers(integers, strings);
+	return (integers);
 }
 
 char	**extract_arguments(char **argv)

@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:44:35 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 18:52:39 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:50:28 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * We need it to check for duplicates and to simplify our numbers.
 */
 void	init_stacks(t_stack *stack_a, t_stack *stack_b,
-	int *integer_arr, int size)
+	int *integers, int size)
 {
 	int	*temp;
 	int	i;
@@ -33,16 +33,16 @@ void	init_stacks(t_stack *stack_a, t_stack *stack_b,
 	i = 0;
 	while (i < size)
 	{
-		temp[i] = integer_arr[i];
+		temp[i] = integers[i];
 		i++;
 	}
 	quick_sort(temp, size);
 	check_for_duplicates(temp, size);
 	while (--size >= 0)
-		push(stack_a, integer_arr[size]);
+		push(stack_a, integers[size]);
 	simplify_stack(temp, stack_a);
 	free(temp);
-	free(integer_arr);
+	free(integers);
 }
 
 /**

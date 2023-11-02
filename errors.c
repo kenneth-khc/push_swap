@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 22:47:27 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 19:00:47 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:50:28 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	error(void)
  * If they do not match, a non integer was entered, therefore error.
  * + signs are trimmed.
 */
-void	validate_integers(int *integer_arr, char **strings)
+void	validate_integers(int *integers, char **strings)
 {
 	char	**strings_ptr;
 	char	*trimmed_arg;
@@ -36,7 +36,7 @@ void	validate_integers(int *integer_arr, char **strings)
 	while (*strings)
 	{
 		trimmed_arg = ft_strtrim(*strings, "+");
-		reconverted = ft_itoa(*integer_arr++);
+		reconverted = ft_itoa(*integers++);
 		len = ft_strlen(reconverted) + 1;
 		if (ft_strncmp(reconverted, trimmed_arg, len))
 			error();

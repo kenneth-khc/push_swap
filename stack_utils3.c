@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 21:05:15 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 21:06:00 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/02 19:34:56 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@ void	shift_stack(t_stack *a, t_stack *b, char direction, char current_stack)
 		}
 		else if (direction == DOWN)
 		{
-			if (rrr_optimizable(a, b))
-				rrr(a, b);
-			else
-				if (current_stack == 'A')
-					rra(a, b);
+			// if (rrr_optimizable(a, b))
+			// 	rrr(a, b);
+			// else
+				rra(a, b);
 		}
 	}
 	else if (current_stack == 'B')
@@ -39,4 +38,20 @@ void	shift_stack(t_stack *a, t_stack *b, char direction, char current_stack)
 		else if (direction == DOWN)
 			rrb(a, b);
 	}
+}
+
+int	find_section_minimum(t_stack *stack, int section_len)
+{
+	int		min;
+	t_node	*current;
+
+	current = stack->top;
+	min = current->id;
+	while (section_len--)
+	{
+		if (current->id <= min)
+			min = current->id;
+		current = current->next;
+	}
+	return (min);
 }
