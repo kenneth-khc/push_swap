@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:28:54 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/05 20:06:17 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:56:11 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	sort_three(t_stack *a, t_stack *b)
 	if (first->id > second->id
 		&& first->id > third->id)
 	{
-		ra(a, b);
+		ra(a);
 		if (second->id > third->id)
 			optimized_swap('A', a, b);
 	}
@@ -39,7 +39,7 @@ void	sort_three(t_stack *a, t_stack *b)
 		optimized_swap('A', a, b);
 	else if (first->id < second->id)
 	{
-		rra(a, b);
+		rra(a);
 		if (third->id > first->id)
 			optimized_swap('A', a, b);
 	}
@@ -58,7 +58,7 @@ void	sort_four(t_stack *a, t_stack *b)
 			break ;
 		}
 		//fix this
-		ra(a, b);
+		ra(a);
 	}
 	sort_three(a, b);
 	pa(a, b);
@@ -82,7 +82,7 @@ void	sort_five(t_stack *a, t_stack *b)
 			to_push--;
 			continue ;
 		}
-		ra(a, b);
+		ra(a);
 	}
 	sort_three(a, b);
 	if (b->top->id < b->top->next->id)

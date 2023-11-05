@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 20:21:35 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/02 19:31:00 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 22:20:44 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,36 @@
 
 bool	rr_optimizable(t_stack *a, t_stack *b)
 {
+	t_node	*first;
 	t_node	*last;
 
 	(void)a;
-	last = b->top;
+	first = b->top;
+	last = first;
 	if (last)
 	{
-		while (last->next)
+		while (last && last->next)
 			last = last->next;
-		if (b->top->id < last->id)
+		if (first->id < last->id)
 			return (true);
-		if (b->top->next)
-		{
-			if (b->top->next->id < last->id)
-			{
-				optimized_swap('B', a, b);
-				return (true);
-			}
-			;
-		}
 	}
 	return (false);
 }
 
 bool	rrr_optimizable(t_stack *a, t_stack *b)
 {
+	t_node	*first;
 	t_node	*last;
 
 	(void)a;
-	last = b->top;
+	first = b->top;
+	last = first;
 	if (last)
 	{
-		while (last->next)
+		while (last && last->next)
 			last = last->next;
-		if (b->top->id > last->id)
+		if (first->id > last->id)
 			return (true);
-		if (b->top->next)
-		{
-			if (b->top->next->id > last->id)
-			{
-				optimized_swap('B', a, b);
-				return (true);
-			}
-			;
-		}
 	}
 	return (false);
 }

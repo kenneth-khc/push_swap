@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:44:35 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/02 11:50:28 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 22:46:28 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * The first argument should be at the top of the stack.
  * Initialize stack B to be empty.
  * Create a temporary array for processing.
- * We need it to check for duplicates and to simplify our numbers.
+ * It is used to check for duplicates and to simplify our numbers.
 */
 void	init_stacks(t_stack *stack_a, t_stack *stack_b,
 	int *integers, int size)

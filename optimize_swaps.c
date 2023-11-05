@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 16:00:32 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 17:51:52 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:51:27 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	optimized_swap(char stack, t_stack *a, t_stack *b)
 		if (!stack)
 			return ;
 		else if (stack == 'A')
-			sa(a, b);
+			sa(a);
 		else if (stack == 'B')
-			sb(a, b);
+			sb(b);
 	}
 }
 

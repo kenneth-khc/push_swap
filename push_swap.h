@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/05 19:36:16 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 23:47:05 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,16 @@ int		partition(int *array, int start_index, int end_index);
 void	swap(int *x, int *y);
 
 /* Operations */
-void	sa(t_stack *a, t_stack *b);
-void	sb(t_stack *a, t_stack *b);
+void	sa(t_stack *a);
+void	sb(t_stack *b);
 void	ss(t_stack *a, t_stack *b);
 void	pa(t_stack *a, t_stack *b);
 void	pb(t_stack *a, t_stack *b);
-void	ra(t_stack *a, t_stack *b);
-void	rb(t_stack *a, t_stack *b);
+void	ra(t_stack *a);
+void	rb(t_stack *b);
 void	rr(t_stack *a, t_stack *b);
-void	rra(t_stack *a, t_stack *b);
-void	rrb(t_stack *a, t_stack *b);
+void	rra(t_stack *a);
+void	rrb(t_stack *b);
 void	rrr(t_stack *a, t_stack *b);
 
 /* Sorting stack A */
@@ -95,14 +95,14 @@ void	sort_four(t_stack *a, t_stack *b);
 void	sort_five(t_stack *a, t_stack *b);
 void	sort_section_a(t_stack *a, t_stack *b, int section_len);
 //
-void	push_section_to_a(int to_push, int mid, t_stack *a,
+int	push_section_to_a(int to_push, int mid, t_stack *a,
 			t_stack *b);
-int		find_nums_to_push_b(int mid, t_stack *stack, int section_len);
+int		count_nums_to_push_b(int mid, t_stack *stack, int section_len);
 void	pushback_to_b(int to_push, int mid, t_stack *a, t_stack *b);
 
 /* Sort A utils */
 int		find_midpoint(t_stack *stack);
-int		find_nums_to_push(int mid, t_stack *a);
+int		count_nums_to_push(int mid, t_stack *a);
 char	decide_direction_a(t_stack *stack, int midpoint, bool *checked);
 
 /* Sorting stack B */
@@ -123,7 +123,7 @@ char	decide_direction_b(t_stack *stack, int midpoint, bool *checked);
 void	error(void);
 void	push(t_stack *stack, int data);
 int		stack_len(t_stack *a);
-void	shift_stack(t_stack *a, t_stack *b, char direction, char current_stack);
+void	shift_stack(char current_stack, t_stack *a, t_stack *b, char direction);
 bool	elements_are_ascending(t_stack *stack);
 bool	section_is_ascending(t_stack *stack, int len);
 bool	section_is_descending(t_stack *stack, int len);
@@ -163,6 +163,7 @@ char	compare_directions(t_stack *stack, int steps_up, int steps_down);
 int	find_target(t_stack *stack, int midpoint, int *steps);
 int	find_reverse_target(t_stack *stack, int midpoint, int *reverse_steps);
 char	compare_numbers(int target, int reverse_target);
-
+bool	last_section_in_b(t_section *current);
+void	remove_current_section_a(t_section *current);
 
 #endif

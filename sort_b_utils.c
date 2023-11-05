@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 20:23:27 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 21:12:51 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 23:57:26 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	decide_direction_b(t_stack *stack, int midpoint, bool *checked)
 		return (DOWN);
 }
 
-void	push_section_to_a(int to_push, int mid, t_stack *a, t_stack *b)
+int	push_section_to_a(int to_push, int mid, t_stack *a, t_stack *b)
 {
 	char	direction;
 	int		shifted_up;
@@ -58,8 +58,6 @@ void	push_section_to_a(int to_push, int mid, t_stack *a, t_stack *b)
 	checked = false;
 	while (to_push)
 	{
-		if (!checked)
-			direction = decide_direction_b(b, mid, &checked);
 		if (b->top->id > mid)
 		{
 			pa(a, b);
@@ -68,12 +66,15 @@ void	push_section_to_a(int to_push, int mid, t_stack *a, t_stack *b)
 		}
 		else
 		{
-			shift_stack(a, b, direction, 'B');
+			if (!checked)
+				direction = decide_direction_b(b, mid, &checked);
+			shift_stack('B', a, b, direction);
 			shifted_up++;
 		}
 	}
-	while (shifted_up--)
-		rrb(a, b);
+	// while (shifted_up--)
+	// 	rrb(b);
+	return (shifted_up);
 }
 
 void	push_last_section(int to_push, int mid, t_stack *a, t_stack *b)
@@ -84,8 +85,6 @@ void	push_last_section(int to_push, int mid, t_stack *a, t_stack *b)
 	checked = false;
 	while (to_push)
 	{
-		if (!checked)
-			direction = decide_direction_b(b, mid, &checked);
 		if (b->top->id > mid)
 		{
 			pa(a, b);
@@ -95,7 +94,9 @@ void	push_last_section(int to_push, int mid, t_stack *a, t_stack *b)
 		}
 		else
 		{
-			shift_stack(a, b, direction, 'B');
+			if (!checked)
+				direction = decide_direction_b(b, mid, &checked);
+			shift_stack('B', a, b, direction);
 		}
 	}
 }
@@ -114,10 +115,12 @@ void	pushback_to_b(int to_push, int mid, t_stack *a, t_stack *b)
 		}
 		else
 		{
-			ra(a, b);
+			ra(a);
 			shifted_up++;
 		}
 	}
 	while (shifted_up--)
-		rra(a, b);
+	{
+		rra(a);
+	}
 }

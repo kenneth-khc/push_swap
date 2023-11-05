@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:44:52 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/02 11:14:05 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:51:33 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@
 #include "push_swap.h"
 
 /* Swap the first two elements of stack A. */
-void	sa(t_stack *a, t_stack *b)
+void	sa(t_stack *a)
 {
 	t_node	*first;
 	t_node	*second;
-	UNUSED	b;
 
 	if (!a->top || !a->top->next)
 		return ;
@@ -35,12 +34,11 @@ void	sa(t_stack *a, t_stack *b)
 }
 
 /* Swap the first two elements of stack B. */
-void	sb(t_stack *a, t_stack *b)
+void	sb(t_stack *b)
 {
 	t_node	*first;
 	t_node	*second;
 
-	(void)a;
 	if (!b->top || !b->top->next)
 		return ;
 	first = b->top;

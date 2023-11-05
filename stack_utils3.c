@@ -6,13 +6,13 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 21:05:15 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/03 13:17:31 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 23:21:00 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	shift_stack(t_stack *a, t_stack *b, char direction, char current_stack)
+void	shift_stack(char current_stack, t_stack *a, t_stack *b, char direction)
 {
 	if (current_stack == 'A')
 	{
@@ -21,22 +21,22 @@ void	shift_stack(t_stack *a, t_stack *b, char direction, char current_stack)
 			if (rr_optimizable(a, b))
 				rr(a, b);
 			else
-				ra(a, b);
+				ra(a);
 		}
 		else if (direction == DOWN)
 		{
-			// if (rrr_optimizable(a, b))
-			// 	rrr(a, b);
-			// else
-				rra(a, b);
+			if (rrr_optimizable(a, b))
+				rrr(a, b);
+			else
+				rra(a);
 		}
 	}
 	else if (current_stack == 'B')
 	{
 		if (direction == UP)
-			rb(a, b);
+			rb(b);
 		else if (direction == DOWN)
-			rrb(a, b);
+			rrb(b);
 	}
 }
 
@@ -54,4 +54,15 @@ int	find_section_minimum(t_stack *stack, int section_len)
 		current = current->next;
 	}
 	return (min);
+}
+
+bool	last_section_in_b(t_section *current)
+{
+	while (current)
+	{
+		current = current->prev;
+		if (current && current->in == 'B')
+			return (false);
+	}
+	return (true);
 }

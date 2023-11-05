@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:08:50 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/02 11:50:28 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 22:45:37 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ int	*parse_arguments(int argc, char **argv, int *size)
 	return (integers);
 }
 
+/**
+ * Extract argv into a single string before splitting it.
+ * This allows us to handle cases such as 
+ * <./push_swap "5 3 7" 8 2 1> 
+ * where certain numbers are quoted and the others are not.
+ */
 char	**extract_arguments(char **argv)
 {
 	char	*joined_args;
@@ -58,6 +64,10 @@ char	**extract_arguments(char **argv)
 	return (strings);
 }
 
+/**
+ * Join an argument with another.
+ * A space is added to the back for delimiting the arguments.
+ */
 char	*join_arguments(char *s1, const char *s2)
 {
 	char	*s1_ptr;
@@ -73,10 +83,10 @@ char	*join_arguments(char *s1, const char *s2)
 	s3_ptr = s3;
 	while (*s1_ptr)
 		*s3_ptr++ = *s1_ptr++;
+	free(s1);
 	while (*s2)
 		*s3_ptr++ = *s2++;
 	*s3_ptr++ = ' ';
 	*s3_ptr = '\0';
-	free(s1);
 	return (s3);
 }
