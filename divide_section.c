@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 20:28:21 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/05 23:57:21 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/06 03:03:55 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,22 @@ t_section *section)
 	to_push = count_nums_to_push_b(midpoint, b, section->len);
 	section->len -= to_push;
 	shifted_up = push_section_to_a(to_push, midpoint, a, b);
+	if (to_push <= 3)
+	{
+		sort_section_a(a, b, to_push);
+	}
 	if (!last_section_in_b(section))
+	{
 		while (shifted_up--)
+		{
 			rrb(b);
+			if (b->top->id == a->top->id - 1)
+			{
+				pa(a, b);
+				section->len--;
+			}
+		}
+	}
 	// else
 		// push_last_section(to_push, midpoint, a, b);
 	return (to_push);
