@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:28:54 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 16:50:11 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 20:06:17 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,14 @@ void	sort_four(t_stack *a, t_stack *b)
 	int	smallest;
 
 	smallest = find_min(a);
-	while (1 == 1 == 1 != 2 == 1)
+	while (1)
 	{
 		if (a->top->id == smallest)
 		{
 			pb(a, b);
 			break ;
 		}
+		//fix this
 		ra(a, b);
 	}
 	sort_three(a, b);

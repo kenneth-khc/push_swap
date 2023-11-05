@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 20:28:21 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/03 13:20:55 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 20:04:51 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ int	find_nums_to_push_b(int mid, t_stack *stack, int section_len)
 void	divide_a_until_sorted(t_stack *a, t_stack *b,
 t_section_list *sections, t_section *latest_a)
 {
-	t_section	*current_section;
 	int			pushed;
 
-	current_section = sections->tail;
 	if (latest_a->len <= 3)
 	{
 		sort_section_a(a, b, latest_a->len);

@@ -6,12 +6,13 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 14:58:47 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/07 17:23:55 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 19:57:47 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>

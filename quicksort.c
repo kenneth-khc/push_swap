@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:49:27 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 16:47:18 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 20:04:14 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,9 @@ void	swap(int *x, int *y)
 int	partition(int *array, int start_index, int end_index)
 {
 	int	pivot;
-	int	middle_index;
 	int	i;
 	int	j;
 
-	middle_index = start_index + (end_index - start_index) / 2;
 	pivot = array[end_index];
 	i = start_index - 1;
 	j = start_index;

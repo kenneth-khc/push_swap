@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:19:13 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/07 17:35:11 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 20:03:18 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	d_print_uninteger(int nbr, t_dformat *format)
 
 void	d_resolve_format_unint(unsigned int nbr, t_dformat *format)
 {
-	if (nbr >= 0)
-		format->positive = true;
+	format->positive = true;
 	if (nbr == 0)
 		format->is_zero = true;
 	if (format->plus && format->space)

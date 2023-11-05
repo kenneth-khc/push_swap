@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:05:32 by kecheong          #+#    #+#             */
-/*   Updated: 2023/09/07 17:14:11 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 20:02:57 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,13 @@ static size_t	num_len(long n)
 static void	convert(char *str, long n, size_t len)
 {
 	unsigned int	i;
-	int				neg;
 
 	i = 0;
-	neg = 0;
 	if (n == 0)
 		str[0] = '0';
 	if (n < 0)
 	{
 		len -= 1;
-		neg = 1;
 		n *= -1;
 	}
 	while (i < len)
