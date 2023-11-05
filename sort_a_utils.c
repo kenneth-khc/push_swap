@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:38:14 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/02 17:32:04 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 19:36:56 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,28 +52,25 @@ bool	section_is_ascending(t_stack *stack, int len)
 char	decide_direction_a(t_stack *stack, int midpoint, bool *checked)
 {
 	t_node	*current;
-	int		steps_to_target;
-	int		reverse_steps;
+	int		steps;
 	char	direction;
 
 	current = stack->top;
-	steps_to_target = 0;
-	reverse_steps = 0;
+	steps = 0;
 	while (current->id > midpoint)
 	{
 		current = current->next;
-		steps_to_target++;
+		steps++;
 	}
-	reverse_steps = find_steps_to_reverse_target(stack, midpoint);
-	if (steps_to_target == reverse_steps)
-		direction = compare_directions(stack, steps_to_target, reverse_steps);
-	else if (steps_to_target <= midpoint)
+	if (steps <= midpoint)
 		direction = UP;
 	else
 		direction = DOWN;
 	*checked = true;
 	return (direction);
 }
+
+// del later
 
 int	find_steps_to_reverse_target(t_stack *stack, int midpoint)
 {
@@ -137,6 +134,7 @@ char	compare_directions(t_stack *stack, int steps_up, int steps_down)
 	}
 	i = 0;
 	mirrored_target = stack->top;
+	// steps_down = stack_len(stack) - steps_down;
 	while (i < steps_down)
 	{
 		mirrored_target = mirrored_target->next;

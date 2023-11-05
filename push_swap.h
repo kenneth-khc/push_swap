@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/02 16:31:30 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/05 19:36:16 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,5 +160,9 @@ int		find_steps_to_reverse_target(t_stack *stack, int midpoint);
 bool	has_next_target(t_node **current, t_node **last, int mid, int *steps);
 
 char	compare_directions(t_stack *stack, int steps_up, int steps_down);
+int	find_target(t_stack *stack, int midpoint, int *steps);
+int	find_reverse_target(t_stack *stack, int midpoint, int *reverse_steps);
+char	compare_numbers(int target, int reverse_target);
+
 
 #endif
