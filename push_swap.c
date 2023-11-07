@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:59:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/07 10:00:21 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/07 11:16:19 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	sort_b(t_stack *a, t_stack *b, t_section_list *sections)
 
 	update_sections(sections, a, b);
 	current_section = sections->tail;
+	// print_section(current_section, a, b);
 	if (current_section == NULL)
 		return ;
 	if (current_section->len > 3)
@@ -91,6 +92,8 @@ void	update_sections(t_section_list *sections, t_stack *a, t_stack *b)
 	t_section	*last;
 
 	last = sections->tail;
+	if (!last)
+		return ;
 	if (last->in == 'A')
 	{
 		if (last->len == 0 || section_is_ascending(a, last->len))
@@ -107,3 +110,4 @@ void	update_sections(t_section_list *sections, t_stack *a, t_stack *b)
 		}
 	}
 }
+

@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 06:10:47 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/05 23:35:54 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/07 10:33:11 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	add_section(int to_sort, t_section_list *list, char stack)
 {
 	t_section	*new_section;
 
+	if (to_sort == 0)
+		return ;
 	new_section = malloc(sizeof(t_section));
 	new_section->len = to_sort;
 	new_section->next = NULL;
@@ -55,9 +57,18 @@ void	remove_section(t_section_list *sections)
  * After repeatedly dividing a section in A and it is sorted, remove it 
  * from the list without affecting the other sections that are after it.
  */
-void	remove_current_section_a(t_section *current)
+void	remove_current_section_a1(t_section *current)
 {
 	current->prev->next = current->next;
 	current->next->prev = current->prev;
+	free(current);
+}
+
+void	remove_current_section_a(t_section_list *sections, t_section *current)
+{
+	if (sections->tail == current)
+		sections->tail = current->prev;
+	current->next->prev = current->prev;
+	current->prev->next = current->next;
 	free(current);
 }

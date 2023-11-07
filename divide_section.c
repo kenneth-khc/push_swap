@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 20:28:21 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/07 09:52:11 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/07 10:33:28 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_section_list *sections, t_section *current_section_a)
 	if (current_section_a->len <= 3)
 	{
 		sort_section_a(a, b, current_section_a->len);
-		remove_current_section_a(current_section_a);
+		remove_current_section_a(sections, current_section_a);
 		return ;
 	}
 	else

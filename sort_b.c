@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 05:50:23 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/07 09:14:40 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/07 11:13:44 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	sort_section_b(t_stack *a, t_stack *b, int section_len)
 	t_node	*second;
 	t_node	*third;
 
+	if (section_len == 0)
+		return ;
 	if (section_is_descending(b, section_len))
 	{
 		push_sorted_section(a, b, section_len);

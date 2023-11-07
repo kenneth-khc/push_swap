@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/07 09:57:28 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/07 10:48:51 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,10 @@ int	find_target(t_stack *stack, int midpoint, int *steps);
 int	find_reverse_target(t_stack *stack, int midpoint, int *reverse_steps);
 char	compare_numbers(int target, int reverse_target);
 bool	last_section_in_b(t_section *current);
-void	remove_current_section_a(t_section *current);
+void	remove_current_section_a1(t_section *current);
 void	update_sections(t_section_list *sections, t_stack *a, t_stack *b);
+void	remove_current_section_a(t_section_list *sections, t_section *current);
+
+void	print_section(t_section *section, t_stack *a, t_stack *b);
 
 #endif
