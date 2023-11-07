@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/07 10:48:51 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/07 12:07:24 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	sort_section_a(t_stack *a, t_stack *b, int section_len);
 int	push_section_to_a(int to_push, int mid, t_stack *a,
 			t_stack *b);
 int		count_nums_to_push_b(int mid, t_stack *stack, int section_len);
-void	pushback_to_b(int to_push, int mid, t_stack *a, t_stack *b);
+int		pushback_to_b(int to_push, int mid, t_stack *a, t_stack *b);
 
 /* Sort A utils */
 int		find_midpoint(t_stack *stack);
@@ -148,16 +148,10 @@ void	remove_section(t_section_list *sections);
 
 // organize later
 
-void	sort_section_a_5(t_stack *a, t_stack *b, int section_len);
-void	sort_three2(t_stack *a, t_stack *b);
-void	sort_five2(t_stack *a, t_stack *b);
-void	sort_four2(t_stack *a, t_stack *b);
 int		find_section_minimum(t_stack *stack, int section_len);
 
-void	sort_six2(t_stack *a, t_stack *b);
 
-int		find_steps_to_reverse_target(t_stack *stack, int midpoint);
-bool	has_next_target(t_node **current, t_node **last, int mid, int *steps);
+int		find_steps_to_reverse_target(t_stack *stack, int midpoint);bool	has_next_target(t_node **current, t_node **last, int mid, int *steps);
 
 char	compare_directions(t_stack *stack, int steps_up, int steps_down);
 int	find_target(t_stack *stack, int midpoint, int *steps);
@@ -167,6 +161,7 @@ bool	last_section_in_b(t_section *current);
 void	remove_current_section_a1(t_section *current);
 void	update_sections(t_section_list *sections, t_stack *a, t_stack *b);
 void	remove_current_section_a(t_section_list *sections, t_section *current);
+void	sort_while_shifting_down(t_stack *a, t_stack *b, int section_len);
 
 void	print_section(t_section *section, t_stack *a, t_stack *b);
 

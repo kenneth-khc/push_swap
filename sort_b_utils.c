@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 20:23:27 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/05 23:57:26 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/07 11:59:50 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	push_last_section(int to_push, int mid, t_stack *a, t_stack *b)
 	}
 }
 
-void	pushback_to_b(int to_push, int mid, t_stack *a, t_stack *b)
+int	pushback_to_b(int to_push, int mid, t_stack *a, t_stack *b)
 {
 	int		shifted_up;
 
@@ -119,8 +119,9 @@ void	pushback_to_b(int to_push, int mid, t_stack *a, t_stack *b)
 			shifted_up++;
 		}
 	}
-	while (shifted_up--)
-	{
-		rra(a);
-	}
+	// while (shifted_up--)
+	// {
+	// 	rra(a);
+	// }
+	return (shifted_up);
 }

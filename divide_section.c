@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 20:28:21 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/07 10:33:28 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/07 12:08:11 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,26 @@ t_section *section)
 {
 	int	midpoint;
 	int	to_push;
+	int	shifted_up;
 
 	midpoint = find_mid_in_section(a, section->len);
 	to_push = count_nums_to_push(midpoint, a);
 	section->len -= to_push;
-	pushback_to_b(to_push, midpoint, a, b);
+	shifted_up = pushback_to_b(to_push, midpoint, a, b);
+	if (section->len <= 3)
+		sort_while_shifting_down(a, b, shifted_up);
+	else
+		while (shifted_up--)
+			rra(a);
 	return (to_push);
+}
+
+void	sort_while_shifting_down(t_stack *a, t_stack *b, int shifted_up)
+{
+	while (shifted_up--)
+	{
+		rra(a);
+		if (a->top->id > a->top->next->id)
+			optimized_swap('A', a, b);
+	}
 }
