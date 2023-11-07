@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 05:50:23 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/05 23:09:31 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/07 09:14:40 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ void	sort_section_b(t_stack *a, t_stack *b, int section_len)
 		section_len -= 1;
 		rrb(b);
 	}
-	while (section_len--)
+	while (section_len-- > 0)
 		push_to_opposite_stack(a, b, 'B');
 }

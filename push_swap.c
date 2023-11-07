@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:59:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/02 11:50:53 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/07 10:00:21 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	sort_b(t_stack *a, t_stack *b, t_section_list *sections)
 {
 	t_section	*current_section;
 
+	update_sections(sections, a, b);
 	current_section = sections->tail;
 	if (current_section == NULL)
 		return ;
@@ -83,4 +84,26 @@ void	sort_b(t_stack *a, t_stack *b, t_section_list *sections)
 		remove_section(sections);
 	}
 	sort_b(a, b, sections);
+}
+
+void	update_sections(t_section_list *sections, t_stack *a, t_stack *b)
+{
+	t_section	*last;
+
+	last = sections->tail;
+	if (last->in == 'A')
+	{
+		if (last->len == 0 || section_is_ascending(a, last->len))
+			remove_section(sections);
+	}
+	else if (last->in == 'B')
+	{
+		if (last->len == 0)
+			remove_section(sections);
+		else if (section_is_descending(b, last->len))
+		{
+			push_sorted_section(a, b, last->len);
+			remove_section(sections);
+		}
+	}
 }

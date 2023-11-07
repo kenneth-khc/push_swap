@@ -27,7 +27,7 @@ all: $(NAME)
 bonus: $(BONUS_NAME)
 
 $(NAME): $(LIBFT)
-	$(CC) $(SOURCES) $(CFLAGS) $(LIBFT) -o $(NAME)
+	$(CC) $(SOURCES) $(CFLAGS) $(LIBFT) -g -o $(NAME)
 	@echo "$(GREEN)$(NAME) compiled!$(RESET)"
 
 $(BONUS_NAME): $(LIBFT)
