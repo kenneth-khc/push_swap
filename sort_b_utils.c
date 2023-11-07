@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 20:23:27 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/07 11:59:50 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/07 12:49:32 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,19 @@ int	push_section_to_a(int to_push, int mid, t_stack *a, t_stack *b)
 
 	shifted_up = 0;
 	checked = false;
+	bool	sorting;
+	if (to_push <= 3)
+		sorting = true;
+	else
+		sorting = false;
 	while (to_push)
 	{
 		if (b->top->id > mid)
 		{
 			pa(a, b);
 			to_push--;
+			if (sorting && a->top->id > a->top->next->id)
+				optimized_swap('A', a, b);
 			checked = false;
 		}
 		else

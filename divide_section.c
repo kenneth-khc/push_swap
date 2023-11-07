@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 20:28:21 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/07 12:08:11 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/07 14:55:47 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,12 @@ t_section *section)
 	if (section->len <= 3)
 		sort_while_shifting_down(a, b, shifted_up);
 	else
+	{
 		while (shifted_up--)
+		{
 			rra(a);
+		}
+	}
 	return (to_push);
 }
 
