@@ -13,7 +13,8 @@ SOURCES = push_swap.c arguments.c errors.c \
 operations_swap_push.c operations_rotate.c operations_reverse_rotate.c \
 sorting.c sections.c stack.c stack_utils.c stack_utils2.c stack_utils3.c \
 quicksort.c sort_a.c sort_a_utils.c sort_b.c sort_b_utils.c \
-divide_section.c solve_a.c optimize_swaps.c optimize_rotates.c
+divide_section.c solve_a.c optimize_swaps.c optimize_rotates.c divide_section_utils.c \
+stage_one.c
 
 CHECKER_DIR = checker_src
 SOURCES_BONUS = $(CHECKER_DIR)/checker.c $(CHECKER_DIR)/checker_utils.c stack.c stack_utils.c arguments.c \
@@ -49,7 +50,7 @@ fclean: clean
 re: fclean all
 
 a: $(LIBFT)
-	@$(CC) $(SOURCES) $(CFLAGS) $(LIBFT) -o $(NAME) $(FSAN)
+	@$(CC) $(SOURCES) $(CFLAGS) $(LIBFT) -g -o $(NAME) $(FSAN)
 #	@echo "$(GREEN)$(NAME) compiled!$(RESET)"
 #	@./$(NAME) "1 20 90 23 45 48 19 50 4 17 16 91 56 12 10 13 61 46 25 22 52 14 86 60 66 79 7 44 30 2 83 75 70 63 74 53 65 49 40 42 33 32 71 28 81 43 59 34 37 11 68 73 99 26 41 35 5 55 78 62 27 89 77 29 82 8 9 84 95 93 24 38 85 88 58 47 64 3 36 39 87 80 31 0 98 96 76 6 97 92 18 72 94 67 51 15 21 69 57 54"
 #	@./$(NAME) "12 15 0 13 10 1 19 18 9 5 14 3 8 6 17 7 11 4 16 2" 2>&1 | cat -e

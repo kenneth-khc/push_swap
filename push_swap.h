@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/07 12:07:24 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/09 20:07:01 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,17 @@ enum e_directions {
 	DOWN = 'D'
 };
 
-# define UNUSED (void)
-
+typedef struct s_int_array			t_int_array;
 typedef struct s_stack				t_stack;
 typedef struct s_node				t_node;
 typedef struct s_section_list		t_section_list;
 typedef struct s_section			t_section;
 
+struct s_int_array
+{
+	int	*contents;
+	int	size;
+};
 struct s_stack
 {
 	t_node	*top;
@@ -56,13 +60,13 @@ struct s_section
 };
 
 /* Arguments */
-int		*parse_arguments(int argc, char **argv, int *size);
+t_int_array	*parse_arguments(int argc, char **argv);
 char	*join_arguments(char *s1, const char *s2);
 char	**extract_arguments(char **argv);
 int		count_numbers(char **strings);
 void	validate_integers(int *integers, char **argv);
 void	check_for_duplicates(int *array, int size);
-void	init_stacks(t_stack *a, t_stack *b, int *integers, int size);
+void	init_stacks(t_stack *a, t_stack *b, t_int_array *int_array);
 void	simplify_stack(int *array, t_stack *a);
 
 /* Real quicksort */
@@ -86,10 +90,11 @@ void	rrr(t_stack *a, t_stack *b);
 
 /* Sorting stack A */
 void	quicksort(t_stack *a, t_stack *b, int size);
-int		push_half_to_b(t_stack *a, t_stack *b, t_section_list *sections);
+int		push_half_to_b(t_stack *a, t_stack *b, t_section_list *sections, int first_mid);
 void	sort_a(t_stack *a, t_stack *b,
 			int num_of_elements, t_section_list *list);
-void	push_to_b(int to_push, int mid, t_stack *a, t_stack *b);
+// void	push_to_b(int to_push, int mid, t_stack *a, t_stack *b);
+void	push_to_b(int to_push, int mid, t_stack *a, t_stack *b, int first_mid);
 void	sort_three(t_stack *a, t_stack *b);
 void	sort_four(t_stack *a, t_stack *b);
 void	sort_five(t_stack *a, t_stack *b);
@@ -164,5 +169,8 @@ void	remove_current_section_a(t_section_list *sections, t_section *current);
 void	sort_while_shifting_down(t_stack *a, t_stack *b, int section_len);
 
 void	print_section(t_section *section, t_stack *a, t_stack *b);
+int    find_mid_ignoring_first(t_stack *a, int first_mid);
+bool    top_is_first_section(t_stack *a, int first_mid);
+int	count_nums_to_push_ignore_first(int mid, int first_mid, t_stack *a);
 
 #endif

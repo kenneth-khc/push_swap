@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 20:28:21 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/07 14:55:47 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/08 14:35:10 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,15 @@ t_section_list *sections)
 	}
 	else if (current_section->in == 'A')
 	{
-		// if (section_is_ascending(a, current_section->len))
-		// {
-		// 	// remove_current_section_a(current_section);
-		// 	return ;
-		// }
-		// else
-			divide_a_until_sorted(a, b, sections, current_section);
+		divide_a_until_sorted(a, b, sections, current_section);
 	}
 }
 
-int	divide_section_b(t_stack *a, t_stack *b,
-t_section *section)
+int	divide_section_b(t_stack *a, t_stack *b, t_section *section)
 {
-	int	midpoint;
-	int	to_push;
-	int	shifted_up;
+	int		midpoint;
+	int		to_push;
+	int		shifted_up;
 	bool	slot_in;
 
 	midpoint = find_mid_in_section(b, section->len);
@@ -67,8 +60,6 @@ t_section *section)
 			}
 		}
 	}
-	// else
-		// push_last_section(to_push, midpoint, a, b);
 	return (to_push);
 }
 
@@ -124,19 +115,7 @@ t_section *section)
 	else
 	{
 		while (shifted_up--)
-		{
 			rra(a);
-		}
 	}
 	return (to_push);
-}
-
-void	sort_while_shifting_down(t_stack *a, t_stack *b, int shifted_up)
-{
-	while (shifted_up--)
-	{
-		rra(a);
-		if (a->top->id > a->top->next->id)
-			optimized_swap('A', a, b);
-	}
 }

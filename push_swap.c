@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:59:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/07 11:16:19 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:17:01 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int	main(int argc, char **argv)
 {
-	int		*integers;
-	int		arr_size;
-	t_stack	a;
-	t_stack	b;
+	t_stack		a;
+	t_stack		b;
+	t_int_array	*int_array;
 
-	integers = parse_arguments(argc, ++argv, &arr_size);
-	init_stacks(&a, &b, integers, arr_size);
+	int_array = parse_arguments(argc, ++argv);
+	init_stacks(&a, &b, int_array);
 	if (stacks_are_not_sorted(&a, &b))
-		quicksort(&a, &b, arr_size);
+		quicksort(&a, &b, int_array->size);
 	free_stacks(&a, &b);
+	free(int_array); //
 }
 
 void	quicksort(t_stack *a, t_stack *b, int arr_size)
@@ -41,11 +41,18 @@ void	sort_a(t_stack *a, t_stack *b, int num_of_elements,
 {
 	int	pushed;
 	int	len;
+	static int	call;
+	static int first_midpoint;
 
 	len = stack_len(a);
+	if (call++ == 0 && len > 5)
+	{
+		first_midpoint = find_midpoint(a);
+		add_section(num_of_elements / 2, sections, 'B');
+	}
 	if (len > 5)
 	{
-		pushed = push_half_to_b(a, b, sections);
+		pushed = push_half_to_b(a, b, sections, first_midpoint);
 		sort_a(a, b, num_of_elements - pushed, sections);
 	}
 	else if (len <= 5)

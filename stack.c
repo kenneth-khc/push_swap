@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:44:35 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/05 22:46:28 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/08 16:48:27 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,31 @@
  * It is used to check for duplicates and to simplify our numbers.
 */
 void	init_stacks(t_stack *stack_a, t_stack *stack_b,
-	int *integers, int size)
+	t_int_array *int_array)
 {
 	int	*temp;
 	int	i;
+	int	temp_size;
 
 	stack_a->top = NULL;
 	stack_b->top = NULL;
-	temp = malloc(sizeof(*temp) * size);
+	temp = malloc(sizeof(*temp) * int_array->size);
+	temp_size = int_array->size;
 	if (!temp)
 		error();
 	i = 0;
-	while (i < size)
+	while (i < temp_size)
 	{
-		temp[i] = integers[i];
+		temp[i] = int_array->contents[i];
 		i++;
 	}
-	quick_sort(temp, size);
-	check_for_duplicates(temp, size);
-	while (--size >= 0)
-		push(stack_a, integers[size]);
+	quick_sort(temp, temp_size);
+	check_for_duplicates(temp, temp_size);
+	while (--temp_size >= 0)
+		push(stack_a, int_array->contents[temp_size]);
 	simplify_stack(temp, stack_a);
 	free(temp);
-	free(integers);
+	free(int_array->contents);
 }
 
 /**
