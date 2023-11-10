@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/09 20:07:01 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/10 14:18:41 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ struct s_section_list
 
 struct s_section
 {
-	int			len;
 	char		in;
+	int			len;
+	t_int_array	*arr;
+	t_node		*top;
 	t_section	*prev;
 	t_section	*next;
 };
@@ -172,5 +174,9 @@ void	print_section(t_section *section, t_stack *a, t_stack *b);
 int    find_mid_ignoring_first(t_stack *a, int first_mid);
 bool    top_is_first_section(t_stack *a, int first_mid);
 int	count_nums_to_push_ignore_first(int mid, int first_mid, t_stack *a);
+
+void	init_section(t_stack *stack, char in_stack, int len,
+t_section_list *sections);
+t_int_array	*init_section_array(t_stack *stack, int len);
 
 #endif

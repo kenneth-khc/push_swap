@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:59:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/09 17:17:01 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/10 14:33:24 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	quicksort(t_stack *a, t_stack *b, int arr_size)
 
 	sections.head = NULL;
 	sections.tail = NULL;
+	init_section(a, 'A', arr_size, &sections);
+	exit(0);
 	sort_a(a, b, arr_size, &sections);
 	sort_b(a, b, &sections);
 }
