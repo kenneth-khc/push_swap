@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:40:15 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/09 16:44:59 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/10 22:35:41 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,11 @@ int	count_nums_to_push_ignore_first(int mid, int first_mid, t_stack *a)
 		current = current->next;
 	}
 	return (to_push);
+}
+
+bool	first_call(int *call)
+{
+	if (*call++ == 0)
+		return (true);
+	return (false);
 }

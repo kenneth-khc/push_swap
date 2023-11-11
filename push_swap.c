@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:59:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/10 14:33:24 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/10 22:52:14 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,40 +34,42 @@ void	quicksort(t_stack *a, t_stack *b, int arr_size)
 	sections.tail = NULL;
 	init_section(a, 'A', arr_size, &sections);
 	exit(0);
-	sort_a(a, b, arr_size, &sections);
+	sort_a(a, b, &sections);
 	sort_b(a, b, &sections);
 }
 
-void	sort_a(t_stack *a, t_stack *b, int num_of_elements,
-		t_section_list *sections)
+void	sort_a(t_stack *a, t_stack *b, t_section_list *sections)
 {
 	int	pushed;
-	int	len;
+	int	a_len;
 	static int	call;
 	static int first_midpoint;
+	t_section	*current_section;
 
-	len = stack_len(a);
-	if (call++ == 0 && len > 5)
+	a_len = stack_len(a);
+	current_section = sections->tail;
+	if (first_call(&call) && current_section->len > 5)
 	{
 		first_midpoint = find_midpoint(a);
-		add_section(num_of_elements / 2, sections, 'B');
+		add_section(current_section->len / 2, sections, 'B');
 	}
-	if (len > 5)
+	if (a_len > 5)
 	{
 		pushed = push_half_to_b(a, b, sections, first_midpoint);
-		sort_a(a, b, num_of_elements - pushed, sections);
+		(void)pushed;
+		sort_a(a, b, sections);
 	}
-	else if (len <= 5)
+	else if (a_len <= 5)
 	{
 		if (elements_are_ascending(a))
 			return ;
-		if (len == 5)
+		if (a_len == 5)
 			sort_five(a, b);
-		else if (len == 4)
+		else if (a_len == 4)
 			sort_four(a, b);
-		else if (len == 3)
+		else if (a_len == 3)
 			sort_three(a, b);
-		else if (len == 2)
+		else if (a_len == 2)
 			if (a->top->id > a->top->next->id)
 				optimized_swap('A', a, b);
 		return ;

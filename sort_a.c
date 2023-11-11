@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 03:36:58 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/09 16:53:58 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/10 22:55:43 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,14 @@ int	push_half_to_b(t_stack *a, t_stack *b, t_section_list *sections, int first_m
 {
 	int	midpoint;
 	int	to_push;
+	t_section	*current_section;
 
+	current_section = sections->tail;
 	// midpoint = find_midpoint(a);
-	midpoint = find_mid_ignoring_first(a, first_midpoint);
+	///?midpoint = find_mid_ignoring_first(a, first_midpoint);
 	// to_push = count_nums_to_push(midpoint, a);
-	to_push = count_nums_to_push_ignore_first(midpoint, first_midpoint, a);
+	to_push = count_nums_to_push_ignore_first
+		(current_section->midpoint, first_midpoint, a);
 	push_to_b(to_push, midpoint, a, b, first_midpoint);
 	add_section(to_push, sections, 'B');
 	return (to_push);

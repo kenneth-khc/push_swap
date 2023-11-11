@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 06:10:47 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/10 14:16:50 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/10 23:02:38 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_section_list *sections)
 	new_section->len = len;
 	new_section->top = stack->top;
 	new_section->arr = init_section_array(stack, len);
+	new_section->midpoint = find_mid_in_section(stack, new_section->len);
 	new_section->prev = sections->tail;
 	new_section->next = NULL;
 	if (!sections->head)
@@ -78,6 +79,24 @@ void	add_section(int to_sort, t_section_list *list, char stack)
 		list->tail->next = new_section;
 	list->tail = new_section;
 	new_section->in = stack;
+}
+
+void	add_section_in_b(t_section_list *sections, t_stack *b, int len)
+{
+	t_section	*new_section;
+
+	new_section = malloc(sizeof(t_section));
+	new_section->in = 'B';
+	new_section->len = len;
+	new_section->top = b->top;
+	new_section->midpoint = find_mid_in_section(b, new_section->len);
+	new_section->prev = sections->tail;
+	new_section->next = NULL;
+	if (!sections->head)
+		sections->head = new_section;
+	else
+		sections->tail->next = new_section;
+	sections->tail = new_section;
 }
 
 /**

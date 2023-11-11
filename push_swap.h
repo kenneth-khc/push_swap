@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/10 14:18:41 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/10 22:46:03 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ struct s_section
 	int			len;
 	t_int_array	*arr;
 	t_node		*top;
+	int			midpoint;
 	t_section	*prev;
 	t_section	*next;
 };
@@ -93,8 +94,7 @@ void	rrr(t_stack *a, t_stack *b);
 /* Sorting stack A */
 void	quicksort(t_stack *a, t_stack *b, int size);
 int		push_half_to_b(t_stack *a, t_stack *b, t_section_list *sections, int first_mid);
-void	sort_a(t_stack *a, t_stack *b,
-			int num_of_elements, t_section_list *list);
+void	sort_a(t_stack *a, t_stack *b, t_section_list *list);
 // void	push_to_b(int to_push, int mid, t_stack *a, t_stack *b);
 void	push_to_b(int to_push, int mid, t_stack *a, t_stack *b, int first_mid);
 void	sort_three(t_stack *a, t_stack *b);
@@ -178,5 +178,6 @@ int	count_nums_to_push_ignore_first(int mid, int first_mid, t_stack *a);
 void	init_section(t_stack *stack, char in_stack, int len,
 t_section_list *sections);
 t_int_array	*init_section_array(t_stack *stack, int len);
+bool	first_call(int *call);
 
 #endif
