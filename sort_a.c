@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 03:36:58 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/10 22:55:43 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/11 22:35:16 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,24 @@
  * A section is added for each group of numbers pushed.
  * The number of elements pushed is returned for further recursive calls.
 */
-int	push_half_to_b(t_stack *a, t_stack *b, t_section_list *sections, int first_midpoint)
+int	push_half_to_b(t_stack *a, t_stack *b, t_section_list *sections)
 {
-	int	midpoint;
-	int	to_push;
-	t_section	*current_section;
+	int			to_push;
+	t_section	*unsorted;
 
-	current_section = sections->tail;
-	// midpoint = find_midpoint(a);
-	///?midpoint = find_mid_ignoring_first(a, first_midpoint);
-	// to_push = count_nums_to_push(midpoint, a);
+	unsorted = sections->head;
 	to_push = count_nums_to_push_ignore_first
-		(current_section->midpoint, first_midpoint, a);
-	push_to_b(to_push, midpoint, a, b, first_midpoint);
+		(unsorted->midpoint, sections->head->next->midpoint, a);
+	if (to_push == 0)
+	{
+		to_push = push_remaining_first(a, b, sections->head->next->midpoint);
+		sections->head->next->len += to_push;
+		sections->head->len -= to_push;
+		return (to_push);
+	}
+	push_to_b(to_push, unsorted->midpoint, a, b, sections->head->next->midpoint);
 	add_section(to_push, sections, 'B');
+	update_unsorted_section(a, unsorted, to_push, sections->head->next->midpoint);
 	return (to_push);
 }
 
@@ -77,11 +81,8 @@ int	count_nums_to_push(int mid, t_stack *a)
  */
 void	push_to_b(int to_push, int mid, t_stack *a, t_stack *b, int first_mid)
 {
-	// char	direction;
-	// bool	checked;
 	bool	flag;
 
-	// checked = false;
 	flag = false;
 	while (to_push)
 	{

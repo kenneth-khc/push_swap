@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:59:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/10 22:52:14 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/11 23:38:27 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,45 +33,43 @@ void	quicksort(t_stack *a, t_stack *b, int arr_size)
 	sections.head = NULL;
 	sections.tail = NULL;
 	init_section(a, 'A', arr_size, &sections);
-	exit(0);
 	sort_a(a, b, &sections);
+	exit(0);
 	sort_b(a, b, &sections);
 }
 
 void	sort_a(t_stack *a, t_stack *b, t_section_list *sections)
 {
-	int	pushed;
-	int	a_len;
 	static int	call;
-	static int first_midpoint;
-	t_section	*current_section;
+	static int	first_midpoint;
+	t_section	*unsorted;
 
-	a_len = stack_len(a);
-	current_section = sections->tail;
-	if (first_call(&call) && current_section->len > 5)
+	unsorted = sections->head;
+	if (first_call(&call) && unsorted->len > 5)
 	{
 		first_midpoint = find_midpoint(a);
-		add_section(current_section->len / 2, sections, 'B');
+		add_section(unsorted->len / 2, sections, 'B');
+		unsorted->next->midpoint = first_midpoint;
 	}
-	if (a_len > 5)
+	if (unsorted->len > 5)
 	{
-		pushed = push_half_to_b(a, b, sections, first_midpoint);
-		(void)pushed;
+		push_half_to_b(a, b, sections);
 		sort_a(a, b, sections);
 	}
-	else if (a_len <= 5)
+	else if (unsorted->len <= 5)
 	{
 		if (elements_are_ascending(a))
 			return ;
-		if (a_len == 5)
+		if (unsorted->len == 5)
 			sort_five(a, b);
-		else if (a_len == 4)
+		else if (unsorted->len == 4)
 			sort_four(a, b);
-		else if (a_len == 3)
+		else if (unsorted->len == 3)
 			sort_three(a, b);
-		else if (a_len == 2)
+		else if (unsorted->len == 2)
 			if (a->top->id > a->top->next->id)
 				optimized_swap('A', a, b);
+		section_a_sorted(sections);
 		return ;
 	}
 }

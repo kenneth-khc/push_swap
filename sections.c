@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 06:10:47 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/10 23:02:38 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/11 21:47:05 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ t_section_list *sections)
 	new_section->len = len;
 	new_section->top = stack->top;
 	new_section->arr = init_section_array(stack, len);
-	new_section->midpoint = find_mid_in_section(stack, new_section->len);
+	// new_section->midpoint = find_mid_in_section(stack, new_section->len);
+	new_section->midpoint = find_section_midpoint(new_section->arr);
 	new_section->prev = sections->tail;
 	new_section->next = NULL;
 	if (!sections->head)
@@ -135,4 +136,15 @@ void	remove_current_section_a(t_section_list *sections, t_section *current)
 	current->next->prev = current->prev;
 	current->prev->next = current->next;
 	free(current);
+}
+
+void	section_a_sorted(t_section_list *sections)
+{
+	t_section	*section_a;
+
+	section_a = sections->head;
+	if (sections->head == sections->tail)
+		sections->tail = NULL;
+	sections->head = sections->head->next;
+	free(section_a);
 }

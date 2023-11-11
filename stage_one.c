@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:40:15 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/10 22:35:41 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/11 22:31:23 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 
 int    find_mid_ignoring_first(t_stack *a, int first_mid)
 {
-    int		min;
+	int		min;
 	int		max;
 	int		mid;
 
-    t_node	*current;
+	t_node	*current;
 	t_node	*temp;
 	current = a->top;
 	temp = current;
@@ -46,12 +46,12 @@ int    find_mid_ignoring_first(t_stack *a, int first_mid)
 	return (mid);
 }
 
-bool    top_is_first_section(t_stack *a, int first_mid)
+bool	top_is_first_section(t_stack *a, int first_mid)
 {
-    if (a->top->id <= first_mid)
-        return (true);
-    else
-        return (false);
+	if (a->top->id <= first_mid)
+		return (true);
+	else
+		return (false);
 }
 
 int	count_nums_to_push_ignore_first(int mid, int first_mid, t_stack *a)
@@ -75,4 +75,32 @@ bool	first_call(int *call)
 	if (*call++ == 0)
 		return (true);
 	return (false);
+}
+
+void	update_unsorted_section(t_stack *a, t_section *unsorted, int pushed, int first_mid)
+{
+	unsorted->len -= pushed;
+	unsorted->top = a->top;
+	free(unsorted->arr->contents);
+	free(unsorted->arr);
+	unsorted->arr = init_updated_unsorted_array(a, unsorted->len, first_mid);
+}
+
+int	push_remaining_first(t_stack *a, t_stack *b, int first_midpoint)
+{
+	t_node	*current;
+	int		pushed;
+
+	current = a->top;
+	pushed = 0;
+	while (current)
+	{
+		if (current->id <= first_midpoint)
+		{
+			pb(a, b);
+			pushed++;
+		}
+		current = current->next;
+	}
+	return (pushed);
 }

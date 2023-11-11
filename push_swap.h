@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/10 22:46:03 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/11 22:31:05 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	rrr(t_stack *a, t_stack *b);
 
 /* Sorting stack A */
 void	quicksort(t_stack *a, t_stack *b, int size);
-int		push_half_to_b(t_stack *a, t_stack *b, t_section_list *sections, int first_mid);
+int		push_half_to_b(t_stack *a, t_stack *b, t_section_list *sections);
 void	sort_a(t_stack *a, t_stack *b, t_section_list *list);
 // void	push_to_b(int to_push, int mid, t_stack *a, t_stack *b);
 void	push_to_b(int to_push, int mid, t_stack *a, t_stack *b, int first_mid);
@@ -179,5 +179,11 @@ void	init_section(t_stack *stack, char in_stack, int len,
 t_section_list *sections);
 t_int_array	*init_section_array(t_stack *stack, int len);
 bool	first_call(int *call);
+void	section_a_sorted(t_section_list *sections);
+void	update_unsorted_section(t_stack *a, t_section *unsorted, int pushed, int first_mid);
+int		find_section_midpoint(t_int_array *section);
+t_int_array	*init_updated_unsorted_array(t_stack *stack, int len, int first_mid);
+int		push_remaining_first(t_stack *a, t_stack *b, int first_midpoint);
+
 
 #endif
