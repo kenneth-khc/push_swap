@@ -6,11 +6,30 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:28:54 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/05 21:56:11 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/15 22:33:46 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	solve_a(t_stack *a, t_stack *b, int len)
+{
+	// void	(*ptr[5])(t_stack *, t_stack *);
+	// ptr[0] = NULL;
+
+	if (elements_are_ascending(a))
+		return ;
+	if (len == 5)
+		sort_five(a, b);
+	else if (len == 4)
+		sort_four(a, b);
+	else if (len == 3)
+		sort_three(a, b);
+	else if (len == 2)
+		if (a->top->id > a->top->next->id)
+			optimized_swap('A', a, b);
+	return ;
+}
 
 /**
  * Sorting 3 elements is simple. 

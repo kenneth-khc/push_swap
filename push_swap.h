@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/15 18:30:22 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/15 22:18:46 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	sort_a(t_stack *a, t_stack *b,
 			int num_of_elements, t_section_list *list);
 // void	push_to_b(int to_push, int mid, t_stack *a, t_stack *b);
 void	push_to_b(int to_push, int mid, t_stack *a, t_stack *b, int first_mid);
+void	solve_a(t_stack *a, t_stack *b, int len);
 void	sort_three(t_stack *a, t_stack *b);
 void	sort_four(t_stack *a, t_stack *b);
 void	sort_five(t_stack *a, t_stack *b);

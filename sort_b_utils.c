@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 20:23:27 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/07 12:49:32 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/15 20:59:39 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ bool	section_is_descending(t_stack *stack, int len)
 	int		prev;
 
 	current = stack->top;
+	if (!current)
+		return (true);
 	prev = current->id;
 	while (--len)
 	{

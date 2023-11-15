@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:59:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/15 13:14:10 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/15 22:18:59 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,7 @@ void	sort_a(t_stack *a, t_stack *b, int num_of_elements,
 	}
 	else if (len <= 5)
 	{
-		if (elements_are_ascending(a))
-			return ;
-		if (len == 5)
-			sort_five(a, b);
-		else if (len == 4)
-			sort_four(a, b);
-		else if (len == 3)
-			sort_three(a, b);
-		else if (len == 2)
-			if (a->top->id > a->top->next->id)
-				optimized_swap('A', a, b);
+		solve_a(a, b, len);
 		return ;
 	}
 }

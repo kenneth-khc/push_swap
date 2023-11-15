@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 03:36:58 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/15 18:30:44 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/15 21:53:18 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,63 +74,19 @@ int	count_nums_to_push(int mid, t_stack *a)
  */
 void	push_to_b(int to_push, int mid, t_stack *a, t_stack *b, int first_mid)
 {
-	// char	direction;
-	// bool	checked;
-	// bool	flag;
-
-	// checked = false;
-	// flag = false;
 	while (to_push)
 	{
-		// if (flag && b->top && b->top->next && b->top->id < b->top->next->id
-		// 	&& not_only_first_section(a, first_mid))
-		// {
-		// 	if (a->top->id > mid)
-		// 		rr(a, b);
-		// 	else
-		// 		rb(b);
-		// 	flag = false;
-		// }
 		if (top_is_first_section(a, first_mid))
 		{
 			slot_to_first_section(a, b, first_mid, mid);
-			// pb(a, b);
-			// // flag = true;
-			// if (b->top && b->top->next && not_only_first_section(b, first_mid))
-			// {
-			// 	// if (a->top->id < b->top->id)
-			// 	// {
-			// 		if (a->top->id > mid)
-			// 			rr(a, b);
-			// 		else
-			// 			rb(b);
-			// 	// flag = false;
-			// 	// }
-			// 	// else
-			// 	// {
-			// 	// 	pb(a, b);
-			// 	// 	if (a->top->id > mid)
-			// 	// 		rr(a, b);
-			// 	// 	else
-			// 	// 		rb(b);
-			// 	// 	if (a->top->id > mid)
-			// 	// 		rr(a, b);
-			// 	// 	else
-			// 	// 		rb(b);
-			// 	// }
-			// }
 		}
 		else if (a->top->id <= mid)
 		{
 			pb(a, b);
 			to_push--;
-			// checked = false;
 		}
 		else
 		{
-			// if (!checked)
-				// direction = decide_direction_a(a, mid, &checked);
-			// shift_stack('A', a, b, direction);
 			ra(a);
 		}
 	}
