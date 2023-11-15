@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:40:15 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/09 16:44:59 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:31:15 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,3 +69,26 @@ int	count_nums_to_push_ignore_first(int mid, int first_mid, t_stack *a)
 	}
 	return (to_push);
 }
+
+void	slot_to_first_section(t_stack *a, t_stack *b, int first_mid, int mid)
+{
+	static int	pushed = 0;
+
+	pb(a, b);
+	pushed++;
+	if (pushed == 0)
+		return ;
+	if (a->top->id < b->top->id)
+	{
+		slot_to_first_section(a, b, first_mid, mid);
+	}
+	if (b->top && b->top->next && not_only_first_section(b, first_mid))
+	{
+		if (a->top->id > mid)
+			rr(a, b);
+		else
+			rb(b);
+		pushed--;
+	}
+}
+

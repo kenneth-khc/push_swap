@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 03:36:58 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/09 16:53:58 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:30:44 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,26 +76,51 @@ void	push_to_b(int to_push, int mid, t_stack *a, t_stack *b, int first_mid)
 {
 	// char	direction;
 	// bool	checked;
-	bool	flag;
+	// bool	flag;
 
 	// checked = false;
-	flag = false;
+	// flag = false;
 	while (to_push)
 	{
-		if (flag && b->top && b->top->next && b->top->id < b->top->next->id)
+		// if (flag && b->top && b->top->next && b->top->id < b->top->next->id
+		// 	&& not_only_first_section(a, first_mid))
+		// {
+		// 	if (a->top->id > mid)
+		// 		rr(a, b);
+		// 	else
+		// 		rb(b);
+		// 	flag = false;
+		// }
+		if (top_is_first_section(a, first_mid))
 		{
-			if (a->top->id > mid)
-				rr(a, b);
-			else
-				rb(b);
-			flag = false;
+			slot_to_first_section(a, b, first_mid, mid);
+			// pb(a, b);
+			// // flag = true;
+			// if (b->top && b->top->next && not_only_first_section(b, first_mid))
+			// {
+			// 	// if (a->top->id < b->top->id)
+			// 	// {
+			// 		if (a->top->id > mid)
+			// 			rr(a, b);
+			// 		else
+			// 			rb(b);
+			// 	// flag = false;
+			// 	// }
+			// 	// else
+			// 	// {
+			// 	// 	pb(a, b);
+			// 	// 	if (a->top->id > mid)
+			// 	// 		rr(a, b);
+			// 	// 	else
+			// 	// 		rb(b);
+			// 	// 	if (a->top->id > mid)
+			// 	// 		rr(a, b);
+			// 	// 	else
+			// 	// 		rb(b);
+			// 	// }
+			// }
 		}
-		else if (top_is_first_section(a, first_mid))
-		{
-			pb(a, b);
-			flag = true;
-		}
-		else if (a->top->id <= mid && flag == false)
+		else if (a->top->id <= mid)
 		{
 			pb(a, b);
 			to_push--;
@@ -109,4 +134,18 @@ void	push_to_b(int to_push, int mid, t_stack *a, t_stack *b, int first_mid)
 			ra(a);
 		}
 	}
+}
+
+bool	not_only_first_section(t_stack *a, int first_mid)
+{
+	t_node	*current;
+
+	current = a->top;
+	while (current->next)
+	{
+		current = current->next;
+		if (current->id > first_mid)
+			return (true);
+	}
+	return (false);
 }

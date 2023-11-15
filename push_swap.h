@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/09 20:07:01 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:30:22 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,5 +172,8 @@ void	print_section(t_section *section, t_stack *a, t_stack *b);
 int    find_mid_ignoring_first(t_stack *a, int first_mid);
 bool    top_is_first_section(t_stack *a, int first_mid);
 int	count_nums_to_push_ignore_first(int mid, int first_mid, t_stack *a);
+bool	not_only_first_section(t_stack *a, int first_mid);
+
+void	slot_to_first_section(t_stack *a, t_stack *b, int first_mid, int mid);
 
 #endif
