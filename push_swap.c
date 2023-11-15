@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:59:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/09 17:17:01 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/15 13:14:10 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,17 @@ void	quicksort(t_stack *a, t_stack *b, int arr_size)
 void	sort_a(t_stack *a, t_stack *b, int num_of_elements,
 		t_section_list *sections)
 {
-	int	pushed;
-	int	len;
-	static int	call;
-	static int first_midpoint;
+	int			pushed;
+	int			len;
+	static int	first_midpoint;
+	static bool	first_call = true;
 
 	len = stack_len(a);
-	if (call++ == 0 && len > 5)
+	if (first_call && len > 5)
 	{
 		first_midpoint = find_midpoint(a);
 		add_section(num_of_elements / 2, sections, 'B');
+		first_call = false;
 	}
 	if (len > 5)
 	{
