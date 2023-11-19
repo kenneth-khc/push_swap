@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:44:35 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/08 16:48:27 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/19 20:49:00 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ void	init_stacks(t_stack *stack_a, t_stack *stack_b,
 	i = 0;
 	while (i < temp_size)
 	{
-		temp[i] = int_array->contents[i];
+		temp[i] = int_array->buf[i];
 		i++;
 	}
 	quick_sort(temp, temp_size);
 	check_for_duplicates(temp, temp_size);
 	while (--temp_size >= 0)
-		push(stack_a, int_array->contents[temp_size]);
+		push(stack_a, int_array->buf[temp_size]);
 	simplify_stack(temp, stack_a);
 	free(temp);
-	free(int_array->contents);
+	free(int_array->buf);
 }
 
 /**

@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:53:03 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/05 21:57:59 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/19 20:12:48 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	rb(t_stack *b)
 {
 	t_node	*first;
 	t_node	*last;
+
 	if (!b->top || !b->top->next)
 		return ;
 	first = b->top;

@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:08:50 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/09 20:08:36 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/19 20:49:00 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_int_array	*parse_arguments(int argc, char **argv)
 	}
 	validate_integers(integers, strings);
 	integs = malloc(sizeof(t_int_array));
-	integs->contents = integers;
+	integs->buf = integers;
 	integs->size = size;
 	return (integs);
 }

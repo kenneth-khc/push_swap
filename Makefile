@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-FSAN = 
+FSAN =
 RED = \033[0;91m
 GREEN = \033[92m
 RESET = \033[0m

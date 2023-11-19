@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:35:01 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/08 14:35:12 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/19 20:10:19 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,3 @@ void	sort_while_shifting_down(t_stack *a, t_stack *b, int shifted_up)
 			optimized_swap('A', a, b);
 	}
 }
-

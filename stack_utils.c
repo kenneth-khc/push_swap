@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:07:45 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/07 10:43:23 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/19 21:39:08 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,24 +73,24 @@ void	find_section_min_max(t_stack *stack, int len, int *min, int *max)
 	}
 }
 
-bool	stacks_are_not_sorted(t_stack *stack_a, t_stack *stack_b)
+bool	stacks_are_sorted(t_stack *a, t_stack *b)
 {
 	t_node	*current;
 	t_node	*prev;
 
-	if (stack_b->top)
-		return (true);
-	if (stack_a->top)
+	if (b->top)
+		return (false);
+	if (a->top)
 	{
-		current = stack_a->top;
+		current = a->top;
 		prev = current;
 		while (current->next)
 		{
 			current = current->next;
 			if (prev->id > current->id)
-				return (true);
+				return (false);
 			prev = prev->next;
 		}
 	}
-	return (false);
+	return (true);
 }

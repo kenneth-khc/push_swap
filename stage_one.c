@@ -6,26 +6,20 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:40:15 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/15 21:52:21 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/19 22:13:23 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// void    stage_one(t_stack *a, t_stack *b, int *size, t_section_list *sections)
-// {
-//     int first_midpoint;
-//     int to_push;
-// }
-
-int    find_mid_ignoring_first(t_stack *a, int first_mid)
+int	find_mid_ignoring_first(t_stack *a, int first_mid)
 {
-    int		min;
+	int		min;
 	int		max;
 	int		mid;
-
-    t_node	*current;
+	t_node	*current;
 	t_node	*temp;
+
 	current = a->top;
 	temp = current;
 	while (temp->id <= first_mid)
@@ -46,12 +40,12 @@ int    find_mid_ignoring_first(t_stack *a, int first_mid)
 	return (mid);
 }
 
-bool    top_is_first_section(t_stack *a, int first_mid)
+bool	top_is_first_section(t_stack *a, int first_mid)
 {
-    if (a->top->id <= first_mid)
-        return (true);
-    else
-        return (false);
+	if (a->top->id <= first_mid)
+		return (true);
+	else
+		return (false);
 }
 
 int	count_nums_to_push_ignore_first(int mid, int first_mid, t_stack *a)
@@ -70,21 +64,21 @@ int	count_nums_to_push_ignore_first(int mid, int first_mid, t_stack *a)
 	return (to_push);
 }
 
-void	slot_to_first_section(t_stack *a, t_stack *b, int first_mid, int mid)
+void	slot_to_first_section(t_stack *a, t_stack *b, int first_mid, int mid, int *pushed)
 {
 	pb(a, b);
+	*pushed += 1;
 	if (a->top->id > b->top->id && a->top->id <= first_mid)
 	{
-		slot_to_first_section(a, b, first_mid, mid);
+		slot_to_first_section(a, b, first_mid, mid, pushed);
 	}
 	if (b->top && b->top->next && not_only_first_section(b, first_mid))
 	{
 		if (a->top->id > b->top->id && a->top->id <= first_mid)
-			slot_to_first_section(a, b, first_mid, mid);
+			slot_to_first_section(a, b, first_mid, mid, pushed);
 		if (a->top->id > mid)
 			rr(a, b);
 		else
 			rb(b);
 	}
 }
-

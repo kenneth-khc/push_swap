@@ -6,11 +6,40 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 06:10:47 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/07 10:33:11 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/19 22:53:33 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	init_section(char location, int len, t_section_list *sections)
+{
+	t_section	*new_section;
+
+	new_section = malloc(sizeof(t_section));
+	new_section->in = location;
+	new_section->len = len;
+	new_section->prev = sections->tail;
+	if (!sections->head)
+		sections->head = new_section;
+	else
+		sections->tail->next = new_section;
+	sections->tail = new_section;
+}
+
+void	remove_sorted_a(t_section_list *sections)
+{
+	t_section	*sorted;
+	t_section	*unsorted;
+
+	sorted = sections->head;
+	unsorted = sorted->next;
+	if (sections->tail == sorted)
+		sections->tail = NULL;
+	free(sorted);
+	sections->head = unsorted;
+	sections->head->prev = NULL;
+}
 
 /**
  * After pushing a group of numbers to the opposite stack, add a new section
@@ -71,4 +100,34 @@ void	remove_current_section_a(t_section_list *sections, t_section *current)
 	current->next->prev = current->prev;
 	current->prev->next = current->next;
 	free(current);
+}
+
+int	find_num_to_add(t_stack *stack, int midpoint)
+{
+	int		num;
+	t_node	*current;
+
+	num = 0;
+	current = stack->top;
+	while (current)
+	{
+		if (current->id <= midpoint)
+			num++;
+		current = current->next;
+	}
+	return (num);
+}
+
+void	push_first_section(t_stack *a, t_stack *b, int to_push, int mid)
+{
+	while (to_push)
+	{
+		if (a->top->id <= mid)
+		{
+			pb(a, b);
+			to_push--;
+		}
+		else
+			ra(a);
+	}
 }

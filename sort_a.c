@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 03:36:58 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/15 21:53:18 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/19 22:43:15 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ int	push_half_to_b(t_stack *a, t_stack *b, t_section_list *sections, int first_m
 	midpoint = find_mid_ignoring_first(a, first_midpoint);
 	// to_push = count_nums_to_push(midpoint, a);
 	to_push = count_nums_to_push_ignore_first(midpoint, first_midpoint, a);
-	push_to_b(to_push, midpoint, a, b, first_midpoint);
 	add_section(to_push, sections, 'B');
+	to_push += push_to_b(to_push, midpoint, a, b, first_midpoint);
+	sections->head->len -= to_push;
 	return (to_push);
 }
 
@@ -72,15 +73,18 @@ int	count_nums_to_push(int mid, t_stack *a)
  * If the top number is not lower than the midpoint,
  * shift stack A either up or down until you get to the next target.
  */
-void	push_to_b(int to_push, int mid, t_stack *a, t_stack *b, int first_mid)
+int	push_to_b(int to_push, int mid, t_stack *a, t_stack *b, int first_mid)
 {
+	int	pushed;
+
+	pushed = 0;
 	while (to_push)
 	{
 		if (top_is_first_section(a, first_mid))
 		{
-			slot_to_first_section(a, b, first_mid, mid);
+			slot_to_first_section(a, b, first_mid, mid, &pushed);
 		}
-		else if (a->top->id <= mid)
+		else if (a->top->id <= mid && a->top->id > first_mid)
 		{
 			pb(a, b);
 			to_push--;
@@ -90,6 +94,7 @@ void	push_to_b(int to_push, int mid, t_stack *a, t_stack *b, int first_mid)
 			ra(a);
 		}
 	}
+	return (pushed);
 }
 
 bool	not_only_first_section(t_stack *a, int first_mid)

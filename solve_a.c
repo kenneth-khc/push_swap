@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:28:54 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/15 22:33:46 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/19 20:37:39 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,20 @@
 
 void	solve_a(t_stack *a, t_stack *b, int len)
 {
-	// void	(*ptr[5])(t_stack *, t_stack *);
-	// ptr[0] = NULL;
+	t_sorter	sorting[6];
 
 	if (elements_are_ascending(a))
 		return ;
-	if (len == 5)
-		sort_five(a, b);
-	else if (len == 4)
-		sort_four(a, b);
-	else if (len == 3)
-		sort_three(a, b);
-	else if (len == 2)
-		if (a->top->id > a->top->next->id)
-			optimized_swap('A', a, b);
+	init_sorting_functions(sorting);
+	if (sorting[len])
+		sorting[len](a, b);
 	return ;
+}
+
+void	sort_two(t_stack *a, t_stack *b)
+{
+	if (a->top->id > a->top->next->id)
+		optimized_swap('A', a, b);
 }
 
 /**
@@ -66,19 +65,26 @@ void	sort_three(t_stack *a, t_stack *b)
 
 void	sort_four(t_stack *a, t_stack *b)
 {
-	int	smallest;
+	int		smallest;
+	int		steps;
+	t_node	*current;
 
 	smallest = find_min(a);
-	while (1)
+	steps = 0;
+	current = a->top;
+	while (current->id != smallest)
 	{
-		if (a->top->id == smallest)
-		{
-			pb(a, b);
-			break ;
-		}
-		//fix this
-		ra(a);
+		current = current->next;
+		steps++;
 	}
+	while (a->top->id != smallest)
+	{
+		if (steps < 2)
+			ra(a);
+		else
+			rra(a);
+	}
+	pb(a, b);
 	sort_three(a, b);
 	pa(a, b);
 }
