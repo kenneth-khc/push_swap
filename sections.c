@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 06:10:47 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/19 22:53:33 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/20 14:20:13 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_section(char location, int len, t_section_list *sections)
 	new_section->in = location;
 	new_section->len = len;
 	new_section->prev = sections->tail;
+	new_section->next = NULL;
 	if (!sections->head)
 		sections->head = new_section;
 	else
@@ -34,11 +35,14 @@ void	remove_sorted_a(t_section_list *sections)
 
 	sorted = sections->head;
 	unsorted = sorted->next;
+	if (unsorted)
+	{
+		sections->head = unsorted;
+		sections->head->prev = NULL;
+	}
 	if (sections->tail == sorted)
 		sections->tail = NULL;
 	free(sorted);
-	sections->head = unsorted;
-	sections->head->prev = NULL;
 }
 
 /**

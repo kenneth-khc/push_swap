@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:52:36 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/19 22:53:38 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/20 22:02:37 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef void				(*t_sorter)(t_stack *, t_stack *);
 /* Arguments */
 t_int_array	*parse_arguments(int argc, char **argv);
 char		*join_arguments(char *s1, const char *s2);
-char		**extract_arguments(char **argv);
+char		**extract_arguments(char **argv, int *size);
 int			count_numbers(char **strings);
 void		validate_integers(int *integers, char **argv);
 void		check_for_duplicates(int *array, int size);
@@ -175,5 +175,11 @@ t_section_list *sections);
 void	remove_sorted_a(t_section_list *sections);
 int	find_num_to_add(t_stack *stack, int midpoint);
 void	push_first_section(t_stack *a, t_stack *b, int to_push, int mid);
+void	determine_first_section(t_section_list *sections, int *first_mid,
+t_stack *a, t_stack *b);
+bool	has_remaining(t_stack *a, int first_mid);
+void	clear_remaining(t_stack *a, t_stack *b,
+t_section_list *sections, int first_midpoint);
+int	last_node_id(t_stack *stack);
 
 #endif

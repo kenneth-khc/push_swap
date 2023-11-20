@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:59:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/19 22:53:59 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/20 21:33:48 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,16 @@ int	main(int argc, char **argv)
 	init_stacks(&a, &b, int_array);
 	quicksort(&a, &b, int_array->size);
 	free_stacks(&a, &b);
-	free(int_array); //
 }
 
-void	quicksort(t_stack *a, t_stack *b, int arr_size)
+void	quicksort(t_stack *a, t_stack *b, int elements)
 {
 	t_section_list	sections;
 
 	if (stacks_are_sorted(a, b))
 		return ;
 	sections = (t_section_list){NULL, NULL};
-	init_section('A', arr_size, &sections);
+	init_section('A', elements, &sections);
 	sort_a(a, b, &sections);
 	sort_b(a, b, &sections);
 }
@@ -40,34 +39,27 @@ void	quicksort(t_stack *a, t_stack *b, int arr_size)
 void	sort_a(t_stack *a, t_stack *b, t_section_list *sections)
 {
 	int			pushed;
-	// int			len;
 	static int	first_midpoint;
 	static bool	first_call = true;
-	t_section	*unsorted_a;
+	t_section	*unsorted;
 
-	// len = stack_len(a);
-	unsorted_a = sections->head;
-	if (first_call && unsorted_a->len > 5)
+	unsorted = sections->head;
+	if (first_call && unsorted->len > 5)
 	{
-		first_midpoint = find_midpoint(a);
-		add_section(find_num_to_add(a, first_midpoint), sections, 'B');
-		if (unsorted_a->len - unsorted_a->next->len <= 5)
-		{
-			push_first_section(a, b, unsorted_a->next->len, first_midpoint);
-			sort_a(a, b, sections);
-			return ;
-		}
+		determine_first_section(sections, &first_midpoint, a, b);
 		first_call = false;
 	}
-	if (unsorted_a->len > 5)
+	if (unsorted->len > 5)
 	{
 		pushed = push_half_to_b(a, b, sections, first_midpoint);
 		(void)pushed;
 		sort_a(a, b, sections);
 	}
-	else if (unsorted_a->len <= 5)
+	else if (unsorted->len <= 5)
 	{
-		solve_a(a, b, unsorted_a->len);
+		if (unsorted->next && has_remaining(a, first_midpoint))
+			clear_remaining(a, b, sections, first_midpoint);
+		solve_a(a, b, unsorted->len);
 		remove_sorted_a(sections);
 		return ;
 	}
@@ -103,14 +95,15 @@ void	update_sections(t_section_list *sections, t_stack *a, t_stack *b)
 		return ;
 	if (last->in == 'A')
 	{
-		if (last->len == 0 || section_is_ascending(a, last->len))
+		// if (last->len == 0 || section_is_ascending(a, last->len))
+		if (section_is_ascending(a, last->len))
 			remove_section(sections);
 	}
 	else if (last->in == 'B')
 	{
-		if (last->len == 0)
-			remove_section(sections);
-		else if (section_is_descending(b, last->len))
+		// if (last->len == 0)
+		// 	remove_section(sections);
+		if (section_is_descending(b, last->len))
 		{
 			push_sorted_section(a, b, last->len);
 			remove_section(sections);
