@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:44:35 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/21 12:28:43 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 15:09:56 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,45 @@
  * Create a temporary array for processing.
  * It is used to check for duplicates and to simplify our numbers.
 */
-void	init_stacks(t_stack *stack_a, t_stack *stack_b,
-	t_int_array *int_array)
+void	init_stacks(t_stacks *stacks, t_int_array *int_array)
 {
-	int	*temp;
-	int	i;
-	int	temp_size;
+	t_stack	*a;
+	t_stack	*b;
+	t_int_array	*sorted;
 
-	stack_a->top = NULL;
-	stack_b->top = NULL;
-	temp = malloc(sizeof(*temp) * int_array->size);
-	temp_size = int_array->size;
-	if (!temp)
+	sorted = process_numbers(int_array);
+	a = malloc(sizeof(*a));
+	b = malloc(sizeof(*b));
+	if (NULL == a || NULL == b)
 		error();
+	a->top = NULL;
+	b->top = NULL;
+	*stacks = (t_stacks){a, b};
+	while (--sorted->size >= 0)
+		push(a, int_array->buf[sorted->size]);
+	simplify_stack(sorted, a);
+	free(sorted->buf);
+	free(sorted);
+	free(int_array->buf);
+}
+
+t_int_array	*process_numbers(t_int_array *int_array)
+{
+	int	i;
+	t_int_array	*temp;
+
+	temp = malloc(sizeof(*temp));
+	temp->buf = malloc(sizeof(int) * int_array->size);
+	temp->size = int_array->size;
 	i = 0;
-	while (i < temp_size)
+	while (i < temp->size)
 	{
-		temp[i] = int_array->buf[i];
+		temp->buf[i] = int_array->buf[i];
 		i++;
 	}
-	quick_sort(temp, temp_size);
-	check_for_duplicates(temp, temp_size);
-	while (--temp_size >= 0)
-		push(stack_a, int_array->buf[temp_size]);
-	simplify_stack(temp, stack_a);
-	free(temp);
-	free(int_array->buf);
+	quick_sort(temp);
+	check_for_duplicates(temp);
+	return (temp);
 }
 
 /**
@@ -53,14 +66,14 @@ void	init_stacks(t_stack *stack_a, t_stack *stack_b,
  * if duplicates are present, they will be placed next to each other.
  * Throw error.
 */
-void	check_for_duplicates(int *array, int size)
+void	check_for_duplicates(t_int_array *array)
 {
 	int	i;
 
 	i = 0;
-	while (i < size - 1)
+	while (i < array->size - 1)
 	{
-		if (array[i] == array[i + 1])
+		if (array->buf[i] == array->buf[i + 1])
 			error();
 		i++;
 	}
@@ -73,7 +86,7 @@ void	check_for_duplicates(int *array, int size)
  * sorted array to find the position the data is in, then assign
  * that number to the node.
  */
-void	simplify_stack(int *array, t_stack *stack_a)
+void	simplify_stack(t_int_array *array, t_stack *stack_a)
 {
 	int		i;
 	t_node	*current;
@@ -82,7 +95,7 @@ void	simplify_stack(int *array, t_stack *stack_a)
 	while (current)
 	{
 		i = 0;
-		while (current->data != array[i])
+		while (current->data != array->buf[i])
 			i++;
 		current->id = i;
 		current = current->next;
@@ -98,8 +111,8 @@ void	push(t_stack *stack, int data)
 {
 	t_node	*new_node;
 
-	new_node = malloc(sizeof(t_node));
-	if (!new_node)
+	new_node = malloc(sizeof(*new_node));
+	if (NULL == new_node)
 		error();
 	new_node->data = data;
 	new_node->next = stack->top;

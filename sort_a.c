@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 03:36:58 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/21 13:51:20 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 23:10:35 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,21 @@
  * A section is added for each group of numbers pushed.
  * The number of elements pushed is returned for further recursive calls.
 */
-int	push_half_to_b(t_stack *a, t_stack *b, t_sections *sections, int first_mid)
+int	half_a_to_b(t_stacks *stacks, t_sections *sections, int first_mid)
 {
 	int	midpoint;
 	int	to_push;
+	int	first_section_pushed;
+	t_stack	*a;
+	t_stack	*b;
 
-	midpoint = find_mid_ignoring_first(a, first_mid);
-	to_push = count_nums_to_push_ignore_first(midpoint, first_mid, a);
-	add_section(to_push, sections, 'B');
-	to_push += push_to_b(to_push, midpoint, a, b, first_mid);
-	sections->head->len -= to_push;
+	a = stacks->a;
+	b = stacks->b;
+	midpoint = find_mid_greater_than_first(a, first_mid);
+	to_push = count_nums_greater_than_first(a, midpoint, first_mid);
+	first_section_pushed = push_to_b(to_push, midpoint, a, b, first_mid);
+	add_unsorted_section('B', to_push, sections);
+	sections->head->len -= to_push + first_section_pushed;
 	return (to_push);
 }
 
@@ -85,14 +90,14 @@ int	count_nums_to_push(t_stack *a, int mid)
  */
 int	push_to_b(int to_push, int mid, t_stack *a, t_stack *b, int first_mid)
 {
-	int	pushed;
+	int	first_section_pushed;
 
-	pushed = 0;
-	while (to_push)
+	first_section_pushed = 0;
+	while (to_push > 0)
 	{
 		if (top_is_first_section(a, first_mid))
 		{
-			slot_to_first_section(a, b, first_mid, mid, &pushed);
+			slot_to_first_section(a, b, first_mid, mid, &first_section_pushed);
 		}
 		else if (a->top->id <= mid && a->top->id > first_mid)
 		{
@@ -104,7 +109,7 @@ int	push_to_b(int to_push, int mid, t_stack *a, t_stack *b, int first_mid)
 			ra(a);
 		}
 	}
-	return (pushed);
+	return (first_section_pushed);
 }
 
 bool	not_only_first_section(t_stack *a, int first_mid)

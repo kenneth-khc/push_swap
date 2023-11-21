@@ -6,21 +6,26 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:28:54 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/19 20:37:39 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 23:07:18 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	solve_a(t_stack *a, t_stack *b, int len)
+void	solve_a(t_stacks *stacks, int len)
 {
-	t_sorter	sorting[6];
+	t_sorter_ptr	sorting[6];
 
-	if (elements_are_ascending(a))
+	if (elements_are_ascending(stacks->a))
 		return ;
-	init_sorting_functions(sorting);
+	sorting[0] = NULL;
+	sorting[1] = NULL;
+	sorting[2] = sort_two;
+	sorting[3] = sort_three;
+	sorting[4] = sort_four;
+	sorting[5] = sort_five;
 	if (sorting[len])
-		sorting[len](a, b);
+		sorting[len](stacks->a, stacks->b);
 	return ;
 }
 
@@ -43,11 +48,8 @@ void	sort_three(t_stack *a, t_stack *b)
 
 	if (elements_are_ascending(a))
 		return ;
-	first = a->top;
-	second = first->next;
-	third = second->next;
-	if (first->id > second->id
-		&& first->id > third->id)
+	assign_three_nodes(a, &first, &second, &third);
+	if (first->id > second->id && first->id > third->id)
 	{
 		ra(a);
 		if (second->id > third->id)
@@ -100,8 +102,7 @@ void	sort_five(t_stack *a, t_stack *b)
 	to_push = 2;
 	while (to_push)
 	{
-		if (a->top->id == smallest
-			|| a->top->id == second_smallest)
+		if (a->top->id == smallest || a->top->id == second_smallest)
 		{
 			pb(a, b);
 			to_push--;
@@ -109,9 +110,9 @@ void	sort_five(t_stack *a, t_stack *b)
 		}
 		ra(a);
 	}
-	sort_three(a, b);
 	if (b->top->id < b->top->next->id)
 		optimized_swap('B', a, b);
+	sort_three(a, b);
 	pa(a, b);
 	pa(a, b);
 }

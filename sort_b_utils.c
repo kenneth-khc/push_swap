@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 20:23:27 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/19 20:24:49 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 22:15:01 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	section_is_descending(t_stack *stack, int len)
 	if (!current)
 		return (true);
 	prev = current->id;
-	while (--len)
+	while (--len > 0)
 	{
 		current = current->next;
 		if (prev < current->id)
@@ -52,32 +52,25 @@ char	decide_direction_b(t_stack *stack, int midpoint, bool *checked)
 
 int	push_section_to_a(int to_push, int mid, t_stack *a, t_stack *b)
 {
-	char	direction;
+	bool	sortable;
 	int		shifted_up;
-	bool	checked;
-	bool	sorting;
 
-	shifted_up = 0;
-	checked = false;
+	sortable = false;
 	if (to_push <= 3)
-		sorting = true;
-	else
-		sorting = false;
-	while (to_push)
+		sortable = true;
+	shifted_up = 0;
+	while (to_push > 0)
 	{
 		if (b->top->id > mid)
 		{
 			pa(a, b);
 			to_push--;
-			if (sorting && a->top->id > a->top->next->id)
+			if (sortable && a->top->id > a->top->next->id)
 				optimized_swap('A', a, b);
-			checked = false;
 		}
 		else
 		{
-			if (!checked)
-				direction = decide_direction_b(b, mid, &checked);
-			shift_stack('B', a, b, direction);
+			shift_stack(UP, 'B', a, b);
 			shifted_up++;
 		}
 	}
@@ -103,7 +96,7 @@ void	push_last_section(int to_push, int mid, t_stack *a, t_stack *b)
 		{
 			if (!checked)
 				direction = decide_direction_b(b, mid, &checked);
-			shift_stack('B', a, b, direction);
+			shift_stack(direction, 'B', a, b);
 		}
 	}
 }

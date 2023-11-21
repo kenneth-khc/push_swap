@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 06:10:47 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/21 13:44:03 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 22:17:54 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void	add_section(int to_sort, t_sections *list, char stack)
 
 
 /**
- * Removes the last section after sorting it.
+ * Removes the last section after sorting it and updates the section list.
  */
-void	remove_section(t_sections *sections)
+void	remove_last_section(t_sections *sections)
 {
 	t_section	*last;
 	t_section	*second_last;
@@ -123,8 +123,13 @@ int	find_num_to_add(t_stack *stack, int midpoint)
 	return (num);
 }
 
-void	push_first_section(t_stack *a, t_stack *b, int to_push, int mid)
+void	push_first_section(t_stacks *stacks, int to_push, int mid)
 {
+	t_stack	*a;
+	t_stack	*b;
+
+	a = stacks->a;
+	b = stacks->b;
 	while (to_push > 0)
 	{
 		if (a->top->id <= mid)
@@ -134,5 +139,25 @@ void	push_first_section(t_stack *a, t_stack *b, int to_push, int mid)
 		}
 		else
 			ra(a);
+	}
+}
+
+void	update_sections(t_sections *sections, t_stack *a, t_stack *b)
+{
+	t_section	*last;
+
+	last = sections->tail;
+	while (last)
+	{
+		if (last->in == 'A' && section_is_ascending(a, last->len))
+			remove_last_section(sections);
+		else if (last->in == 'B' && section_is_descending(b, last->len))
+		{
+			push_sorted_section(a, b, last->len);
+			remove_last_section(sections);
+		}
+		else
+			break ;
+		last = last->prev;
 	}
 }

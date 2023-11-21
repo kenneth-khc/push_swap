@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:44:47 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 22:42:46 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 23:05:34 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	find_min_max(t_stack *stack, int *min, int *max)
 	}
 }
 
-void	free_stacks(t_stack *a, t_stack *b)
+void	free_stacks(t_stacks *stacks)
 {
 	t_node	*current;
 	t_node	*prev;
 
-	current = a->top;
+	current = stacks->a->top;
 	prev = NULL;
 	while (current)
 	{
@@ -46,7 +46,8 @@ void	free_stacks(t_stack *a, t_stack *b)
 		current = current->next;
 		free(prev);
 	}
-	current = b->top;
+	free(stacks->a);
+	current = stacks->b->top;
 	prev = NULL;
 	while (current)
 	{
@@ -54,12 +55,13 @@ void	free_stacks(t_stack *a, t_stack *b)
 		current = current->next;
 		free(prev);
 	}
+	free(stacks->b);
 }
 
-void	assign_three_nodes(t_stack *a,
-		t_node **first, t_node **second, t_node **third)
+void	assign_three_nodes(t_stack *stack,
+t_node **first, t_node **second, t_node **third)
 {
-	*first = a->top;
+	*first = stack->top;
 	if (*first)
 	{
 		*second = (*first)->next;
@@ -68,12 +70,20 @@ void	assign_three_nodes(t_stack *a,
 		else
 			*third = NULL;
 	}
+	else
+	{
+		*second = NULL;
+		*third = NULL;
+	}
 }
 
 void	push_sorted_section(t_stack *a, t_stack *b, int section_len)
 {
-	while (section_len--)
+	while (section_len > 0)
+	{
 		pa(a, b);
+		section_len--;
+	}
 }
 
 void	push_to_opposite_stack(t_stack *a, t_stack *b, char current_stack)
