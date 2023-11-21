@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:38:14 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/19 20:29:17 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 22:36:30 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	decide_direction_a(t_stack *stack, int midpoint, bool *checked)
 	return (direction);
 }
 
-void	init_sorting_functions(t_sorter sorting[6])
+void	init_sorting_functions(t_sorter_ptr sorting[6])
 {
 	sorting[0] = NULL;
 	sorting[1] = NULL;

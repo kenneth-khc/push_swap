@@ -1,37 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stage_one.c                                        :+:      :+:    :+:   */
+/*   first_section.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:40:15 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/21 13:56:25 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 23:28:43 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	check_first_half(
-t_sections *sections, t_stack *a, t_stack *b, int *first_mid)
+void	check_first_half(t_stacks *stacks, t_sections *sections, int *first_mid)
 {
+	t_stack		*a;
+	t_stack		*b;
 	int			to_push;
 	t_section	*unsorted_a;
 	t_section	*first_half;
 
+	a = stacks->a;
+	b = stacks->b;
 	unsorted_a = sections->head;
 	*first_mid = find_section_midpoint(a, unsorted_a->len);
 	to_push = count_nums_to_push(a, *first_mid);
 	add_unsorted_section('B', to_push, sections);
 	first_half = unsorted_a->next;
-	if (unsorted_a->len - first_half->len <= 5)
+	if (not_dividable_further(unsorted_a, first_half))
 	{
-		push_first_section(a, b, first_half->len, *first_mid);
+		push_first_section(stacks, first_half->len, *first_mid);
 		unsorted_a->len -= first_half->len;
 	}
 }
 
-int	find_mid_ignoring_first(t_stack *a, int first_mid)
+bool	not_dividable_further(t_section *unsorted_a, t_section *first_half)
+{
+	return (unsorted_a->len - first_half->len <= 5);
+}
+
+int	find_mid_greater_than_first(t_stack *a, int first_mid)
 {
 	int		min;
 	int		max;
@@ -65,7 +73,7 @@ bool	top_is_first_section(t_stack *a, int first_mid)
 		return (false);
 }
 
-int	count_nums_to_push_ignore_first(int mid, int first_mid, t_stack *a)
+int	count_nums_greater_than_first(t_stack *a, int mid, int first_mid)
 {
 	int		to_push;
 	t_node	*current;
@@ -74,7 +82,7 @@ int	count_nums_to_push_ignore_first(int mid, int first_mid, t_stack *a)
 	current = a->top;
 	while (current)
 	{
-		if (current->id <= mid && current->id > first_mid)
+		if (current->id > first_mid && current->id <= mid)
 			to_push++;
 		current = current->next;
 	}
@@ -114,32 +122,39 @@ bool	has_remaining(t_stack *a, int first_mid)
 	return (false);
 }
 
-void	clear_remaining(t_stack *a, t_stack *b,
-t_sections *sections, int first_midpoint)
+void	clear_remaining(t_stacks *stacks, t_sections *sections, int first_mid)
 {
 	t_node	*current;
 	int		remaining;
 	int		pushed;
+	t_stack	*a;
+	t_stack	*b;
 
+	a = stacks->a;
+	b = stacks->b;
 	remaining = 0;
 	current = a->top;
 	while (current)
 	{
-		if (current->id <= first_midpoint)
+		if (current->id <= first_mid)
 			remaining++;
 		current = current->next;
 	}
 	pushed = remaining;
 	while (remaining > 0)
 	{
-		if (a->top->id <= first_midpoint)
+		if (a->top->id <= first_mid)
 		{
 			pb(a, b);
 			remaining--;
-			// if (a->top->id < last_node_id(a))
-				// rr(a, b);
-			// else
-				rb(b);
+			if (sections->head->next)
+			{
+				if (a->top->id < last_node_id(a))
+					rr(a, b);
+				else
+					rb(b);
+			}
+			// shift_stack(UP, 'A', a, b);
 		}
 		else
 			ra(a);

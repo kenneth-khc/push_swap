@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 20:28:21 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/21 13:24:09 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 21:34:06 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,22 @@ int	divide_section_b(t_stack *a, t_stack *b, t_section *section)
 	int		midpoint;
 	int		to_push;
 	int		shifted_up;
-	bool	slot_in;
 
 	midpoint = find_section_midpoint(b, section->len);
 	to_push = count_nums_to_push_b(midpoint, b, section->len);
 	section->len -= to_push;
 	shifted_up = push_section_to_a(to_push, midpoint, a, b);
-	slot_in = false;
 	if (to_push <= 3)
 	{
 		sort_section_a(a, b, to_push);
-		slot_in = true;
+		// slot_in = true;
 	}
 	if (!last_section_in_b(section))
 	{
 		while (shifted_up--)
 		{
 			rrb(b);
-			if (section->len > 0 && slot_in && b->top->id == a->top->id - 1)
+			if (section->len > 0 && b->top->id == a->top->id - 1)
 			{
 				pa(a, b);
 				section->len--;

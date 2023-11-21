@@ -6,39 +6,12 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 21:05:15 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/05 23:21:00 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 17:17:35 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	shift_stack(char current_stack, t_stack *a, t_stack *b, char direction)
-{
-	if (current_stack == 'A')
-	{
-		if (direction == UP)
-		{
-			if (rr_optimizable(a, b))
-				rr(a, b);
-			else
-				ra(a);
-		}
-		else if (direction == DOWN)
-		{
-			if (rrr_optimizable(a, b))
-				rrr(a, b);
-			else
-				rra(a);
-		}
-	}
-	else if (current_stack == 'B')
-	{
-		if (direction == UP)
-			rb(b);
-		else if (direction == DOWN)
-			rrb(b);
-	}
-}
 
 int	find_section_minimum(t_stack *stack, int section_len)
 {
