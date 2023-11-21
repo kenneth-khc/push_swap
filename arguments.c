@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:08:50 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/20 22:17:13 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 12:32:37 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,28 @@
  * Store them sequentially in an array.
  * Check the list to validate the integers, error if non integer found.
 */
-t_int_array	*parse_arguments(int argc, char **argv)
+void	parse_arguments(int argc, char **argv, t_int_array *integers)
 {
 	int			i;
-	char		**strings;
 	int			size;
 	int			*buf;
-	t_int_array	*integers;
+	char		**strings;
 
 	if (argc == 1)
 		exit(EXIT_FAILURE);
-	i = 0;
 	strings = extract_arguments(argv, &size);
 	buf = malloc(sizeof(*buf) * size);
 	if (NULL == buf)
 		error();
+	i = 0;
 	while (strings[i])
 	{
 		buf[i] = ft_atoi(strings[i]);
 		i++;
 	}
 	validate_integers(buf, strings);
-	integers = malloc(sizeof(t_int_array));
 	integers->buf = buf;
 	integers->size = size;
-	return (integers);
 }
 
 /**

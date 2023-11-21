@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 03:36:58 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/19 22:43:15 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:51:20 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,15 @@
  * A section is added for each group of numbers pushed.
  * The number of elements pushed is returned for further recursive calls.
 */
-int	push_half_to_b(t_stack *a, t_stack *b, t_section_list *sections, int first_midpoint)
+int	push_half_to_b(t_stack *a, t_stack *b, t_sections *sections, int first_mid)
 {
 	int	midpoint;
 	int	to_push;
 
-	// midpoint = find_midpoint(a);
-	midpoint = find_mid_ignoring_first(a, first_midpoint);
-	// to_push = count_nums_to_push(midpoint, a);
-	to_push = count_nums_to_push_ignore_first(midpoint, first_midpoint, a);
+	midpoint = find_mid_ignoring_first(a, first_mid);
+	to_push = count_nums_to_push_ignore_first(midpoint, first_mid, a);
 	add_section(to_push, sections, 'B');
-	to_push += push_to_b(to_push, midpoint, a, b, first_midpoint);
+	to_push += push_to_b(to_push, midpoint, a, b, first_mid);
 	sections->head->len -= to_push;
 	return (to_push);
 }
@@ -41,8 +39,20 @@ int	find_midpoint(t_stack *stack)
 	int		min;
 	int		max;
 	int		mid;
+	t_node	*current;
 
-	find_min_max(stack, &min, &max);
+	// find_min_max(stack, &min, &max);
+	current = stack->top;
+	min = current->id;
+	max = current->id;
+	while (current)
+	{
+		if (current->id <= min)
+			min = current->id;
+		if (current->id >= max)
+			max = current->id;
+		current = current->next;
+	}
 	mid = min + ((max - min) / 2);
 	return (mid);
 }
@@ -51,7 +61,7 @@ int	find_midpoint(t_stack *stack)
  * Count the number of elements lower than the midpoint in stack A
  * and return that as the amount of numbers to push.
  */
-int	count_nums_to_push(int mid, t_stack *a)
+int	count_nums_to_push(t_stack *a, int mid)
 {
 	int		to_push;
 	t_node	*current;

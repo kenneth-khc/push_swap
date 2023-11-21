@@ -6,21 +6,28 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:40:15 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/20 17:50:26 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:56:25 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	determine_first_section(t_section_list *sections, int *first_mid,
-t_stack *a, t_stack *b)
+void	check_first_half(
+t_sections *sections, t_stack *a, t_stack *b, int *first_mid)
 {
-	*first_mid = find_midpoint(a);
-	add_section(find_num_to_add(a, *first_mid), sections, 'B');
-	if (sections->head->len - sections->head->next->len <= 5)
+	int			to_push;
+	t_section	*unsorted_a;
+	t_section	*first_half;
+
+	unsorted_a = sections->head;
+	*first_mid = find_section_midpoint(a, unsorted_a->len);
+	to_push = count_nums_to_push(a, *first_mid);
+	add_unsorted_section('B', to_push, sections);
+	first_half = unsorted_a->next;
+	if (unsorted_a->len - first_half->len <= 5)
 	{
-		push_first_section(a, b, sections->head->next->len, *first_mid);
-		sections->head->len -= sections->head->next->len;
+		push_first_section(a, b, first_half->len, *first_mid);
+		unsorted_a->len -= first_half->len;
 	}
 }
 
@@ -29,8 +36,8 @@ int	find_mid_ignoring_first(t_stack *a, int first_mid)
 	int		min;
 	int		max;
 	int		mid;
-	t_node	*current;
 	t_node	*temp;
+	t_node	*current;
 
 	current = a->top;
 	temp = current;
@@ -40,14 +47,12 @@ int	find_mid_ignoring_first(t_stack *a, int first_mid)
 	max = temp->id;
 	while (current)
 	{
-		if (current->id <= min && current->id > first_mid)
+		if (current->id > first_mid && current->id <= min)
 			min = current->id;
-		if (current->id >= max && current->id > first_mid)
+		if (current->id > first_mid && current->id >= max)
 			max = current->id;
 		current = current->next;
 	}
-	if (min == -1)
-		min = first_mid + 1;
 	mid = min + ((max - min) / 2);
 	return (mid);
 }
@@ -110,7 +115,7 @@ bool	has_remaining(t_stack *a, int first_mid)
 }
 
 void	clear_remaining(t_stack *a, t_stack *b,
-t_section_list *sections, int first_midpoint)
+t_sections *sections, int first_midpoint)
 {
 	t_node	*current;
 	int		remaining;

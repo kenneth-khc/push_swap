@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:07:45 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/19 21:39:08 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:21:47 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,25 @@ int	count_numbers(char **strings)
 	return (i);
 }
 
-int	find_mid_in_section(t_stack *stack, int section_len)
+int	find_section_midpoint(t_stack *stack, int section_len)
 {
 	int		min;
 	int		max;
 	int		mid;
+	t_node	*current;
 
-	find_section_min_max(stack, section_len, &min, &max);
+	current = stack->top;
+	min = current->id;
+	max = current->id;
+	while (section_len > 0)
+	{
+		if (current->id <= min)
+			min = current->id;
+		if (current->id >= max)
+			max = current->id;
+		current = current->next;
+		section_len--;
+	}
 	mid = min + ((max - min) / 2);
 	return (mid);
 }

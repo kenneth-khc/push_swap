@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:44:35 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/20 21:33:36 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 12:28:43 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	init_stacks(t_stack *stack_a, t_stack *stack_b,
 	simplify_stack(temp, stack_a);
 	free(temp);
 	free(int_array->buf);
-	free(int_array);
 }
 
 /**

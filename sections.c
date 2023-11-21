@@ -6,29 +6,29 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 06:10:47 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/20 14:20:13 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:44:03 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	init_section(char location, int len, t_section_list *sections)
+void	add_unsorted_section(char location, int len, t_sections *sections)
 {
 	t_section	*new_section;
 
-	new_section = malloc(sizeof(t_section));
+	new_section = malloc(sizeof(*new_section));
 	new_section->in = location;
 	new_section->len = len;
 	new_section->prev = sections->tail;
 	new_section->next = NULL;
-	if (!sections->head)
+	if (NULL == sections->head)
 		sections->head = new_section;
 	else
 		sections->tail->next = new_section;
 	sections->tail = new_section;
 }
 
-void	remove_sorted_a(t_section_list *sections)
+void	remove_sorted_a(t_sections *sections)
 {
 	t_section	*sorted;
 	t_section	*unsorted;
@@ -50,12 +50,12 @@ void	remove_sorted_a(t_section_list *sections)
  * with the len member tracking how many elements are in that section.
  * The stack the section belongs to is also tracked.
 */
-void	add_section(int to_sort, t_section_list *list, char stack)
+void	add_section(int to_sort, t_sections *list, char stack)
 {
 	t_section	*new_section;
 
-	if (to_sort == 0)
-		return ;
+	// if (to_sort == 0)
+	// 	return ;
 	new_section = malloc(sizeof(t_section));
 	new_section->len = to_sort;
 	new_section->next = NULL;
@@ -68,10 +68,11 @@ void	add_section(int to_sort, t_section_list *list, char stack)
 	new_section->in = stack;
 }
 
+
 /**
  * Removes the last section after sorting it.
  */
-void	remove_section(t_section_list *sections)
+void	remove_section(t_sections *sections)
 {
 	t_section	*last;
 	t_section	*second_last;
@@ -97,7 +98,7 @@ void	remove_current_section_a1(t_section *current)
 	free(current);
 }
 
-void	remove_current_section_a(t_section_list *sections, t_section *current)
+void	remove_current_section_a(t_sections *sections, t_section *current)
 {
 	if (sections->tail == current)
 		sections->tail = current->prev;
@@ -124,7 +125,7 @@ int	find_num_to_add(t_stack *stack, int midpoint)
 
 void	push_first_section(t_stack *a, t_stack *b, int to_push, int mid)
 {
-	while (to_push)
+	while (to_push > 0)
 	{
 		if (a->top->id <= mid)
 		{

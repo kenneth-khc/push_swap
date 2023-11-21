@@ -6,14 +6,14 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 20:28:21 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/08 14:35:10 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:24:09 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 void	divide_section(t_stack *a, t_stack *b,
-t_section_list *sections)
+t_sections *sections)
 {
 	t_section	*current_section;
 	int			pushed;
@@ -37,7 +37,7 @@ int	divide_section_b(t_stack *a, t_stack *b, t_section *section)
 	int		shifted_up;
 	bool	slot_in;
 
-	midpoint = find_mid_in_section(b, section->len);
+	midpoint = find_section_midpoint(b, section->len);
 	to_push = count_nums_to_push_b(midpoint, b, section->len);
 	section->len -= to_push;
 	shifted_up = push_section_to_a(to_push, midpoint, a, b);
@@ -81,7 +81,7 @@ int	count_nums_to_push_b(int mid, t_stack *stack, int section_len)
 }
 
 void	divide_a_until_sorted(t_stack *a, t_stack *b,
-t_section_list *sections, t_section *current_section_a)
+t_sections *sections, t_section *current_section_a)
 {
 	int			pushed;
 
@@ -106,8 +106,8 @@ t_section *section)
 	int	to_push;
 	int	shifted_up;
 
-	midpoint = find_mid_in_section(a, section->len);
-	to_push = count_nums_to_push(midpoint, a);
+	midpoint = find_section_midpoint(a, section->len);
+	to_push = count_nums_to_push(a, midpoint);
 	section->len -= to_push;
 	shifted_up = pushback_to_b(to_push, midpoint, a, b);
 	if (section->len <= 3)
