@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker_operations3.c                              :+:      :+:    :+:   */
+/*   checker_op_reverse_rotate.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 19:24:22 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 23:10:04 by kecheong         ###   ########.fr       */
+/*   Created: 2023/09/10 16:53:03 by kecheong          #+#    #+#             */
+/*   Updated: 2023/11/22 23:45:55 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/* Operations to shift the stack downwards. */
+
 #include "../push_swap.h"
 
-/* Shift both stack A and stack B downwards. */
-void	rrr(t_stack *a, t_stack *b)
+/* Shift stack A downwards. */
+void	checker_rra(t_stack *a, t_stack *b)
 {
 	t_node	*first;
 	t_node	*second_last;
 
-	if (!a->top || !a->top->next)
+	(void)b;
+	if (NULL == a->top || NULL == a->top->next)
 		return ;
 	first = a->top;
 	second_last = a->top;
@@ -27,7 +30,42 @@ void	rrr(t_stack *a, t_stack *b)
 	second_last->next->next = first;
 	a->top = second_last->next;
 	second_last->next = NULL;
-	if (!b->top || !b->top->next)
+}
+
+/* Shift stack B downwards. */
+void	checker_rrb(t_stack *a, t_stack *b)
+{
+	t_node	*first;
+	t_node	*second_last;
+
+	(void)a;
+	if (NULL == b->top || NULL == b->top->next)
+		return ;
+	first = b->top;
+	second_last = b->top;
+	while (second_last->next->next)
+		second_last = second_last->next;
+	second_last->next->next = first;
+	b->top = second_last->next;
+	second_last->next = NULL;
+}
+
+/* Shift both stack A and stack B downwards. */
+void	checker_rrr(t_stack *a, t_stack *b)
+{
+	t_node	*first;
+	t_node	*second_last;
+
+	if (NULL == a->top || NULL == a->top->next)
+		return ;
+	first = a->top;
+	second_last = a->top;
+	while (second_last->next->next)
+		second_last = second_last->next;
+	second_last->next->next = first;
+	a->top = second_last->next;
+	second_last->next = NULL;
+	if (NULL == b->top || NULL == b->top->next)
 		return ;
 	first = b->top;
 	second_last = b->top;

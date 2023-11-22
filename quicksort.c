@@ -6,13 +6,13 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:49:27 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/21 19:15:26 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:11:34 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	quick_sort(t_int_array *array)
+void	quick_sort(t_arr *array)
 {
 	int	start_index;
 	int	end_index;

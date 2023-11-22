@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:08:50 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/21 12:32:37 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/23 01:21:07 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * Store them sequentially in an array.
  * Check the list to validate the integers, error if non integer found.
 */
-void	parse_arguments(int argc, char **argv, t_int_array *integers)
+void	parse_arguments(int argc, char **argv, t_arr *integers)
 {
 	int			i;
 	int			size;
@@ -26,7 +26,7 @@ void	parse_arguments(int argc, char **argv, t_int_array *integers)
 	char		**strings;
 
 	if (argc == 1)
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	strings = extract_arguments(argv, &size);
 	buf = malloc(sizeof(*buf) * size);
 	if (NULL == buf)
@@ -44,7 +44,7 @@ void	parse_arguments(int argc, char **argv, t_int_array *integers)
 
 /**
  * Extract argv into a single string before splitting it.
- * This allows us to handle cases such as 
+ * This handles cases such as
  * <./push_swap "5 3 7" 8 2 1> 
  * where certain numbers are quoted and the others are not.
  * Count the number of strings split for the numbers to store.
@@ -101,4 +101,64 @@ char	*join_arguments(char *s1, const char *s2)
 	s3[i] = ' ';
 	s3[++i] = '\0';
 	return (s3);
+}
+
+/**
+ * Using the list of integers stored in the array,
+ * convert each element back to a string and
+ * compare it with the original string.
+ * If they do not match, a non integer was entered, therefore error.
+ * + signs are trimmed.
+*/
+void	validate_integers(int *integers, char **strings)
+{
+	int		i;
+	int		len;
+	char	*trimmed_arg;
+	char	*reconverted;
+
+	i = 0;
+	while (strings[i])
+	{
+		trimmed_arg = trim_front(strings[i], "+");
+		reconverted = ft_itoa(integers[i]);
+		len = ft_strlen(reconverted) + 1;
+		if (ft_strncmp(reconverted, trimmed_arg, len))
+			error();
+		free(reconverted);
+		free(trimmed_arg);
+		free(strings[i]);
+		i++;
+	}
+	free(strings);
+}
+
+void	error(void)
+{
+	ft_dprintf(STDERR_FILENO, "Error\n");
+	exit(EXIT_FAILURE);
+}
+
+char	*trim_front(char *s1, char const *set)
+{
+	int		i;
+	char	*start;
+	char	*trimmed;
+
+	if (NULL == s1 || NULL == set)
+		return (NULL);
+	start = s1;
+	while (start && *start && ft_strchr(set, *start))
+		start++;
+	trimmed = malloc(sizeof(*trimmed) * (ft_strlen(start) + 1));
+	if (NULL == trimmed)
+		return (NULL);
+	i = 0;
+	while (start[i])
+	{
+		trimmed[i] = start[i];
+		i++;
+	}
+	trimmed[i] = '\0';
+	return (trimmed);
 }

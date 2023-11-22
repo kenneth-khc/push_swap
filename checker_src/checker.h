@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 12:21:53 by kecheong          #+#    #+#             */
-/*   Updated: 2023/10/31 22:31:14 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:52:56 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 
 # include "../libft/includes/libft.h"
 # include "../push_swap.h"
-# include <stdio.h>
-# include <stdbool.h>
-
-// # define NUM_OF_INSTRUCTIONS 11
 
 enum e_instructions {
 	NUM_OF_INSTRUCTIONS = 11
@@ -40,9 +36,21 @@ struct s_instruction_table
 	t_function_pointer	instruction;
 };
 
+/* Checker operations */
+void	checker_sa(t_stack *a, t_stack *b);
+void	checker_sb(t_stack *a, t_stack *b);
+void	checker_ss(t_stack *a, t_stack *b);
+void	checker_pa(t_stack *a, t_stack *b);
+void	checker_pb(t_stack *a, t_stack *b);
+void	checker_ra(t_stack *a, t_stack *b);
+void	checker_rb(t_stack *a, t_stack *b);
+void	checker_rr(t_stack *a, t_stack *b);
+void	checker_rra(t_stack *a, t_stack *b);
+void	checker_rrb(t_stack *a, t_stack *b);
+void	checker_rrr(t_stack *a, t_stack *b);
+
 /* Checker */
-void	read_and_exec_instructions(t_instruction *instructions_list,
-			t_stack *a, t_stack *b);
+void	read_and_exec_instructions(t_stack *a, t_stack *b);
 void	init_instruction_table(t_instruction_table(*instruction_table)[]);
 void	validate_instruction(char *instruction,
 			t_instruction_table (*instruction_table)[]);

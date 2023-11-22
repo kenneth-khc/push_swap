@@ -6,83 +6,27 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:07:45 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/21 13:21:47 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/23 00:00:50 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 /**
- * Checks for the len of a stack by iterating through it.
- */
-int	stack_len(t_stack *stack_a)
+ * Push an element into the stack.
+ * It is now the top element of the stack and points towards the
+ * previous top element.
+*/
+void	push(t_stack *stack, int data)
 {
-	t_node	*current;
-	int		i;
+	t_node	*new_node;
 
-	current = stack_a->top;
-	i = 0;
-	while (current)
-	{
-		i++;
-		current = current->next;
-	}
-	return (i);
-}
-
-/**
- * Determine the size of the integer array by
- * checking how many arguments there are.
- */
-int	count_numbers(char **strings)
-{
-	int	i;
-
-	i = 0;
-	while (*strings++)
-		i++;
-	return (i);
-}
-
-int	find_section_midpoint(t_stack *stack, int section_len)
-{
-	int		min;
-	int		max;
-	int		mid;
-	t_node	*current;
-
-	current = stack->top;
-	min = current->id;
-	max = current->id;
-	while (section_len > 0)
-	{
-		if (current->id <= min)
-			min = current->id;
-		if (current->id >= max)
-			max = current->id;
-		current = current->next;
-		section_len--;
-	}
-	mid = min + ((max - min) / 2);
-	return (mid);
-}
-
-void	find_section_min_max(t_stack *stack, int len, int *min, int *max)
-{
-	t_node	*current;
-
-	current = stack->top;
-	*min = current->id;
-	*max = current->id;
-	while (len > 0)
-	{
-		if (current->id <= *min)
-			*min = current->id;
-		if (current->id >= *max)
-			*max = current->id;
-		current = current->next;
-		len--;
-	}
+	new_node = malloc(sizeof(*new_node));
+	if (NULL == new_node)
+		error();
+	new_node->data = data;
+	new_node->next = stack->top;
+	stack->top = new_node;
 }
 
 bool	stacks_are_sorted(t_stack *a, t_stack *b)
@@ -105,4 +49,76 @@ bool	stacks_are_sorted(t_stack *a, t_stack *b)
 		}
 	}
 	return (true);
+}
+
+void	free_stacks(t_stacks *stacks)
+{
+	t_node	*current;
+	t_node	*prev;
+
+	current = stacks->a->top;
+	prev = NULL;
+	while (current)
+	{
+		prev = current;
+		current = current->next;
+		free(prev);
+	}
+	free(stacks->a);
+	current = stacks->b->top;
+	prev = NULL;
+	while (current)
+	{
+		prev = current;
+		current = current->next;
+		free(prev);
+	}
+	free(stacks->b);
+}
+
+bool	elements_are_ascending(t_stack *stack)
+{
+	t_node	*current;
+	int		prev;
+
+	if (stack->top)
+	{
+		current = stack->top;
+		prev = current->id;
+		while (current->next)
+		{
+			current = current->next;
+			if (prev > current->id)
+				return (false);
+			prev = current->id;
+		}
+	}
+	return (true);
+}
+
+/**
+ * Find the midpoint in the section by halving
+ * the minimum and maximum index.
+ */
+int	find_section_midpoint(t_stack *stack, int section_len)
+{
+	int		min;
+	int		max;
+	int		mid;
+	t_node	*current;
+
+	current = stack->top;
+	min = current->id;
+	max = current->id;
+	while (section_len > 0)
+	{
+		if (current->id <= min)
+			min = current->id;
+		if (current->id >= max)
+			max = current->id;
+		current = current->next;
+		section_len--;
+	}
+	mid = min + ((max - min) / 2);
+	return (mid);
 }

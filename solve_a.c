@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:28:54 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/21 23:07:18 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/22 17:20:58 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 void	solve_a(t_stacks *stacks, int len)
 {
+	t_stack			*a;
+	t_stack			*b;
 	t_sorter_ptr	sorting[6];
 
-	if (elements_are_ascending(stacks->a))
+	a = stacks->a;
+	b = stacks->b;
+	if (elements_are_ascending(a))
 		return ;
 	sorting[0] = NULL;
 	sorting[1] = NULL;
@@ -25,7 +29,7 @@ void	solve_a(t_stacks *stacks, int len)
 	sorting[4] = sort_four;
 	sorting[5] = sort_five;
 	if (sorting[len])
-		sorting[len](stacks->a, stacks->b);
+		sorting[len](a, b);
 	return ;
 }
 
@@ -67,8 +71,8 @@ void	sort_three(t_stack *a, t_stack *b)
 
 void	sort_four(t_stack *a, t_stack *b)
 {
-	int		smallest;
 	int		steps;
+	int		smallest;
 	t_node	*current;
 
 	smallest = find_min(a);

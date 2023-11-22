@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:40:15 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/21 23:28:43 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:09:00 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,46 +34,11 @@ void	check_first_half(t_stacks *stacks, t_sections *sections, int *first_mid)
 	}
 }
 
-bool	not_dividable_further(t_section *unsorted_a, t_section *first_half)
-{
-	return (unsorted_a->len - first_half->len <= 5);
-}
-
-int	find_mid_greater_than_first(t_stack *a, int first_mid)
-{
-	int		min;
-	int		max;
-	int		mid;
-	t_node	*temp;
-	t_node	*current;
-
-	current = a->top;
-	temp = current;
-	while (temp->id <= first_mid)
-		temp = temp->next;
-	min = temp->id;
-	max = temp->id;
-	while (current)
-	{
-		if (current->id > first_mid && current->id <= min)
-			min = current->id;
-		if (current->id > first_mid && current->id >= max)
-			max = current->id;
-		current = current->next;
-	}
-	mid = min + ((max - min) / 2);
-	return (mid);
-}
-
-bool	top_is_first_section(t_stack *a, int first_mid)
-{
-	if (a->top->id <= first_mid)
-		return (true);
-	else
-		return (false);
-}
-
-int	count_nums_greater_than_first(t_stack *a, int mid, int first_mid)
+/**
+ * Count the number of elements lower than the midpoint in stack A
+ * and return that as the amount of numbers to push.
+ */
+int	count_nums_to_push(t_stack *a, int mid)
 {
 	int		to_push;
 	t_node	*current;
@@ -82,25 +47,26 @@ int	count_nums_greater_than_first(t_stack *a, int mid, int first_mid)
 	current = a->top;
 	while (current)
 	{
-		if (current->id > first_mid && current->id <= mid)
+		if (current->id <= mid)
 			to_push++;
 		current = current->next;
 	}
 	return (to_push);
 }
 
-void	slot_to_first_section(t_stack *a, t_stack *b, int first_mid, int mid, int *pushed)
+void	slot_into_first(t_stacks *stacks, int first_mid, int mid, int *pushed)
 {
+	t_stack	*a;
+	t_stack	*b;
+
+	a = stacks->a;
+	b = stacks->b;
 	pb(a, b);
 	*pushed += 1;
-	if (a->top->id > b->top->id && a->top->id <= first_mid)
+	if (top_is_first_section(a, first_mid) && a->top->id > b->top->id)
+		slot_into_first(stacks, first_mid, mid, pushed);
+	if (has_two_elements(b) && not_only_first_section(b, first_mid))
 	{
-		slot_to_first_section(a, b, first_mid, mid, pushed);
-	}
-	if (b->top && b->top->next && not_only_first_section(b, first_mid))
-	{
-		if (a->top->id > b->top->id && a->top->id <= first_mid)
-			slot_to_first_section(a, b, first_mid, mid, pushed);
 		if (a->top->id > mid)
 			rr(a, b);
 		else
@@ -108,38 +74,16 @@ void	slot_to_first_section(t_stack *a, t_stack *b, int first_mid, int mid, int *
 	}
 }
 
-bool	has_remaining(t_stack *a, int first_mid)
-{
-	t_node	*current;
-
-	current = a->top;
-	while (current)
-	{
-		if (current->id <= first_mid)
-			return (true);
-		current = current->next;
-	}
-	return (false);
-}
-
 void	clear_remaining(t_stacks *stacks, t_sections *sections, int first_mid)
 {
-	t_node	*current;
-	int		remaining;
-	int		pushed;
 	t_stack	*a;
 	t_stack	*b;
+	int		pushed;
+	int		remaining;
 
 	a = stacks->a;
 	b = stacks->b;
-	remaining = 0;
-	current = a->top;
-	while (current)
-	{
-		if (current->id <= first_mid)
-			remaining++;
-		current = current->next;
-	}
+	remaining = count_nums_to_push(a, first_mid);
 	pushed = remaining;
 	while (remaining > 0)
 	{
@@ -147,27 +91,11 @@ void	clear_remaining(t_stacks *stacks, t_sections *sections, int first_mid)
 		{
 			pb(a, b);
 			remaining--;
-			if (sections->head->next)
-			{
-				if (a->top->id < last_node_id(a))
-					rr(a, b);
-				else
-					rb(b);
-			}
-			// shift_stack(UP, 'A', a, b);
+			if (not_only_first_section(b, first_mid))
+				shift_stack('B', UP, a, b);
 		}
 		else
-			ra(a);
+			shift_stack('A', UP, a, b);
 	}
 	sections->head->len -= pushed;
-}
-
-int	last_node_id(t_stack *stack)
-{
-	t_node	*current;
-
-	current = stack->top;
-	while (current->next)
-		current = current->next;
-	return (current->id);
 }

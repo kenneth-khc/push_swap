@@ -6,9 +6,11 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 16:53:03 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/19 20:12:48 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:39:37 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/* Operations to shift the stack upwards. */
 
 #include "push_swap.h"
 
@@ -18,7 +20,7 @@ void	ra(t_stack *a)
 	t_node	*first;
 	t_node	*last;
 
-	if (!a->top || !a->top->next)
+	if (NULL == a->top || NULL == a->top->next)
 		return ;
 	first = a->top;
 	last = a->top;
@@ -36,7 +38,7 @@ void	rb(t_stack *b)
 	t_node	*first;
 	t_node	*last;
 
-	if (!b->top || !b->top->next)
+	if (NULL == b->top || NULL == b->top->next)
 		return ;
 	first = b->top;
 	last = b->top;
@@ -54,7 +56,7 @@ void	rr(t_stack *a, t_stack *b)
 	t_node	*first;
 	t_node	*last;
 
-	if (!a->top || !a->top->next)
+	if (NULL == a->top || NULL == a->top->next)
 		return ;
 	first = a->top;
 	last = a->top;
@@ -63,7 +65,7 @@ void	rr(t_stack *a, t_stack *b)
 	last->next = first;
 	a->top = first->next;
 	first->next = NULL;
-	if (!b->top || !b->top->next)
+	if (NULL == b->top || NULL == b->top->next)
 		return ;
 	first = b->top;
 	last = b->top;
