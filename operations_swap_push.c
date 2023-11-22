@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operations.c                                       :+:      :+:    :+:   */
+/*   operations_swap_push.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:44:52 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/05 21:51:33 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:39:17 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/**
- * These are the list of operations permitted to sort the integers
- * among 2 stacks.
-*/
+/* Operations to push and swap in the stacks. */
 
 #include "push_swap.h"
 
@@ -23,7 +20,7 @@ void	sa(t_stack *a)
 	t_node	*first;
 	t_node	*second;
 
-	if (!a->top || !a->top->next)
+	if (NULL == a->top || NULL == a->top->next)
 		return ;
 	first = a->top;
 	second = first->next;
@@ -39,7 +36,7 @@ void	sb(t_stack *b)
 	t_node	*first;
 	t_node	*second;
 
-	if (!b->top || !b->top->next)
+	if (NULL == b->top || NULL == b->top->next)
 		return ;
 	first = b->top;
 	second = first->next;
@@ -55,14 +52,14 @@ void	ss(t_stack *a, t_stack *b)
 	t_node	*first;
 	t_node	*second;
 
-	if (!a->top || !a->top->next)
+	if (NULL == a->top || NULL == a->top->next)
 		return ;
 	first = a->top;
 	second = first->next;
 	first->next = second->next;
 	second->next = first;
 	a->top = second;
-	if (!b->top || !b->top->next)
+	if (NULL == b->top || NULL == b->top->next)
 		return ;
 	first = b->top;
 	second = first->next;
@@ -78,7 +75,7 @@ void	pa(t_stack *a, t_stack *b)
 	t_node	*a_first;
 	t_node	*b_first;
 
-	if (!b->top)
+	if (NULL == b->top)
 		return ;
 	a_first = a->top;
 	b_first = b->top;
@@ -94,7 +91,7 @@ void	pb(t_stack *a, t_stack *b)
 	t_node	*a_first;
 	t_node	*b_first;
 
-	if (!a->top)
+	if (NULL == a->top)
 		return ;
 	a_first = a->top;
 	b_first = b->top;

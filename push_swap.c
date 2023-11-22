@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 19:59:10 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/21 23:10:35 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:59:10 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char **argv)
 {
 	t_stacks	stacks;
-	t_int_array	int_array;
+	t_arr		int_array;
 
 	parse_arguments(argc, ++argv, &int_array);
 	init_stacks(&stacks, &int_array);
@@ -54,7 +54,7 @@ void	sort_a(t_stacks *stacks, t_sections *sections)
 	}
 	else if (unsorted->len <= 5)
 	{
-		if (unsorted->next && has_remaining(stacks->a, first_midpoint))
+		if (unsorted->next && has_remaining_first(stacks->a, first_midpoint))
 			clear_remaining(stacks, sections, first_midpoint);
 		solve_a(stacks, unsorted->len);
 		remove_sorted_a(sections);
@@ -70,18 +70,18 @@ void	sort_b(t_stacks *stacks, t_sections *sections)
 
 	a = stacks->a;
 	b = stacks->b;
-	update_sections(sections, a, b);
+	clear_sorted_sections(sections, stacks);
 	current_section = sections->tail;
-	if (current_section == NULL)
+	if (NULL == current_section)
 		return ;
 	if (current_section->len > 3)
-		divide_section(a, b, sections);
+		divide_section(stacks, sections);
 	else if (current_section->len <= 3)
 	{
-		if (current_section->in == 'B')
-			sort_section_b(a, b, current_section->len);
-		else if (current_section->in == 'A')
+		if (current_section->in == 'A')
 			sort_section_a(a, b, current_section->len);
+		else if (current_section->in == 'B')
+			sort_section_b(a, b, current_section->len);
 		remove_last_section(sections);
 	}
 	sort_b(stacks, sections);

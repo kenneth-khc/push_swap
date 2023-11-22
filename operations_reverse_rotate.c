@@ -1,14 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operations3.c                                      :+:      :+:    :+:   */
+/*   operations_reverse_rotate.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 19:24:22 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/05 21:58:04 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:40:08 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/* Operations to shift the stack downwards. */
 
 #include "push_swap.h"
 
@@ -18,7 +20,7 @@ void	rra(t_stack *a)
 	t_node	*first;
 	t_node	*second_last;
 
-	if (!a->top || !a->top->next)
+	if (NULL == a->top || NULL == a->top->next)
 		return ;
 	first = a->top;
 	second_last = a->top;
@@ -36,7 +38,7 @@ void	rrb(t_stack *b)
 	t_node	*first;
 	t_node	*second_last;
 
-	if (!b->top || !b->top->next)
+	if (NULL == b->top || NULL == b->top->next)
 		return ;
 	first = b->top;
 	second_last = b->top;
@@ -54,7 +56,7 @@ void	rrr(t_stack *a, t_stack *b)
 	t_node	*first;
 	t_node	*second_last;
 
-	if (!a->top || !a->top->next)
+	if (NULL == a->top || NULL == a->top->next)
 		return ;
 	first = a->top;
 	second_last = a->top;
@@ -63,7 +65,7 @@ void	rrr(t_stack *a, t_stack *b)
 	second_last->next->next = first;
 	a->top = second_last->next;
 	second_last->next = NULL;
-	if (!b->top || !b->top->next)
+	if (NULL == b->top || NULL == b->top->next)
 		return ;
 	first = b->top;
 	second_last = b->top;

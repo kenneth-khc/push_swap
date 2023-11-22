@@ -6,7 +6,7 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 05:50:23 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/07 11:13:44 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:22:59 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,25 @@ void	sort_section_b(t_stack *a, t_stack *b, int section_len)
 	t_node	*second;
 	t_node	*third;
 
-	if (section_len == 0)
-		return ;
 	if (section_is_descending(b, section_len))
 	{
 		push_sorted_section(a, b, section_len);
 		return ;
 	}
 	assign_three_nodes(b, &first, &second, &third);
-	if (second && second->id == a->top->id - 1)
-		optimized_swap('B', a, b);
-	else if (third && third->id == a->top->id - 1)
+	if (third && third->id == a->top->id - 1)
 	{
 		rb(b);
 		optimized_swap('B', a, b);
 		pa(a, b);
 		section_len -= 1;
-		rrb(b);
+		if (second->next != first)
+			rrb(b);
 	}
 	while (section_len-- > 0)
-		push_to_opposite_stack(a, b, 'B');
+	{
+		if (b->top->next && b->top->id < b->top->next->id)
+			optimized_swap('B', a, b);
+		pa(a, b);
+	}
 }

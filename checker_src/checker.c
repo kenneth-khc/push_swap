@@ -6,11 +6,10 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:18:53 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/02 11:50:28 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/23 01:21:10 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
 #include "checker.h"
 
 /**
@@ -20,21 +19,17 @@
  */
 int	main(int argc, char **argv)
 {
-	t_stack			a;
-	t_stack			b;
-	int				size;
-	int				*integers;
-	t_instruction	*instructions_list;
+	t_stacks		stacks;
+	t_arr			int_array;
 
-	integers = parse_arguments(argc, ++argv, &size);
-	init_stacks(&a, &b, integers, size);
-	instructions_list = malloc(sizeof(t_instruction));
-	read_and_exec_instructions(instructions_list, &a, &b);
-	if (elements_are_ascending(&a) && stack_is_empty(&b))
+	parse_arguments(argc, ++argv, &int_array);
+	init_stacks(&stacks, &int_array);
+	read_and_exec_instructions(stacks.a, stacks.b);
+	if (stacks_are_sorted(stacks.a, stacks.b))
 		ft_printf("OK\n");
 	else
-		ft_printf("KO\n");
-	free_stacks(&a, &b);
+		ft_dprintf(STDERR_FILENO, "KO\n");
+	free_stacks(&stacks);
 }
 
 /**
@@ -44,28 +39,29 @@ int	main(int argc, char **argv)
  * signalling the end of the instructions.
  * After storing all instructions, operate on the stack.
  */
-void	read_and_exec_instructions(t_instruction *instructions_list,
-		t_stack *a, t_stack *b)
+void	read_and_exec_instructions(t_stack *a, t_stack *b)
 {
-	t_instruction_table	instruction_table[NUM_OF_INSTRUCTIONS];
+	t_instruction		*start;
 	t_instruction		*current;
+	t_instruction_table	instruction_table[NUM_OF_INSTRUCTIONS];
 
 	init_instruction_table(&instruction_table);
-	current = instructions_list;
-	while (1)
+	start = malloc(sizeof(*start));
+	current = start;
+	while (current)
 	{
 		current->instruction = get_next_line(STDIN_FILENO);
-		if (current->instruction == NULL)
+		if (NULL == current->instruction)
 		{
 			current->next = NULL;
 			break ;
 		}
 		validate_instruction(current->instruction, &instruction_table);
-		current->next = malloc(sizeof(t_instruction));
+		current->next = malloc(sizeof(*current));
 		current = current->next;
 	}
-	execute_instructions(instructions_list, &instruction_table, a, b);
-	free_instruction_list(instructions_list);
+	execute_instructions(start, &instruction_table, a, b);
+	free_instruction_list(start);
 }
 
 /**
@@ -75,17 +71,17 @@ void	read_and_exec_instructions(t_instruction *instructions_list,
  */
 void	init_instruction_table(t_instruction_table (*table)[])
 {
-	(*table)[0] = (t_instruction_table){"sa\n", sa};
-	(*table)[1] = (t_instruction_table){"sb\n", sb};
-	(*table)[2] = (t_instruction_table){"ss\n", ss};
-	(*table)[3] = (t_instruction_table){"pa\n", pa};
-	(*table)[4] = (t_instruction_table){"pb\n", pb};
-	(*table)[5] = (t_instruction_table){"ra\n", ra};
-	(*table)[6] = (t_instruction_table){"rb\n", rb};
-	(*table)[7] = (t_instruction_table){"rr\n", rr};
-	(*table)[8] = (t_instruction_table){"rra\n", rra};
-	(*table)[9] = (t_instruction_table){"rrb\n", rrb};
-	(*table)[10] = (t_instruction_table){"rrr\n", rrr};
+	(*table)[0] = (t_instruction_table){"sa\n", checker_sa};
+	(*table)[1] = (t_instruction_table){"sb\n", checker_sb};
+	(*table)[2] = (t_instruction_table){"ss\n", checker_ss};
+	(*table)[3] = (t_instruction_table){"pa\n", checker_pa};
+	(*table)[4] = (t_instruction_table){"pb\n", checker_pb};
+	(*table)[5] = (t_instruction_table){"ra\n", checker_ra};
+	(*table)[6] = (t_instruction_table){"rb\n", checker_rb};
+	(*table)[7] = (t_instruction_table){"rr\n", checker_rr};
+	(*table)[8] = (t_instruction_table){"rra\n", checker_rra};
+	(*table)[9] = (t_instruction_table){"rrb\n", checker_rrb};
+	(*table)[10] = (t_instruction_table){"rrr\n", checker_rrr};
 }
 
 /**

@@ -6,57 +6,11 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 20:44:47 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/21 23:05:34 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/23 00:01:13 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-/**
- * Finds the min and max within a stack and assigns it to
- * two integers passed in by reference.
- */
-void	find_min_max(t_stack *stack, int *min, int *max)
-{
-	t_node	*current;
-
-	current = stack->top;
-	*min = current->id;
-	*max = current->id;
-	while (current)
-	{
-		if (current->id <= *min)
-			*min = current->id;
-		if (current->id >= *max)
-			*max = current->id;
-		current = current->next;
-	}
-}
-
-void	free_stacks(t_stacks *stacks)
-{
-	t_node	*current;
-	t_node	*prev;
-
-	current = stacks->a->top;
-	prev = NULL;
-	while (current)
-	{
-		prev = current;
-		current = current->next;
-		free(prev);
-	}
-	free(stacks->a);
-	current = stacks->b->top;
-	prev = NULL;
-	while (current)
-	{
-		prev = current;
-		current = current->next;
-		free(prev);
-	}
-	free(stacks->b);
-}
 
 void	assign_three_nodes(t_stack *stack,
 t_node **first, t_node **second, t_node **third)
@@ -86,18 +40,47 @@ void	push_sorted_section(t_stack *a, t_stack *b, int section_len)
 	}
 }
 
-void	push_to_opposite_stack(t_stack *a, t_stack *b, char current_stack)
+bool	section_is_descending(t_stack *stack, int len)
 {
-	if (current_stack == 'A')
+	t_node	*current;
+	int		prev;
+
+	current = stack->top;
+	if (NULL == current)
+		return (true);
+	prev = current->id;
+	while (--len > 0)
 	{
-		if (a->top->next && a->top->id < a->top->next->id)
-			optimized_swap('A', a, b);
-		pb(a, b);
+		current = current->next;
+		if (prev < current->id)
+			return (false);
+		prev = current->id;
 	}
-	else if (current_stack == 'B')
+	return (true);
+}
+
+int	last_node_id(t_stack *stack)
+{
+	t_node	*current;
+
+	current = stack->top;
+	while (current->next)
+		current = current->next;
+	return (current->id);
+}
+
+int	find_min(t_stack *stack_a)
+{
+	int		x;
+	t_node	*current;
+
+	current = stack_a->top;
+	x = current->id;
+	while (current)
 	{
-		if (b->top->next && b->top->id < b->top->next->id)
-			optimized_swap('B', a, b);
-		pa(a, b);
+		if (current->id <= x)
+			x = current->id;
+		current = current->next;
 	}
+	return (x);
 }

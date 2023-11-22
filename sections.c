@@ -6,17 +6,24 @@
 /*   By: kecheong <kecheong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 06:10:47 by kecheong          #+#    #+#             */
-/*   Updated: 2023/11/21 22:17:54 by kecheong         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:11:14 by kecheong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/**
+ * After pushing a group of numbers to the opposite stack, add a new section
+ * with the len member tracking how many elements are in that section.
+ * The stack the section belongs to is also tracked.
+*/
 void	add_unsorted_section(char location, int len, t_sections *sections)
 {
 	t_section	*new_section;
 
 	new_section = malloc(sizeof(*new_section));
+	if (NULL == new_section)
+		error();
 	new_section->in = location;
 	new_section->len = len;
 	new_section->prev = sections->tail;
@@ -40,34 +47,13 @@ void	remove_sorted_a(t_sections *sections)
 		sections->head = unsorted;
 		sections->head->prev = NULL;
 	}
-	if (sections->tail == sorted)
+	else
+	{
+		sections->head = NULL;
 		sections->tail = NULL;
+	}
 	free(sorted);
 }
-
-/**
- * After pushing a group of numbers to the opposite stack, add a new section
- * with the len member tracking how many elements are in that section.
- * The stack the section belongs to is also tracked.
-*/
-void	add_section(int to_sort, t_sections *list, char stack)
-{
-	t_section	*new_section;
-
-	// if (to_sort == 0)
-	// 	return ;
-	new_section = malloc(sizeof(t_section));
-	new_section->len = to_sort;
-	new_section->next = NULL;
-	new_section->prev = list->tail;
-	if (!list->head)
-		list->head = new_section;
-	else
-		list->tail->next = new_section;
-	list->tail = new_section;
-	new_section->in = stack;
-}
-
 
 /**
  * Removes the last section after sorting it and updates the section list.
@@ -87,65 +73,14 @@ void	remove_last_section(t_sections *sections)
 		sections->head = NULL;
 }
 
-/**
- * After repeatedly dividing a section in A and it is sorted, remove it 
- * from the list without affecting the other sections that are after it.
- */
-void	remove_current_section_a1(t_section *current)
+void	clear_sorted_sections(t_sections *sections, t_stacks *stacks)
 {
-	current->prev->next = current->next;
-	current->next->prev = current->prev;
-	free(current);
-}
-
-void	remove_current_section_a(t_sections *sections, t_section *current)
-{
-	if (sections->tail == current)
-		sections->tail = current->prev;
-	current->next->prev = current->prev;
-	current->prev->next = current->next;
-	free(current);
-}
-
-int	find_num_to_add(t_stack *stack, int midpoint)
-{
-	int		num;
-	t_node	*current;
-
-	num = 0;
-	current = stack->top;
-	while (current)
-	{
-		if (current->id <= midpoint)
-			num++;
-		current = current->next;
-	}
-	return (num);
-}
-
-void	push_first_section(t_stacks *stacks, int to_push, int mid)
-{
-	t_stack	*a;
-	t_stack	*b;
+	t_stack		*a;
+	t_stack		*b;
+	t_section	*last;
 
 	a = stacks->a;
 	b = stacks->b;
-	while (to_push > 0)
-	{
-		if (a->top->id <= mid)
-		{
-			pb(a, b);
-			to_push--;
-		}
-		else
-			ra(a);
-	}
-}
-
-void	update_sections(t_sections *sections, t_stack *a, t_stack *b)
-{
-	t_section	*last;
-
 	last = sections->tail;
 	while (last)
 	{
